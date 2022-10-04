@@ -1,0 +1,1142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>DisplayDialog</class>
+ <widget class="QDialog" name="DisplayDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1920</width>
+    <height>1080</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <widget class="QLabel" name="LE_WAIT_STATUS_2">
+   <property name="geometry">
+    <rect>
+     <x>880</x>
+     <y>468</y>
+     <width>50</width>
+     <height>50</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Yrsa SemiBold</family>
+     <pointsize>30</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resource.qrc">:/build/image/waiting.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="LE_OUTLET_PIN_2_2">
+   <property name="geometry">
+    <rect>
+     <x>1513</x>
+     <y>616</y>
+     <width>360</width>
+     <height>90</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Yrsa SemiBold</family>
+     <pointsize>50</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>22222</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="LE_OUTLET_STATUS_1_3">
+   <property name="geometry">
+    <rect>
+     <x>1128</x>
+     <y>803</y>
+     <width>370</width>
+     <height>223</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resource.qrc">:/build/image/outlet_c.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="LE_OUTLET_PIN_1_3">
+   <property name="geometry">
+    <rect>
+     <x>1129</x>
+     <y>840</y>
+     <width>360</width>
+     <height>90</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Yrsa SemiBold</family>
+     <pointsize>50</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>22222</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="LE_OUTLET_PIN_1_2">
+   <property name="geometry">
+    <rect>
+     <x>1129</x>
+     <y>616</y>
+     <width>360</width>
+     <height>90</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Yrsa SemiBold</family>
+     <pointsize>50</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>22222</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="LB_WAIT_PIN_4">
+   <property name="geometry">
+    <rect>
+     <x>45</x>
+     <y>640</y>
+     <width>340</width>
+     <height>90</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Yrsa SemiBold</family>
+     <pointsize>45</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>22222</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="LB_WAIT_PIN_6">
+   <property name="geometry">
+    <rect>
+     <x>45</x>
+     <y>837</y>
+     <width>340</width>
+     <height>90</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Yrsa SemiBold</family>
+     <pointsize>45</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>22222</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="LE_OUTLET_MENU_2_2">
+   <property name="geometry">
+    <rect>
+     <x>1513</x>
+     <y>687</y>
+     <width>360</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Yrsa SemiBold</family>
+     <pointsize>20</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>ICE AMERICANO</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="LE_WAIT_STATUS_7">
+   <property name="geometry">
+    <rect>
+     <x>880</x>
+     <y>957</y>
+     <width>50</width>
+     <height>50</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Yrsa SemiBold</family>
+     <pointsize>30</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resource.qrc">:/build/image/waiting.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="LE_OUTLET_MENU_2_3">
+   <property name="geometry">
+    <rect>
+     <x>1513</x>
+     <y>910</y>
+     <width>360</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Yrsa SemiBold</family>
+     <pointsize>20</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>ICE AMERICANO</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="LB_WAIT_PIN">
+   <property name="geometry">
+    <rect>
+     <x>45</x>
+     <y>350</y>
+     <width>340</width>
+     <height>90</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Yrsa SemiBold</family>
+     <pointsize>45</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>22222</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="LE_OUTLET_PIN_2_1">
+   <property name="geometry">
+    <rect>
+     <x>1513</x>
+     <y>390</y>
+     <width>360</width>
+     <height>90</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Yrsa SemiBold</family>
+     <pointsize>50</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>22222</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="LE_OUTLET_MENU_1_2">
+   <property name="geometry">
+    <rect>
+     <x>1129</x>
+     <y>687</y>
+     <width>360</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Yrsa SemiBold</family>
+     <pointsize>20</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>ICE AMERICANO</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="LE_OUTLET_STATUS_1_1">
+   <property name="geometry">
+    <rect>
+     <x>1128</x>
+     <y>349</y>
+     <width>370</width>
+     <height>223</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resource.qrc">:/build/image/outlet_c.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="LE_WAIT_NAME_5">
+   <property name="geometry">
+    <rect>
+     <x>370</x>
+     <y>739</y>
+     <width>400</width>
+     <height>90</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Yrsa SemiBold</family>
+     <pointsize>30</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>ICE AMERICANO</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="LB_WAIT_PIN_2">
+   <property name="geometry">
+    <rect>
+     <x>45</x>
+     <y>450</y>
+     <width>340</width>
+     <height>90</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Yrsa SemiBold</family>
+     <pointsize>45</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>22222</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="LB_WAIT_PIN_5">
+   <property name="geometry">
+    <rect>
+     <x>45</x>
+     <y>741</y>
+     <width>340</width>
+     <height>90</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Yrsa SemiBold</family>
+     <pointsize>45</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>22222</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="LE_WAIT_STATUS_5">
+   <property name="geometry">
+    <rect>
+     <x>880</x>
+     <y>761</y>
+     <width>50</width>
+     <height>50</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Yrsa SemiBold</family>
+     <pointsize>30</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resource.qrc">:/build/image/waiting.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="LE_WAIT_STATUS">
+   <property name="geometry">
+    <rect>
+     <x>880</x>
+     <y>372</y>
+     <width>50</width>
+     <height>50</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Yrsa SemiBold</family>
+     <pointsize>30</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resource.qrc">:/build/image/making.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="LE_WAIT_NAME_3">
+   <property name="geometry">
+    <rect>
+     <x>370</x>
+     <y>544</y>
+     <width>400</width>
+     <height>90</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Yrsa SemiBold</family>
+     <pointsize>30</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>ICE AMERICANO</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="LE_WAIT_NAME_6">
+   <property name="geometry">
+    <rect>
+     <x>370</x>
+     <y>837</y>
+     <width>400</width>
+     <height>90</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Yrsa SemiBold</family>
+     <pointsize>30</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>ICE AMERICANO</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="LE_OUTLET_MENU_1_3">
+   <property name="geometry">
+    <rect>
+     <x>1129</x>
+     <y>910</y>
+     <width>360</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Yrsa SemiBold</family>
+     <pointsize>20</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>ICE AMERICANO</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="LE_OUTLET_STATUS_1_2">
+   <property name="geometry">
+    <rect>
+     <x>1128</x>
+     <y>577</y>
+     <width>370</width>
+     <height>223</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resource.qrc">:/build/image/outlet_c.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="LE_WAIT_NAME_4">
+   <property name="geometry">
+    <rect>
+     <x>370</x>
+     <y>640</y>
+     <width>400</width>
+     <height>90</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Yrsa SemiBold</family>
+     <pointsize>30</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>ICE AMERICANO</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="LE_OUTLET_STATUS_2_1">
+   <property name="geometry">
+    <rect>
+     <x>1515</x>
+     <y>349</y>
+     <width>370</width>
+     <height>223</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resource.qrc">:/build/image/outlet_c.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="LB_WAIT_PIN_3">
+   <property name="geometry">
+    <rect>
+     <x>45</x>
+     <y>543</y>
+     <width>340</width>
+     <height>90</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Yrsa SemiBold</family>
+     <pointsize>45</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>22222</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="LE_OUTLET_PIN_1_1">
+   <property name="geometry">
+    <rect>
+     <x>1129</x>
+     <y>390</y>
+     <width>360</width>
+     <height>90</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Yrsa SemiBold</family>
+     <pointsize>50</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>22222</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="LE_OUTLET_MENU_2_1">
+   <property name="geometry">
+    <rect>
+     <x>1513</x>
+     <y>460</y>
+     <width>360</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Yrsa SemiBold</family>
+     <pointsize>20</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>ICE AMERICANO</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="LE_OUTLET_STATUS_2_3">
+   <property name="geometry">
+    <rect>
+     <x>1515</x>
+     <y>803</y>
+     <width>370</width>
+     <height>223</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resource.qrc">:/build/image/outlet_c.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="LE_WAIT_NAME_7">
+   <property name="geometry">
+    <rect>
+     <x>370</x>
+     <y>935</y>
+     <width>400</width>
+     <height>90</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Yrsa SemiBold</family>
+     <pointsize>30</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>ICE AMERICANO</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="LE_OUTLET_STATUS_2_2">
+   <property name="geometry">
+    <rect>
+     <x>1515</x>
+     <y>576</y>
+     <width>370</width>
+     <height>223</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resource.qrc">:/build/image/outlet_c.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="LE_WAIT_STATUS_4">
+   <property name="geometry">
+    <rect>
+     <x>880</x>
+     <y>661</y>
+     <width>50</width>
+     <height>50</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Yrsa SemiBold</family>
+     <pointsize>30</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resource.qrc">:/build/image/waiting.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>-10</x>
+     <y>-10</y>
+     <width>1940</width>
+     <height>1100</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resource.qrc">:/build/image/background_c.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="LE_WAIT_NAME_2">
+   <property name="geometry">
+    <rect>
+     <x>370</x>
+     <y>448</y>
+     <width>400</width>
+     <height>90</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Yrsa SemiBold</family>
+     <pointsize>30</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>ICE AMERICANO</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="LE_WAIT_NAME">
+   <property name="geometry">
+    <rect>
+     <x>370</x>
+     <y>352</y>
+     <width>400</width>
+     <height>90</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Yrsa SemiBold</family>
+     <pointsize>30</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>ICE AMERICANO</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="LE_WAIT_STATUS_6">
+   <property name="geometry">
+    <rect>
+     <x>880</x>
+     <y>856</y>
+     <width>50</width>
+     <height>50</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Yrsa SemiBold</family>
+     <pointsize>30</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resource.qrc">:/build/image/waiting.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="LB_WAIT_PIN_7">
+   <property name="geometry">
+    <rect>
+     <x>45</x>
+     <y>935</y>
+     <width>340</width>
+     <height>90</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Yrsa SemiBold</family>
+     <pointsize>45</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>22222</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="LE_OUTLET_MENU_1_1">
+   <property name="geometry">
+    <rect>
+     <x>1129</x>
+     <y>460</y>
+     <width>360</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Yrsa SemiBold</family>
+     <pointsize>20</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>ICE AMERICANO</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="LE_OUTLET_PIN_2_3">
+   <property name="geometry">
+    <rect>
+     <x>1513</x>
+     <y>840</y>
+     <width>360</width>
+     <height>90</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Yrsa SemiBold</family>
+     <pointsize>50</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>22222</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="LE_WAIT_STATUS_3">
+   <property name="geometry">
+    <rect>
+     <x>880</x>
+     <y>562</y>
+     <width>50</width>
+     <height>50</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Yrsa SemiBold</family>
+     <pointsize>30</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resource.qrc">:/build/image/waiting.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="BACKGROUND_READY">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>-10</x>
+     <y>-10</y>
+     <width>1940</width>
+     <height>1100</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resource.qrc">:/build/image/background_prepare_c.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="BACKGROUND_1">
+   <property name="geometry">
+    <rect>
+     <x>1920</x>
+     <y>0</y>
+     <width>1920</width>
+     <height>1080</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resource.qrc">:/build/image/display_page1.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="BACKGROUND_2">
+   <property name="geometry">
+    <rect>
+     <x>1920</x>
+     <y>0</y>
+     <width>1920</width>
+     <height>1080</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resource.qrc">:/build/image/display_page2.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="BACKGROUND_3">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>1920</x>
+     <y>0</y>
+     <width>1920</width>
+     <height>1080</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resource.qrc">:/build/image/display_page3.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QFrame" name="FR_NOTICE">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>30</y>
+     <width>1920</width>
+     <height>200</height>
+    </rect>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QFrame{
+	background-color: rgb(239, 41, 41);
+}
+QLabel{
+	color: white;
+	font: 70pt &quot;함초롬돋움&quot;;
+}</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::NoFrame</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+   <widget class="QLabel" name="LB_NOTICE">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>1920</width>
+      <height>200</height>
+     </rect>
+    </property>
+    <property name="toolTipDuration">
+     <number>0</number>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+	border:2px solid #D1BCED;
+	font: 30pt &quot;함초롬돋움&quot;; 
+ 	color: white;\n}</string>
+    </property>
+    <property name="text">
+     <string>hello</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+  </widget>
+  <zorder>label</zorder>
+  <zorder>LE_WAIT_STATUS_2</zorder>
+  <zorder>LE_OUTLET_PIN_2_2</zorder>
+  <zorder>LE_OUTLET_PIN_1_3</zorder>
+  <zorder>LE_OUTLET_PIN_1_2</zorder>
+  <zorder>LB_WAIT_PIN_4</zorder>
+  <zorder>LB_WAIT_PIN_6</zorder>
+  <zorder>LE_OUTLET_MENU_2_2</zorder>
+  <zorder>LE_WAIT_STATUS_7</zorder>
+  <zorder>LE_OUTLET_MENU_2_3</zorder>
+  <zorder>LB_WAIT_PIN</zorder>
+  <zorder>LE_OUTLET_PIN_2_1</zorder>
+  <zorder>LE_OUTLET_MENU_1_2</zorder>
+  <zorder>LE_WAIT_NAME_5</zorder>
+  <zorder>LB_WAIT_PIN_5</zorder>
+  <zorder>LE_WAIT_STATUS_5</zorder>
+  <zorder>LE_WAIT_STATUS</zorder>
+  <zorder>LE_WAIT_NAME_3</zorder>
+  <zorder>LE_WAIT_NAME_6</zorder>
+  <zorder>LE_OUTLET_MENU_1_3</zorder>
+  <zorder>LE_WAIT_NAME_4</zorder>
+  <zorder>LE_OUTLET_PIN_1_1</zorder>
+  <zorder>LE_OUTLET_MENU_2_1</zorder>
+  <zorder>LE_WAIT_NAME_7</zorder>
+  <zorder>LE_WAIT_STATUS_4</zorder>
+  <zorder>LE_WAIT_NAME_2</zorder>
+  <zorder>LE_WAIT_NAME</zorder>
+  <zorder>LE_WAIT_STATUS_6</zorder>
+  <zorder>LB_WAIT_PIN_7</zorder>
+  <zorder>LE_OUTLET_MENU_1_1</zorder>
+  <zorder>LE_OUTLET_PIN_2_3</zorder>
+  <zorder>LE_WAIT_STATUS_3</zorder>
+  <zorder>LB_WAIT_PIN_2</zorder>
+  <zorder>LB_WAIT_PIN_3</zorder>
+  <zorder>LE_OUTLET_STATUS_2_2</zorder>
+  <zorder>LE_OUTLET_STATUS_1_3</zorder>
+  <zorder>LE_OUTLET_STATUS_1_1</zorder>
+  <zorder>LE_OUTLET_STATUS_1_2</zorder>
+  <zorder>LE_OUTLET_STATUS_2_3</zorder>
+  <zorder>LE_OUTLET_STATUS_2_1</zorder>
+  <zorder>BACKGROUND_1</zorder>
+  <zorder>BACKGROUND_2</zorder>
+  <zorder>BACKGROUND_3</zorder>
+  <zorder>FR_NOTICE</zorder>
+  <zorder>BACKGROUND_READY</zorder>
+ </widget>
+ <resources>
+  <include location="resource.qrc"/>
+ </resources>
+ <connections/>
+</ui>

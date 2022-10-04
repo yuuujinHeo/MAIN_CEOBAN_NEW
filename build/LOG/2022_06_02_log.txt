@@ -1,0 +1,6 @@
+2022-06-02 08:56:00 [COFFEE] Disconnected!!
+2022-06-02 08:56:05 [COFFEE] Close Port
+2022-06-02 08:56:08 [COFFEE] Serial : ttyS5 Open Success
+2022-06-02 08:56:13 [COFFEE] Close Port
+2022-06-02 08:56:18 [COFFEE] Serial : ttyS5 Open Success
+2022-06-02 08:56:23 [COFFEE] Connected!!

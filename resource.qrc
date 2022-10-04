@@ -1,0 +1,47 @@
+<RCC>
+    <qresource prefix="/">
+        <file>build/image/lock.png</file>
+        <file>build/image/lockw.png</file>
+        <file>build/image/power.png</file>
+        <file>build/image/powerw.png</file>
+        <file>build/image/setting.png</file>
+        <file>build/image/settingw.png</file>
+        <file>build/image/unlock.png</file>
+        <file>build/image/unlockw.png</file>
+        <file>build/image/display_page1.png</file>
+        <file>build/image/display_page2.png</file>
+        <file>build/image/display_page3.png</file>
+        <file>build/image/background_c.png</file>
+        <file>build/image/background_i.png</file>
+        <file>build/image/background_prepare_c.png</file>
+        <file>build/image/background_prepare_i.png</file>
+        <file>build/image/making.png</file>
+        <file>build/image/waiting.png</file>
+        <file>build/image/outlet_c.png</file>
+        <file>build/image/outlet_i.png</file>
+        <file>build/image/error/bc1.png</file>
+        <file>build/image/error/bc2.png</file>
+        <file>build/image/error/bc3.png</file>
+        <file>build/image/error/od1.png</file>
+        <file>build/image/error/ro1.png</file>
+        <file>build/image/error/ro2.png</file>
+        <file>build/image/error/ro3.png</file>
+        <file>build/image/error/ro4.png</file>
+        <file>build/image/error/ro5.png</file>
+        <file>build/image/error/ro6.png</file>
+        <file>build/image/error/rp1.png</file>
+        <file>build/image/error/rp2.png</file>
+        <file>build/image/error/rp3.png</file>
+        <file>build/image/error/rp4.png</file>
+        <file>build/image/error/rp5.png</file>
+        <file>build/image/error/od2.png</file>
+        <file>build/image/error/pd1.png</file>
+        <file>build/image/error/rp7.png</file>
+        <file>build/image/error/c1.png</file>
+        <file>build/image/error/c2.png</file>
+        <file>build/image/error/d1.png</file>
+        <file>build/image/error/pof.png</file>
+        <file>build/image/error/rc1.png</file>
+        <file>build/image/error/rc2.png</file>
+    </qresource>
+</RCC>
