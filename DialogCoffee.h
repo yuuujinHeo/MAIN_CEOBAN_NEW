@@ -13,11 +13,8 @@
 
 #include "GlobalHeader.h"
 
-#ifdef ICECREAM_VER
-#include "DialogStock_icecream.h"
-#else
 #include "DialogStock.h"
-#endif
+
 
 
 #define DB_NAME_LOADCELL    "DB/loadcell"

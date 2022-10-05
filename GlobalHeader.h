@@ -16,28 +16,19 @@ inline void SetBTNColor(QPushButton *btn, QString color){
     btn->setStyleSheet("QPushButton{background-color:"+color+"}");
 }
 
-//#define ICECREAM_VER
-//#define ICECREAM_CYLINDER
-
-
-
 #define COLOR_NONE      "white"
 #define COLOR_GOOD      "#40C86D"
 #define COLOR_BAD       "#FF4F4F"
 #define COLOR_WEAKBAD   "#FF4F4F"
 #define COLOR_BLUE      "#008ADD"
-
-#ifdef ICECREAM_VER
-#define COLOR_UNDETERMINED "#D9D9D9"
-#else
 #define COLOR_UNDETERMINED "#BFBFBF"
-#endif
-#define MAX_CUP         2
+
+#define MAX_CUP         4
 #define MAX_ICE         1
 #define MAX_SYRUP       1
 #define MAX_BARCODE     1
 
-#define NUMBER_OF_CUP       2
+#define NUMBER_OF_CUP       4
 
 #define NUMBER_OF_OUTLET    2
 #define NUMBER_OF_CELL      3
@@ -121,36 +112,6 @@ typedef struct{
     int use_milk;
 }ST_SETTING;
 
-//typedef struct{
-//    QString token;
-//    QString id;
-//    QString bill;
-//    QString barcode;
-//    int drink_count;
-//    QString callback;
-//}ST_WEB_ORDER;
-
-//typedef struct{
-//    QString ingredient;
-//    QString amount;
-//}ST_WEB_STEP;
-//typedef QVector<ST_WEB_STEP> V_STEP;
-
-//typedef struct{
-//    QString id;
-//    QString barcode;
-//    QString callback;
-
-//    bool    use_coffee;
-//    QString beverage_code;
-//    QString menu_name;
-//    V_STEP  step;
-//}ST_WEB_MENU;
-
-
-
-
-
 typedef struct{
     QString ingredient;     // 재고의 이름
     QString amount;
@@ -199,10 +160,8 @@ typedef struct{
 
 
 extern int LOADCELL_SCALE_SYRUP;
-extern int LOADCELL_SCALE_ICECREAM_1;
-extern int LOADCELL_SCALE_ICECREAM_2;
-extern int LOADCELL_SCALE_SLUSH_1;
-extern int LOADCELL_SCALE_SLUSH_2;
+extern int LOADCELL_SCALE_SODA_1;
+extern int LOADCELL_SCALE_SODA_2;
 
 
 // ==========================================================
@@ -222,8 +181,7 @@ typedef enum{
     DEV_DIALOG_ID_OUTLET,
     DEV_DIALOG_ID_KIOSK,
     DEV_DIALOG_ID_STOCK,
-    DEV_DIALOG_ID_ICECREAM,
-    DEV_DIALOG_ID_SLUSH
+    DEV_DIALOG_ID_SODA
 }DEVICE_DIALOG_ID;
 
 
@@ -232,8 +190,7 @@ typedef enum{
 #define DEV_SEND_ID_SYRUP           0x03
 #define DEV_SEND_ID_BARCODE         0x04
 #define DEV_SEND_ID_OUTLET          0x05
-#define DEV_SEND_ID_SLUSH           0x07
-#define DEV_SEND_ID_ICECREAM        0x06
+#define DEV_SEND_ID_SODA            0x06
 #define DEV_SEND_ID_PLATFORM        0x0A
 
 
@@ -321,19 +278,8 @@ typedef struct{
     unsigned char       last_error;
 
     unsigned char       prev_out_count;
-}SLUSH_INFO;
-extern SLUSH_INFO  SLUSH_DATA[1];
-
-typedef struct{
-    unsigned char       connection_status;
-    ST_LOADCELL_DATA    loadcell[2];
-    unsigned char       out_state;
-    unsigned char       out_count;
-    unsigned char       last_error;
-
-    unsigned char       prev_out_count;
-}ICECREAM_DISPENSER_INFO;
-extern ICECREAM_DISPENSER_INFO  ICECREAM_DATA[1];
+}SODA_DISPENSER_INFO;
+extern SODA_DISPENSER_INFO SODA_DATA[1];
 
 #define MAX_BARCODE_LENGTH      24
 typedef struct{
@@ -344,7 +290,6 @@ typedef struct{
     unsigned char       prev_barcode_count;
 }BARCODE_INFO;
 extern BARCODE_INFO BARCODE_DATA[1];
-
 
 typedef struct{
     unsigned char       connection_status;

@@ -9,11 +9,8 @@
 
 #include "GlobalHeader.h"
 
-#ifdef ICECREAM_VER
-#include "DialogStock_icecream.h"
-#else
 #include "DialogStock.h"
-#endif
+
 
 #define ROBOT_NORMAL_SPEED      1.0 //1.0 //0.6
 #define ROBOT_SLOW_SPEED        0.2

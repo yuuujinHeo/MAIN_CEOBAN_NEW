@@ -60,24 +60,32 @@ public:
     QCheckBox *CB_SCALE_TEST;
     QWidget *layoutWidget;
     QGridLayout *gridLayout;
+    QPushButton *BTN_DISPENSE_SYRUP_BY_TIME_1;
+    QPushButton *BTN_DISPENSE_SYRUP_BY_TIME_7;
+    QPushButton *BTN_DISPENSE_SYRUP_BY_TIME_6;
     QPushButton *BTN_DISPENSE_SYRUP_BY_TIME_4;
     QPushButton *BTN_DISPENSE_SYRUP_BY_TIME_5;
     QPushButton *BTN_DISPENSE_SYRUP_BY_TIME_8;
-    QPushButton *BTN_DISPENSE_SYRUP_BY_TIME_7;
     QPushButton *BTN_DISPENSE_SYRUP_BY_TIME_2;
-    QPushButton *BTN_DISPENSE_SYRUP_BY_TIME_6;
     QPushButton *BTN_DISPENSE_SYRUP_BY_TIME_3;
-    QPushButton *BTN_DISPENSE_SYRUP_BY_TIME_1;
+    QPushButton *BTN_DISPENSE_SYRUP_BY_TIME_9;
+    QPushButton *BTN_DISPENSE_SYRUP_BY_TIME_10;
+    QPushButton *BTN_DISPENSE_SYRUP_BY_TIME_11;
+    QPushButton *BTN_DISPENSE_SYRUP_BY_TIME_12;
     QWidget *layoutWidget1;
     QGridLayout *gridLayout_2;
     QPushButton *BTN_DISPENSE_SYRUP_BY_WEIGHT_7;
     QPushButton *BTN_DISPENSE_SYRUP_BY_WEIGHT_6;
-    QPushButton *BTN_DISPENSE_SYRUP_BY_WEIGHT_1;
     QPushButton *BTN_DISPENSE_SYRUP_BY_WEIGHT_4;
+    QPushButton *BTN_DISPENSE_SYRUP_BY_WEIGHT_1;
+    QPushButton *BTN_DISPENSE_SYRUP_BY_WEIGHT_5;
     QPushButton *BTN_DISPENSE_SYRUP_BY_WEIGHT_2;
     QPushButton *BTN_DISPENSE_SYRUP_BY_WEIGHT_8;
-    QPushButton *BTN_DISPENSE_SYRUP_BY_WEIGHT_5;
     QPushButton *BTN_DISPENSE_SYRUP_BY_WEIGHT_3;
+    QPushButton *BTN_DISPENSE_SYRUP_BY_WEIGHT_9;
+    QPushButton *BTN_DISPENSE_SYRUP_BY_WEIGHT_10;
+    QPushButton *BTN_DISPENSE_SYRUP_BY_WEIGHT_11;
+    QPushButton *BTN_DISPENSE_SYRUP_BY_WEIGHT_12;
     QWidget *layoutWidget2;
     QHBoxLayout *horizontalLayout;
     QLineEdit *LE_SYRUP_OUT_TIME_2;
@@ -297,11 +305,38 @@ public:
         gridLayout = new QGridLayout(layoutWidget);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
         gridLayout->setContentsMargins(0, 0, 0, 0);
-        BTN_DISPENSE_SYRUP_BY_TIME_4 = new QPushButton(layoutWidget);
-        BTN_DISPENSE_SYRUP_BY_TIME_4->setObjectName(QString::fromUtf8("BTN_DISPENSE_SYRUP_BY_TIME_4"));
+        BTN_DISPENSE_SYRUP_BY_TIME_1 = new QPushButton(layoutWidget);
+        BTN_DISPENSE_SYRUP_BY_TIME_1->setObjectName(QString::fromUtf8("BTN_DISPENSE_SYRUP_BY_TIME_1"));
         QSizePolicy sizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(BTN_DISPENSE_SYRUP_BY_TIME_1->sizePolicy().hasHeightForWidth());
+        BTN_DISPENSE_SYRUP_BY_TIME_1->setSizePolicy(sizePolicy);
+        BTN_DISPENSE_SYRUP_BY_TIME_1->setMaximumSize(QSize(100, 60));
+        BTN_DISPENSE_SYRUP_BY_TIME_1->setFont(font1);
+
+        gridLayout->addWidget(BTN_DISPENSE_SYRUP_BY_TIME_1, 0, 0, 1, 1);
+
+        BTN_DISPENSE_SYRUP_BY_TIME_7 = new QPushButton(layoutWidget);
+        BTN_DISPENSE_SYRUP_BY_TIME_7->setObjectName(QString::fromUtf8("BTN_DISPENSE_SYRUP_BY_TIME_7"));
+        sizePolicy.setHeightForWidth(BTN_DISPENSE_SYRUP_BY_TIME_7->sizePolicy().hasHeightForWidth());
+        BTN_DISPENSE_SYRUP_BY_TIME_7->setSizePolicy(sizePolicy);
+        BTN_DISPENSE_SYRUP_BY_TIME_7->setMaximumSize(QSize(100, 60));
+        BTN_DISPENSE_SYRUP_BY_TIME_7->setFont(font1);
+
+        gridLayout->addWidget(BTN_DISPENSE_SYRUP_BY_TIME_7, 1, 2, 1, 1);
+
+        BTN_DISPENSE_SYRUP_BY_TIME_6 = new QPushButton(layoutWidget);
+        BTN_DISPENSE_SYRUP_BY_TIME_6->setObjectName(QString::fromUtf8("BTN_DISPENSE_SYRUP_BY_TIME_6"));
+        sizePolicy.setHeightForWidth(BTN_DISPENSE_SYRUP_BY_TIME_6->sizePolicy().hasHeightForWidth());
+        BTN_DISPENSE_SYRUP_BY_TIME_6->setSizePolicy(sizePolicy);
+        BTN_DISPENSE_SYRUP_BY_TIME_6->setMaximumSize(QSize(100, 60));
+        BTN_DISPENSE_SYRUP_BY_TIME_6->setFont(font1);
+
+        gridLayout->addWidget(BTN_DISPENSE_SYRUP_BY_TIME_6, 1, 1, 1, 1);
+
+        BTN_DISPENSE_SYRUP_BY_TIME_4 = new QPushButton(layoutWidget);
+        BTN_DISPENSE_SYRUP_BY_TIME_4->setObjectName(QString::fromUtf8("BTN_DISPENSE_SYRUP_BY_TIME_4"));
         sizePolicy.setHeightForWidth(BTN_DISPENSE_SYRUP_BY_TIME_4->sizePolicy().hasHeightForWidth());
         BTN_DISPENSE_SYRUP_BY_TIME_4->setSizePolicy(sizePolicy);
         BTN_DISPENSE_SYRUP_BY_TIME_4->setMaximumSize(QSize(100, 60));
@@ -327,15 +362,6 @@ public:
 
         gridLayout->addWidget(BTN_DISPENSE_SYRUP_BY_TIME_8, 1, 3, 1, 1);
 
-        BTN_DISPENSE_SYRUP_BY_TIME_7 = new QPushButton(layoutWidget);
-        BTN_DISPENSE_SYRUP_BY_TIME_7->setObjectName(QString::fromUtf8("BTN_DISPENSE_SYRUP_BY_TIME_7"));
-        sizePolicy.setHeightForWidth(BTN_DISPENSE_SYRUP_BY_TIME_7->sizePolicy().hasHeightForWidth());
-        BTN_DISPENSE_SYRUP_BY_TIME_7->setSizePolicy(sizePolicy);
-        BTN_DISPENSE_SYRUP_BY_TIME_7->setMaximumSize(QSize(100, 60));
-        BTN_DISPENSE_SYRUP_BY_TIME_7->setFont(font1);
-
-        gridLayout->addWidget(BTN_DISPENSE_SYRUP_BY_TIME_7, 1, 2, 1, 1);
-
         BTN_DISPENSE_SYRUP_BY_TIME_2 = new QPushButton(layoutWidget);
         BTN_DISPENSE_SYRUP_BY_TIME_2->setObjectName(QString::fromUtf8("BTN_DISPENSE_SYRUP_BY_TIME_2"));
         sizePolicy.setHeightForWidth(BTN_DISPENSE_SYRUP_BY_TIME_2->sizePolicy().hasHeightForWidth());
@@ -344,15 +370,6 @@ public:
         BTN_DISPENSE_SYRUP_BY_TIME_2->setFont(font1);
 
         gridLayout->addWidget(BTN_DISPENSE_SYRUP_BY_TIME_2, 0, 1, 1, 1);
-
-        BTN_DISPENSE_SYRUP_BY_TIME_6 = new QPushButton(layoutWidget);
-        BTN_DISPENSE_SYRUP_BY_TIME_6->setObjectName(QString::fromUtf8("BTN_DISPENSE_SYRUP_BY_TIME_6"));
-        sizePolicy.setHeightForWidth(BTN_DISPENSE_SYRUP_BY_TIME_6->sizePolicy().hasHeightForWidth());
-        BTN_DISPENSE_SYRUP_BY_TIME_6->setSizePolicy(sizePolicy);
-        BTN_DISPENSE_SYRUP_BY_TIME_6->setMaximumSize(QSize(100, 60));
-        BTN_DISPENSE_SYRUP_BY_TIME_6->setFont(font1);
-
-        gridLayout->addWidget(BTN_DISPENSE_SYRUP_BY_TIME_6, 1, 1, 1, 1);
 
         BTN_DISPENSE_SYRUP_BY_TIME_3 = new QPushButton(layoutWidget);
         BTN_DISPENSE_SYRUP_BY_TIME_3->setObjectName(QString::fromUtf8("BTN_DISPENSE_SYRUP_BY_TIME_3"));
@@ -363,14 +380,41 @@ public:
 
         gridLayout->addWidget(BTN_DISPENSE_SYRUP_BY_TIME_3, 0, 2, 1, 1);
 
-        BTN_DISPENSE_SYRUP_BY_TIME_1 = new QPushButton(layoutWidget);
-        BTN_DISPENSE_SYRUP_BY_TIME_1->setObjectName(QString::fromUtf8("BTN_DISPENSE_SYRUP_BY_TIME_1"));
-        sizePolicy.setHeightForWidth(BTN_DISPENSE_SYRUP_BY_TIME_1->sizePolicy().hasHeightForWidth());
-        BTN_DISPENSE_SYRUP_BY_TIME_1->setSizePolicy(sizePolicy);
-        BTN_DISPENSE_SYRUP_BY_TIME_1->setMaximumSize(QSize(100, 60));
-        BTN_DISPENSE_SYRUP_BY_TIME_1->setFont(font1);
+        BTN_DISPENSE_SYRUP_BY_TIME_9 = new QPushButton(layoutWidget);
+        BTN_DISPENSE_SYRUP_BY_TIME_9->setObjectName(QString::fromUtf8("BTN_DISPENSE_SYRUP_BY_TIME_9"));
+        sizePolicy.setHeightForWidth(BTN_DISPENSE_SYRUP_BY_TIME_9->sizePolicy().hasHeightForWidth());
+        BTN_DISPENSE_SYRUP_BY_TIME_9->setSizePolicy(sizePolicy);
+        BTN_DISPENSE_SYRUP_BY_TIME_9->setMaximumSize(QSize(100, 60));
+        BTN_DISPENSE_SYRUP_BY_TIME_9->setFont(font1);
 
-        gridLayout->addWidget(BTN_DISPENSE_SYRUP_BY_TIME_1, 0, 0, 1, 1);
+        gridLayout->addWidget(BTN_DISPENSE_SYRUP_BY_TIME_9, 2, 0, 1, 1);
+
+        BTN_DISPENSE_SYRUP_BY_TIME_10 = new QPushButton(layoutWidget);
+        BTN_DISPENSE_SYRUP_BY_TIME_10->setObjectName(QString::fromUtf8("BTN_DISPENSE_SYRUP_BY_TIME_10"));
+        sizePolicy.setHeightForWidth(BTN_DISPENSE_SYRUP_BY_TIME_10->sizePolicy().hasHeightForWidth());
+        BTN_DISPENSE_SYRUP_BY_TIME_10->setSizePolicy(sizePolicy);
+        BTN_DISPENSE_SYRUP_BY_TIME_10->setMaximumSize(QSize(100, 60));
+        BTN_DISPENSE_SYRUP_BY_TIME_10->setFont(font1);
+
+        gridLayout->addWidget(BTN_DISPENSE_SYRUP_BY_TIME_10, 2, 1, 1, 1);
+
+        BTN_DISPENSE_SYRUP_BY_TIME_11 = new QPushButton(layoutWidget);
+        BTN_DISPENSE_SYRUP_BY_TIME_11->setObjectName(QString::fromUtf8("BTN_DISPENSE_SYRUP_BY_TIME_11"));
+        sizePolicy.setHeightForWidth(BTN_DISPENSE_SYRUP_BY_TIME_11->sizePolicy().hasHeightForWidth());
+        BTN_DISPENSE_SYRUP_BY_TIME_11->setSizePolicy(sizePolicy);
+        BTN_DISPENSE_SYRUP_BY_TIME_11->setMaximumSize(QSize(100, 60));
+        BTN_DISPENSE_SYRUP_BY_TIME_11->setFont(font1);
+
+        gridLayout->addWidget(BTN_DISPENSE_SYRUP_BY_TIME_11, 2, 2, 1, 1);
+
+        BTN_DISPENSE_SYRUP_BY_TIME_12 = new QPushButton(layoutWidget);
+        BTN_DISPENSE_SYRUP_BY_TIME_12->setObjectName(QString::fromUtf8("BTN_DISPENSE_SYRUP_BY_TIME_12"));
+        sizePolicy.setHeightForWidth(BTN_DISPENSE_SYRUP_BY_TIME_12->sizePolicy().hasHeightForWidth());
+        BTN_DISPENSE_SYRUP_BY_TIME_12->setSizePolicy(sizePolicy);
+        BTN_DISPENSE_SYRUP_BY_TIME_12->setMaximumSize(QSize(100, 60));
+        BTN_DISPENSE_SYRUP_BY_TIME_12->setFont(font1);
+
+        gridLayout->addWidget(BTN_DISPENSE_SYRUP_BY_TIME_12, 2, 3, 1, 1);
 
         layoutWidget1 = new QWidget(GB_SYRUP);
         layoutWidget1->setObjectName(QString::fromUtf8("layoutWidget1"));
@@ -396,6 +440,15 @@ public:
 
         gridLayout_2->addWidget(BTN_DISPENSE_SYRUP_BY_WEIGHT_6, 1, 1, 1, 1);
 
+        BTN_DISPENSE_SYRUP_BY_WEIGHT_4 = new QPushButton(layoutWidget1);
+        BTN_DISPENSE_SYRUP_BY_WEIGHT_4->setObjectName(QString::fromUtf8("BTN_DISPENSE_SYRUP_BY_WEIGHT_4"));
+        sizePolicy.setHeightForWidth(BTN_DISPENSE_SYRUP_BY_WEIGHT_4->sizePolicy().hasHeightForWidth());
+        BTN_DISPENSE_SYRUP_BY_WEIGHT_4->setSizePolicy(sizePolicy);
+        BTN_DISPENSE_SYRUP_BY_WEIGHT_4->setMaximumSize(QSize(100, 60));
+        BTN_DISPENSE_SYRUP_BY_WEIGHT_4->setFont(font1);
+
+        gridLayout_2->addWidget(BTN_DISPENSE_SYRUP_BY_WEIGHT_4, 0, 3, 1, 1);
+
         BTN_DISPENSE_SYRUP_BY_WEIGHT_1 = new QPushButton(layoutWidget1);
         BTN_DISPENSE_SYRUP_BY_WEIGHT_1->setObjectName(QString::fromUtf8("BTN_DISPENSE_SYRUP_BY_WEIGHT_1"));
         sizePolicy.setHeightForWidth(BTN_DISPENSE_SYRUP_BY_WEIGHT_1->sizePolicy().hasHeightForWidth());
@@ -405,14 +458,14 @@ public:
 
         gridLayout_2->addWidget(BTN_DISPENSE_SYRUP_BY_WEIGHT_1, 0, 0, 1, 1);
 
-        BTN_DISPENSE_SYRUP_BY_WEIGHT_4 = new QPushButton(layoutWidget1);
-        BTN_DISPENSE_SYRUP_BY_WEIGHT_4->setObjectName(QString::fromUtf8("BTN_DISPENSE_SYRUP_BY_WEIGHT_4"));
-        sizePolicy.setHeightForWidth(BTN_DISPENSE_SYRUP_BY_WEIGHT_4->sizePolicy().hasHeightForWidth());
-        BTN_DISPENSE_SYRUP_BY_WEIGHT_4->setSizePolicy(sizePolicy);
-        BTN_DISPENSE_SYRUP_BY_WEIGHT_4->setMaximumSize(QSize(100, 60));
-        BTN_DISPENSE_SYRUP_BY_WEIGHT_4->setFont(font1);
+        BTN_DISPENSE_SYRUP_BY_WEIGHT_5 = new QPushButton(layoutWidget1);
+        BTN_DISPENSE_SYRUP_BY_WEIGHT_5->setObjectName(QString::fromUtf8("BTN_DISPENSE_SYRUP_BY_WEIGHT_5"));
+        sizePolicy.setHeightForWidth(BTN_DISPENSE_SYRUP_BY_WEIGHT_5->sizePolicy().hasHeightForWidth());
+        BTN_DISPENSE_SYRUP_BY_WEIGHT_5->setSizePolicy(sizePolicy);
+        BTN_DISPENSE_SYRUP_BY_WEIGHT_5->setMaximumSize(QSize(100, 60));
+        BTN_DISPENSE_SYRUP_BY_WEIGHT_5->setFont(font1);
 
-        gridLayout_2->addWidget(BTN_DISPENSE_SYRUP_BY_WEIGHT_4, 0, 3, 1, 1);
+        gridLayout_2->addWidget(BTN_DISPENSE_SYRUP_BY_WEIGHT_5, 1, 0, 1, 1);
 
         BTN_DISPENSE_SYRUP_BY_WEIGHT_2 = new QPushButton(layoutWidget1);
         BTN_DISPENSE_SYRUP_BY_WEIGHT_2->setObjectName(QString::fromUtf8("BTN_DISPENSE_SYRUP_BY_WEIGHT_2"));
@@ -432,15 +485,6 @@ public:
 
         gridLayout_2->addWidget(BTN_DISPENSE_SYRUP_BY_WEIGHT_8, 1, 3, 1, 1);
 
-        BTN_DISPENSE_SYRUP_BY_WEIGHT_5 = new QPushButton(layoutWidget1);
-        BTN_DISPENSE_SYRUP_BY_WEIGHT_5->setObjectName(QString::fromUtf8("BTN_DISPENSE_SYRUP_BY_WEIGHT_5"));
-        sizePolicy.setHeightForWidth(BTN_DISPENSE_SYRUP_BY_WEIGHT_5->sizePolicy().hasHeightForWidth());
-        BTN_DISPENSE_SYRUP_BY_WEIGHT_5->setSizePolicy(sizePolicy);
-        BTN_DISPENSE_SYRUP_BY_WEIGHT_5->setMaximumSize(QSize(100, 60));
-        BTN_DISPENSE_SYRUP_BY_WEIGHT_5->setFont(font1);
-
-        gridLayout_2->addWidget(BTN_DISPENSE_SYRUP_BY_WEIGHT_5, 1, 0, 1, 1);
-
         BTN_DISPENSE_SYRUP_BY_WEIGHT_3 = new QPushButton(layoutWidget1);
         BTN_DISPENSE_SYRUP_BY_WEIGHT_3->setObjectName(QString::fromUtf8("BTN_DISPENSE_SYRUP_BY_WEIGHT_3"));
         sizePolicy.setHeightForWidth(BTN_DISPENSE_SYRUP_BY_WEIGHT_3->sizePolicy().hasHeightForWidth());
@@ -449,6 +493,42 @@ public:
         BTN_DISPENSE_SYRUP_BY_WEIGHT_3->setFont(font1);
 
         gridLayout_2->addWidget(BTN_DISPENSE_SYRUP_BY_WEIGHT_3, 0, 2, 1, 1);
+
+        BTN_DISPENSE_SYRUP_BY_WEIGHT_9 = new QPushButton(layoutWidget1);
+        BTN_DISPENSE_SYRUP_BY_WEIGHT_9->setObjectName(QString::fromUtf8("BTN_DISPENSE_SYRUP_BY_WEIGHT_9"));
+        sizePolicy.setHeightForWidth(BTN_DISPENSE_SYRUP_BY_WEIGHT_9->sizePolicy().hasHeightForWidth());
+        BTN_DISPENSE_SYRUP_BY_WEIGHT_9->setSizePolicy(sizePolicy);
+        BTN_DISPENSE_SYRUP_BY_WEIGHT_9->setMaximumSize(QSize(100, 60));
+        BTN_DISPENSE_SYRUP_BY_WEIGHT_9->setFont(font1);
+
+        gridLayout_2->addWidget(BTN_DISPENSE_SYRUP_BY_WEIGHT_9, 2, 0, 1, 1);
+
+        BTN_DISPENSE_SYRUP_BY_WEIGHT_10 = new QPushButton(layoutWidget1);
+        BTN_DISPENSE_SYRUP_BY_WEIGHT_10->setObjectName(QString::fromUtf8("BTN_DISPENSE_SYRUP_BY_WEIGHT_10"));
+        sizePolicy.setHeightForWidth(BTN_DISPENSE_SYRUP_BY_WEIGHT_10->sizePolicy().hasHeightForWidth());
+        BTN_DISPENSE_SYRUP_BY_WEIGHT_10->setSizePolicy(sizePolicy);
+        BTN_DISPENSE_SYRUP_BY_WEIGHT_10->setMaximumSize(QSize(100, 60));
+        BTN_DISPENSE_SYRUP_BY_WEIGHT_10->setFont(font1);
+
+        gridLayout_2->addWidget(BTN_DISPENSE_SYRUP_BY_WEIGHT_10, 2, 1, 1, 1);
+
+        BTN_DISPENSE_SYRUP_BY_WEIGHT_11 = new QPushButton(layoutWidget1);
+        BTN_DISPENSE_SYRUP_BY_WEIGHT_11->setObjectName(QString::fromUtf8("BTN_DISPENSE_SYRUP_BY_WEIGHT_11"));
+        sizePolicy.setHeightForWidth(BTN_DISPENSE_SYRUP_BY_WEIGHT_11->sizePolicy().hasHeightForWidth());
+        BTN_DISPENSE_SYRUP_BY_WEIGHT_11->setSizePolicy(sizePolicy);
+        BTN_DISPENSE_SYRUP_BY_WEIGHT_11->setMaximumSize(QSize(100, 60));
+        BTN_DISPENSE_SYRUP_BY_WEIGHT_11->setFont(font1);
+
+        gridLayout_2->addWidget(BTN_DISPENSE_SYRUP_BY_WEIGHT_11, 2, 2, 1, 1);
+
+        BTN_DISPENSE_SYRUP_BY_WEIGHT_12 = new QPushButton(layoutWidget1);
+        BTN_DISPENSE_SYRUP_BY_WEIGHT_12->setObjectName(QString::fromUtf8("BTN_DISPENSE_SYRUP_BY_WEIGHT_12"));
+        sizePolicy.setHeightForWidth(BTN_DISPENSE_SYRUP_BY_WEIGHT_12->sizePolicy().hasHeightForWidth());
+        BTN_DISPENSE_SYRUP_BY_WEIGHT_12->setSizePolicy(sizePolicy);
+        BTN_DISPENSE_SYRUP_BY_WEIGHT_12->setMaximumSize(QSize(100, 60));
+        BTN_DISPENSE_SYRUP_BY_WEIGHT_12->setFont(font1);
+
+        gridLayout_2->addWidget(BTN_DISPENSE_SYRUP_BY_WEIGHT_12, 2, 3, 1, 1);
 
         layoutWidget2 = new QWidget(GB_SYRUP);
         layoutWidget2->setObjectName(QString::fromUtf8("layoutWidget2"));
@@ -477,9 +557,9 @@ public:
 
         horizontalLayout->addWidget(BTN_CLEANING);
 
-        layoutWidget->raise();
-        layoutWidget->raise();
-        layoutWidget->raise();
+        layoutWidget1->raise();
+        layoutWidget1->raise();
+        layoutWidget1->raise();
         LE_SYRUP_CONNECTION->raise();
         label_110->raise();
         line_37->raise();
@@ -539,22 +619,30 @@ public:
         label_111->setText(QCoreApplication::translate("DialogSyrup", "\354\213\234\352\260\204 \353\260\260\354\266\234", nullptr));
         label_121->setText(QCoreApplication::translate("DialogSyrup", "\353\254\264\352\262\214 \353\260\260\354\266\234", nullptr));
         CB_SCALE_TEST->setText(QCoreApplication::translate("DialogSyrup", "\355\205\214\354\212\244\355\212\270", nullptr));
+        BTN_DISPENSE_SYRUP_BY_TIME_1->setText(QCoreApplication::translate("DialogSyrup", "\354\213\234\353\237\2751", nullptr));
+        BTN_DISPENSE_SYRUP_BY_TIME_7->setText(QCoreApplication::translate("DialogSyrup", "\354\213\234\353\237\2757", nullptr));
+        BTN_DISPENSE_SYRUP_BY_TIME_6->setText(QCoreApplication::translate("DialogSyrup", "\354\213\234\353\237\2756", nullptr));
         BTN_DISPENSE_SYRUP_BY_TIME_4->setText(QCoreApplication::translate("DialogSyrup", "\354\213\234\353\237\2754", nullptr));
         BTN_DISPENSE_SYRUP_BY_TIME_5->setText(QCoreApplication::translate("DialogSyrup", "\354\213\234\353\237\2755", nullptr));
         BTN_DISPENSE_SYRUP_BY_TIME_8->setText(QCoreApplication::translate("DialogSyrup", "\354\213\234\353\237\2758", nullptr));
-        BTN_DISPENSE_SYRUP_BY_TIME_7->setText(QCoreApplication::translate("DialogSyrup", "\354\213\234\353\237\2757", nullptr));
         BTN_DISPENSE_SYRUP_BY_TIME_2->setText(QCoreApplication::translate("DialogSyrup", "\354\213\234\353\237\2752", nullptr));
-        BTN_DISPENSE_SYRUP_BY_TIME_6->setText(QCoreApplication::translate("DialogSyrup", "\354\213\234\353\237\2756", nullptr));
         BTN_DISPENSE_SYRUP_BY_TIME_3->setText(QCoreApplication::translate("DialogSyrup", "\354\213\234\353\237\2753", nullptr));
-        BTN_DISPENSE_SYRUP_BY_TIME_1->setText(QCoreApplication::translate("DialogSyrup", "\354\213\234\353\237\2751", nullptr));
+        BTN_DISPENSE_SYRUP_BY_TIME_9->setText(QCoreApplication::translate("DialogSyrup", "\354\213\234\353\237\2759", nullptr));
+        BTN_DISPENSE_SYRUP_BY_TIME_10->setText(QCoreApplication::translate("DialogSyrup", "\354\213\234\353\237\27510", nullptr));
+        BTN_DISPENSE_SYRUP_BY_TIME_11->setText(QCoreApplication::translate("DialogSyrup", "\354\213\234\353\237\27511", nullptr));
+        BTN_DISPENSE_SYRUP_BY_TIME_12->setText(QCoreApplication::translate("DialogSyrup", "\354\213\234\353\237\27512", nullptr));
         BTN_DISPENSE_SYRUP_BY_WEIGHT_7->setText(QCoreApplication::translate("DialogSyrup", "\354\213\234\353\237\2757", nullptr));
         BTN_DISPENSE_SYRUP_BY_WEIGHT_6->setText(QCoreApplication::translate("DialogSyrup", "\354\213\234\353\237\2756", nullptr));
-        BTN_DISPENSE_SYRUP_BY_WEIGHT_1->setText(QCoreApplication::translate("DialogSyrup", "\354\213\234\353\237\2751", nullptr));
         BTN_DISPENSE_SYRUP_BY_WEIGHT_4->setText(QCoreApplication::translate("DialogSyrup", "\354\213\234\353\237\2754", nullptr));
+        BTN_DISPENSE_SYRUP_BY_WEIGHT_1->setText(QCoreApplication::translate("DialogSyrup", "\354\213\234\353\237\2751", nullptr));
+        BTN_DISPENSE_SYRUP_BY_WEIGHT_5->setText(QCoreApplication::translate("DialogSyrup", "\354\213\234\353\237\2755", nullptr));
         BTN_DISPENSE_SYRUP_BY_WEIGHT_2->setText(QCoreApplication::translate("DialogSyrup", "\354\213\234\353\237\2752", nullptr));
         BTN_DISPENSE_SYRUP_BY_WEIGHT_8->setText(QCoreApplication::translate("DialogSyrup", "\354\213\234\353\237\2758", nullptr));
-        BTN_DISPENSE_SYRUP_BY_WEIGHT_5->setText(QCoreApplication::translate("DialogSyrup", "\354\213\234\353\237\2755", nullptr));
         BTN_DISPENSE_SYRUP_BY_WEIGHT_3->setText(QCoreApplication::translate("DialogSyrup", "\354\213\234\353\237\2753", nullptr));
+        BTN_DISPENSE_SYRUP_BY_WEIGHT_9->setText(QCoreApplication::translate("DialogSyrup", "\354\213\234\353\237\2759", nullptr));
+        BTN_DISPENSE_SYRUP_BY_WEIGHT_10->setText(QCoreApplication::translate("DialogSyrup", "\354\213\234\353\237\27510", nullptr));
+        BTN_DISPENSE_SYRUP_BY_WEIGHT_11->setText(QCoreApplication::translate("DialogSyrup", "\354\213\234\353\237\27511", nullptr));
+        BTN_DISPENSE_SYRUP_BY_WEIGHT_12->setText(QCoreApplication::translate("DialogSyrup", "\354\213\234\353\237\27512", nullptr));
         LE_SYRUP_OUT_TIME_2->setText(QCoreApplication::translate("DialogSyrup", "1", nullptr));
         label_23->setText(QCoreApplication::translate("DialogSyrup", "\354\264\210", nullptr));
         BTN_CLEANING->setText(QCoreApplication::translate("DialogSyrup", "\354\262\255\354\206\214\354\213\234\354\236\221", nullptr));

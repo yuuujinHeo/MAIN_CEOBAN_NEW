@@ -10,8 +10,6 @@
 
 #include <QDebug>
 #include "GlobalHeader.h"
-#ifdef ICECREAM_VER
-#else
 
 #define DB_NAME_RECIPE  "DB/recipe"
 
@@ -77,31 +75,33 @@ public slots:
 
 private slots:
     void on_BTN_CUP_HALF_1_clicked();
-
     void on_BTN_CUP_FULL_1_clicked();
-
     void on_BTN_CUP_HALF_2_clicked();
-
     void on_BTN_CUP_FULL_2_clicked();
+    void on_BTN_CUP_HALF_3_clicked();
+    void on_BTN_CUP_FULL_3_clicked();
+    void on_BTN_CUP_HALF_4_clicked();
+    void on_BTN_CUP_FULL_4_clicked();
 
     void on_BTN_SYRUP_REPLACE_1_clicked();
-
     void on_BTN_SYRUP_REPLACE_2_clicked();
-
     void on_BTN_SYRUP_REPLACE_3_clicked();
-
     void on_BTN_SYRUP_REPLACE_4_clicked();
-
     void on_BTN_SYRUP_REPLACE_5_clicked();
+    void on_BTN_SYRUP_REPLACE_6_clicked();
+    void on_BTN_SYRUP_REPLACE_7_clicked();
+    void on_BTN_SYRUP_REPLACE_8_clicked();
+    void on_BTN_SYRUP_REPLACE_9_clicked();
+    void on_BTN_SYRUP_REPLACE_10_clicked();
+    void on_BTN_SYRUP_REPLACE_11_clicked();
+    void on_BTN_SYRUP_REPLACE_12_clicked();
 
     void on_BTN_SET_STOCK_MANUAL_clicked();
 
     void on_BTN_MILK_USE_clicked();
-
     void on_BTN_MILK_NOT_USE_clicked();
 
     void on_BTN_SYRUP_USE_clicked();
-
     void on_BTN_SYRUP_NOT_USE_clicked();
 
     void on_BTN_SYRUP_ADD_1_clicked();
@@ -109,6 +109,13 @@ private slots:
     void on_BTN_SYRUP_ADD_3_clicked();
     void on_BTN_SYRUP_ADD_4_clicked();
     void on_BTN_SYRUP_ADD_5_clicked();
+    void on_BTN_SYRUP_ADD_6_clicked();
+    void on_BTN_SYRUP_ADD_7_clicked();
+    void on_BTN_SYRUP_ADD_8_clicked();
+    void on_BTN_SYRUP_ADD_9_clicked();
+    void on_BTN_SYRUP_ADD_10_clicked();
+    void on_BTN_SYRUP_ADD_11_clicked();
+    void on_BTN_SYRUP_ADD_12_clicked();
 
 private:
     Ui::DialogStock *ui;
@@ -117,5 +124,4 @@ private:
     QSqlDatabase    db;
 
 };
-#endif
 #endif // DIALOGSTOCK_H

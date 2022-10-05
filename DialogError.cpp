@@ -7,13 +7,11 @@ extern Logger *plog;
 DialogError::DialogError(QWidget *parent, DialogStock *_stock, DialogRobot *_robot, DialogCupDispenser *_cup,
                          DialogCoffee *_coffee, DialogIceDispenser *_ice,
                          DialogSyrup *_syrup, DialogOutlet *_outlet,
-                         DialogBarcode *_barcode, DialogMonitor *_monitor,
-                         DialogIcecream *_icecream, DialogSlush *_slush) :
+                         DialogBarcode *_barcode, DialogMonitor *_monitor) :
 QDialog(parent), stock(_stock), robot(_robot), cup(_cup),
 coffee(_coffee), ice(_ice),
 syrup(_syrup), outlet(_outlet),
 barcode(_barcode), monitor(_monitor),
-icecream(_icecream), slush(_slush),
 ui(new Ui::DialogError)
 {
     ui->setupUi(this);
@@ -99,29 +97,7 @@ int DialogError::UpdateError(){
             }
         }
 
-#ifdef ICECREAM_VER
-        if(ICECREAM_DATA[0].connection_status == 0){
-            ui->LW_ERROR->addItem("아이스크림 연결 에러");
-        }else{
-            if(ICECREAM_DATA[0].loadcell[0].error == 1){
-                ui->LW_ERROR->addItem("아이스크림 로드셀 0번 에러");
-            }
-            if(ICECREAM_DATA[0].loadcell[1].error == 1){
-                ui->LW_ERROR->addItem("아이스크림 로드셀 1번 에러");
-            }
-        }
 
-        if(SLUSH_DATA[0].connection_status == 0){
-            ui->LW_ERROR->addItem("슬러시 연결 에러");
-        }else{
-            if(SLUSH_DATA[0].loadcell[0].error == 1){
-                ui->LW_ERROR->addItem("슬러시 로드셀 0번 에러");
-            }
-            if(SLUSH_DATA[0].loadcell[1].error == 1){
-                ui->LW_ERROR->addItem("슬러시 로드셀 1번 에러");
-            }
-        }
-#else
 
         if(SYRUP_DATA[0].connection_status == 0){
             ui->LW_ERROR->addItem("시럽 연결 에러");
@@ -130,7 +106,6 @@ int DialogError::UpdateError(){
                 ui->LW_ERROR->addItem("시럽 로드셀 에러");
             }
         }
-#endif
 
     }
 
@@ -152,8 +127,6 @@ int DialogError::UpdateError(){
     if(barcode->m_serialPort->isOpen() == false){
         ui->LW_ERROR->addItem("바코드 포트 연결 에러");
     }
-#ifdef ICECREAM_VER
-#else
     if(coffee->port->isOpen() == false){
         ui->LW_ERROR->addItem("커피머신 포트 연결 에러");
     }else{
@@ -212,40 +185,6 @@ int DialogError::UpdateError(){
             }
         }
     }
-#endif
-
-#ifdef ICECREAM_VER
-    ui->LE_DEVICE_ERROR_COFFEE->setVisible(false);
-    ui->LE_DEVICE_ERROR_ICE_1->setVisible(false);
-    ui->BTN_ERROR_CLEAR_COFFEE->setVisible(false);
-    ui->BTN_ERROR_CLEAR_ICE_1->setVisible(false);
-    ui->label_149->setVisible(false);
-    ui->label_150->setVisible(false);
-
-    ui->LE_DEVICE_ERROR_ICECREAM->move(390,260);
-    ui->LE_DEVICE_ERROR_SLUSH->move(390,290);
-    ui->label_156->move(310,260);
-    ui->label_157->move(310,290);
-    ui->BTN_ERROR_CLEAR_ICECREAM->move(450,260);
-    ui->BTN_ERROR_CLEAR_SLUSH->move(450,290);
-    if(stock->IsDeviceError("ICECREAM")){
-        SetLEColor(ui->LE_DEVICE_ERROR_ICECREAM, COLOR_BAD);
-    }else{
-        SetLEColor(ui->LE_DEVICE_ERROR_ICECREAM, COLOR_GOOD);
-    }
-
-    if(stock->IsDeviceError("SLUSH")){
-        SetLEColor(ui->LE_DEVICE_ERROR_SLUSH, COLOR_BAD);
-    }else{
-        SetLEColor(ui->LE_DEVICE_ERROR_SLUSH, COLOR_GOOD);
-    }
-#else
-    ui->LE_DEVICE_ERROR_ICECREAM->setVisible(false);
-    ui->LE_DEVICE_ERROR_SLUSH->setVisible(false);
-    ui->label_156->setVisible(false);
-    ui->label_157->setVisible(false);
-    ui->BTN_ERROR_CLEAR_ICECREAM->setVisible(false);
-    ui->BTN_ERROR_CLEAR_SLUSH->setVisible(false);
 
     ui->LE_DEVICE_ERROR_COFFEE->move(390,260);
     ui->LE_DEVICE_ERROR_ICE_1->move(390,290);
@@ -260,13 +199,11 @@ int DialogError::UpdateError(){
         SetLEColor(ui->LE_DEVICE_ERROR_COFFEE, COLOR_GOOD);
     }
 
-    if(stock->IsDeviceError("ICE")){
+    if(stock->IsDeviceError("ICE_1")){
         SetLEColor(ui->LE_DEVICE_ERROR_ICE_1, COLOR_BAD);
     }else{
         SetLEColor(ui->LE_DEVICE_ERROR_ICE_1, COLOR_GOOD);
     }
-
-#endif
 
 
     if(stock->IsDeviceError("PAPER_CUP_1")){
@@ -320,7 +257,7 @@ void DialogError::on_BTN_ERROR_CLEAR_COFFEE_clicked(){
     plog->write("[SETTING - UI INPUT] Error Clear COFFEE");
 }
 void DialogError::on_BTN_ERROR_CLEAR_ICE_1_clicked(){
-    stock->ClearDeviceError("ICE");
+    stock->ClearDeviceError("ICE_1");
     plog->write("[SETTING - UI INPUT] Error Clear ICE_1");
 }
 
@@ -358,18 +295,6 @@ void DialogError::on_BTN_ERROR_CLEAR_ROBOT_2_clicked()
 {
     plog->write("[SETTING - UI INPUT] Error Clear ROBOT");
     robot->ErrorClear();
-}
-
-void DialogError::on_BTN_ERROR_CLEAR_SLUSH_clicked()
-{
-    stock->ClearDeviceError("SLUSH");
-    plog->write("[SETTING - UI INPUT] Error Clear SLUSH");
-}
-
-void DialogError::on_BTN_ERROR_CLEAR_ICECREAM_clicked()
-{
-    stock->ClearDeviceError("ICECREAM");
-    plog->write("[SETTING - UI INPUT] Error Clear ICECREAM");
 }
 
 void DialogError::on_BTN_ERROR_CLEAR_OUTLET_3_clicked()

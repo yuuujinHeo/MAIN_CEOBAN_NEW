@@ -33,6 +33,10 @@ void DialogSyrup::SetButtonName(){
     buttons_time.push_back(ui->BTN_DISPENSE_SYRUP_BY_TIME_6);
     buttons_time.push_back(ui->BTN_DISPENSE_SYRUP_BY_TIME_7);
     buttons_time.push_back(ui->BTN_DISPENSE_SYRUP_BY_TIME_8);
+    buttons_time.push_back(ui->BTN_DISPENSE_SYRUP_BY_TIME_9);
+    buttons_time.push_back(ui->BTN_DISPENSE_SYRUP_BY_TIME_10);
+    buttons_time.push_back(ui->BTN_DISPENSE_SYRUP_BY_TIME_11);
+    buttons_time.push_back(ui->BTN_DISPENSE_SYRUP_BY_TIME_12);
 
     buttons_weight.push_back(ui->BTN_DISPENSE_SYRUP_BY_WEIGHT_1);
     buttons_weight.push_back(ui->BTN_DISPENSE_SYRUP_BY_WEIGHT_2);
@@ -42,9 +46,13 @@ void DialogSyrup::SetButtonName(){
     buttons_weight.push_back(ui->BTN_DISPENSE_SYRUP_BY_WEIGHT_6);
     buttons_weight.push_back(ui->BTN_DISPENSE_SYRUP_BY_WEIGHT_7);
     buttons_weight.push_back(ui->BTN_DISPENSE_SYRUP_BY_WEIGHT_8);
+    buttons_weight.push_back(ui->BTN_DISPENSE_SYRUP_BY_WEIGHT_9);
+    buttons_weight.push_back(ui->BTN_DISPENSE_SYRUP_BY_WEIGHT_10);
+    buttons_weight.push_back(ui->BTN_DISPENSE_SYRUP_BY_WEIGHT_11);
+    buttons_weight.push_back(ui->BTN_DISPENSE_SYRUP_BY_WEIGHT_12);
 
     QStringList keys = stock->syrup_to_name.keys();
-    for(int i=0; i<8; i++){
+    for(int i=0; i<12; i++){
         buttons_time[i]->setEnabled(false);
         buttons_weight[i]->setEnabled(false);
     }

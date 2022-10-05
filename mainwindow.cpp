@@ -3,9 +3,6 @@
 #include <QApplication>
 #include <QDesktopWidget>
 
-#ifdef ICECREAM_VER
-#else
-
 RBLAN2CAN *plan;
 DialogSetting *psetting;
 
@@ -13,20 +10,17 @@ int IS_UI_LOCK = true;
 
 
 int LOADCELL_SCALE_SYRUP = 300;
-int LOADCELL_SCALE_ICECREAM_1 = 300;
-int LOADCELL_SCALE_ICECREAM_2 = 300;
-int LOADCELL_SCALE_SLUSH_1 = 300;
-int LOADCELL_SCALE_SLUSH_2 = 300;
+int LOADCELL_SCALE_SODA_1 = 300;
+int LOADCELL_SCALE_SODA_2 = 300;
 
 
 CUP_DISPENSER_INFO      CUP_DATA[MAX_CUP];
 ICE_DISPENSER_INFO      ICE_DATA[MAX_ICE];
 SYRUP_DISPENSER_INFO    SYRUP_DATA[1];
+SODA_DISPENSER_INFO     SODA_DATA[1];
 BARCODE_INFO            BARCODE_DATA[1];
 OUTLET_INFO             OUTLET_DATA[NUMBER_OF_OUTLET];
 DOOR_INFO               DOOR_DATA[1];
-ICECREAM_DISPENSER_INFO ICECREAM_DATA[1];
-SLUSH_INFO SLUSH_DATA[1];
 
 
 Scheduler *pschedule = NULL;
@@ -76,17 +70,13 @@ MainWindow::MainWindow(QWidget *parent) :
     coffee->setWindowFlags(Qt::Widget);
     coffee->move(0, 0);
 
-    icecream = new DialogIcecream(ui->FRAME_DEVICE, stock);
-    icecream->setWindowFlags(Qt::Widget);
-    icecream->move(0, 0);
-
-    slush = new DialogSlush(ui->FRAME_DEVICE, stock);
-    slush->setWindowFlags(Qt::Widget);
-    slush->move(0, 0);
-
     syrup = new DialogSyrup(ui->FRAME_DEVICE, stock);
     syrup->setWindowFlags(Qt::Widget);
     syrup->move(0, 0);
+
+    soda = new DialogSoda(ui->FRAME_DEVICE, stock);
+    soda->setWindowFlags(Qt::Widget);
+    soda->move(0, 0);
 
     robot = new DialogRobot(ui->FRAME_DEVICE, stock);
     robot->setWindowFlags(Qt::Widget);
@@ -114,23 +104,23 @@ MainWindow::MainWindow(QWidget *parent) :
     kiosk->setWindowFlags(Qt::Widget);
     kiosk->move(0, 0);
 
-    setting = new DialogSetting(ui->FRAME_DEVICE, stock, robot, cup, coffee, ice, syrup, outlet, barcode, monitor, icecream, slush);
+    setting = new DialogSetting(ui->FRAME_DEVICE, stock, robot, cup, coffee, ice, syrup, outlet, barcode, monitor);
     setting->setWindowFlags(Qt::Widget);
     setting->move(0, 0);
     psetting = setting;
 
-    error = new DialogError(nullptr, stock, robot, cup, coffee, ice, syrup, outlet, barcode, monitor, icecream, slush);
+    error = new DialogError(nullptr, stock, robot, cup, coffee, ice, syrup, outlet, barcode, monitor);
 
-    schedule = new Scheduler(stock, robot, cup, coffee, ice, syrup, outlet, barcode, monitor, icecream, slush);
+    schedule = new Scheduler(stock, robot, cup, coffee, ice, syrup, outlet, barcode, monitor, soda);
     pschedule = schedule;
 
     display = new DisplayDialog();
-    display->show();
-    display->move(1920,0);
-    display->showFullScreen();
+//    display->show();
+//    display->move(1920,0);
+//    display->showFullScreen();
     pdisplay = display;
 
-    notice = new DialogNotice(nullptr, stock, robot, cup, coffee, ice, syrup, outlet, barcode, monitor, icecream, slush, door);
+    notice = new DialogNotice(nullptr, stock, robot, cup, coffee, ice, syrup, outlet, barcode, monitor, door);
     connect(notice, SIGNAL(cancel()),this,SLOT(cancelnotice()));
     connect(notice, SIGNAL(init_start()),this,SLOT(noticeinit()));
     connect(notice, SIGNAL(op_start()),this,SLOT(noticeop()));
@@ -146,16 +136,22 @@ MainWindow::MainWindow(QWidget *parent) :
     SettingRecipeDB();
 
     ui->PB_CUP_1m->setMaximum(stock->stock["PAPER_CUP_1"].maximum);
-    ui->PB_CUP_2m->setMaximum(stock->stock["PP_CUP_1"].maximum);
+    ui->PB_CUP_2m->setMaximum(stock->stock["PAPER_CUP_2"].maximum);
+    ui->PB_CUP_3m->setMaximum(stock->stock["PP_CUP_1"].maximum);
+    ui->PB_CUP_4m->setMaximum(stock->stock["PP_CUP_2"].maximum);
     ui->PB_SYRUP_1m->setMaximum(stock->stock["SYRUP_1"].maximum);
     ui->PB_SYRUP_2m->setMaximum(stock->stock["SYRUP_2"].maximum);
     ui->PB_SYRUP_3m->setMaximum(stock->stock["SYRUP_3"].maximum);
     ui->PB_SYRUP_4m->setMaximum(stock->stock["SYRUP_4"].maximum);
     ui->PB_SYRUP_5m->setMaximum(stock->stock["SYRUP_5"].maximum);
-//    ui->PB_SYRUP_6m->setMaximum(stock->stock["SYRUP_6"].maximum);
-    ui->PB_ICE_1m->setMaximum(1);
-    ui->PB_COFFEEm->setMaximum(1);
-    ui->PB_MILKm->setMaximum(1);
+    ui->PB_SYRUP_6m->setMaximum(stock->stock["SYRUP_6"].maximum);
+    ui->PB_SYRUP_7m->setMaximum(stock->stock["SYRUP_7"].maximum);
+    ui->PB_SYRUP_8m->setMaximum(stock->stock["SYRUP_8"].maximum);
+    ui->PB_SYRUP_9m->setMaximum(stock->stock["SYRUP_9"].maximum);
+    ui->PB_SYRUP_10m->setMaximum(stock->stock["SYRUP_10"].maximum);
+    ui->PB_SYRUP_11m->setMaximum(stock->stock["SYRUP_11"].maximum);
+    ui->PB_SYRUP_12m->setMaximum(stock->stock["SYRUP_12"].maximum);
+
 
     ui->stackedWidget->setCurrentIndex(0);
     connect(&timer, SIGNAL(timeout()), this, SLOT(onTimer()));
@@ -224,6 +220,10 @@ void MainWindow::LoadLoadcellDB(){
 //            int initial = query.value("initial").toInt();
             if(uses == "SYRUP"){
                 LOADCELL_SCALE_SYRUP = scale;
+            }else if(uses == "SODA1"){
+                LOADCELL_SCALE_SODA_1 = scale;
+            }else if(uses == "SODA2"){
+                LOADCELL_SCALE_SODA_2 = scale;
             }
         }
     }
@@ -257,17 +257,17 @@ void MainWindow::onTimer(){
 //    qDebug() << "mainwindow timer";
 
     UpdateMenuAvailable();
-    if(QApplication::desktop()->screenCount() > 1){
-        if(this->geometry().x() != 1920){
-            this->move(1920,0);
-        }
-        if(display->geometry().x() != 0){
-            display->move(0,0);
-            display->showFullScreen();
-        }
-    }else{
+//    if(QApplication::desktop()->screenCount() > 1){
+//        if(this->geometry().x() != 1920){
+//            this->move(1920,0);
+//        }
+//        if(display->geometry().x() != 0){
+//            display->move(0,0);
+//            display->showFullScreen();
+//        }
+//    }else{
 
-    }
+//    }
 
     if(IS_UI_LOCK){
         ui->GB_OP_CONTROL->setEnabled(false);
@@ -292,6 +292,7 @@ void MainWindow::onTimer(){
     Update_Dev_CoffeeInfo();
     Update_Dev_SyrupInfo();
     Update_Dev_RobotInfo();
+    Update_Dev_SodaInfo();
     Update_Dev_MonitorInfo();
     Update_Dev_DoorInfo();
     Update_Dev_BarcodeInfo();
@@ -951,11 +952,17 @@ void MainWindow::Update_Dev_CupInfo(){
         SetBTNColor(ui->BTN_DEV_INFO_CUP, COLOR_UNDETERMINED);
         ui->LB_CUP_1_LAST_ERROR->setText("-");
         ui->LB_CUP_2_LAST_ERROR->setText("-");
+        ui->LB_CUP_3_LAST_ERROR->setText("-");
+        ui->LB_CUP_4_LAST_ERROR->setText("-");
         ui->LB_CUP_1_OP_STATE->setText("-");
         ui->LB_CUP_2_OP_STATE->setText("-");
+        ui->LB_CUP_3_OP_STATE->setText("-");
+        ui->LB_CUP_4_OP_STATE->setText("-");
     }else{
         if(CUP_DATA[0].connection_status == 1 &&
-            CUP_DATA[1].connection_status == 1){
+            CUP_DATA[1].connection_status == 1 &&
+            CUP_DATA[2].connection_status == 1 &&
+            CUP_DATA[3].connection_status == 1){
             SetBTNColor(ui->BTN_DEV_INFO_CUP, COLOR_GOOD);
         }else{
             SetBTNColor(ui->BTN_DEV_INFO_CUP, COLOR_WEAKBAD);
@@ -983,6 +990,28 @@ void MainWindow::Update_Dev_CupInfo(){
         }else{
             ui->LB_CUP_2_LAST_ERROR->setText("-");
             ui->LB_CUP_2_OP_STATE->setText("-");
+        }
+        if(CUP_DATA[2].connection_status == 1){
+            ui->LB_CUP_3_LAST_ERROR->setText(cup->cup_2_error);
+            if(CUP_DATA[2].dispense_op_flag == 0){
+                ui->LB_CUP_3_OP_STATE->setText("준비");
+            }else{
+                ui->LB_CUP_3_OP_STATE->setText("동작중");
+            }
+        }else{
+            ui->LB_CUP_3_LAST_ERROR->setText("-");
+            ui->LB_CUP_3_OP_STATE->setText("-");
+        }
+        if(CUP_DATA[3].connection_status == 1){
+            ui->LB_CUP_4_LAST_ERROR->setText(cup->cup_2_error);
+            if(CUP_DATA[3].dispense_op_flag == 0){
+                ui->LB_CUP_4_OP_STATE->setText("준비");
+            }else{
+                ui->LB_CUP_4_OP_STATE->setText("동작중");
+            }
+        }else{
+            ui->LB_CUP_4_LAST_ERROR->setText("-");
+            ui->LB_CUP_4_OP_STATE->setText("-");
         }
     }
 }
@@ -1133,6 +1162,31 @@ void MainWindow::Update_Dev_SyrupInfo(){
             ui->LB_SYRUP_LOADCELL->setText("-");
             ui->LB_SYRUP_LAST_ERROR->setText("-");
             ui->LB_SYRUP_OP_STATE->setText("-");
+        }
+    }
+}
+
+void MainWindow::Update_Dev_SodaInfo(){
+    if(lan->sockConnectionStatus == false){
+        SetBTNColor(ui->BTN_DEV_INFO_SODA, COLOR_UNDETERMINED);
+        ui->LB_SODA_LOADCELL->setText("-");
+        ui->LB_SODA_LAST_ERROR->setText("-");
+        ui->LB_SODA_OP_STATE->setText("-");
+    }else{
+        if(SODA_DATA[0].connection_status == 1){
+            SetBTNColor(ui->BTN_DEV_INFO_SODA, COLOR_GOOD);
+            ui->LB_SODA_LOADCELL->setText(QString().sprintf("%d", soda->LoadcellValue()));
+            ui->LB_SODA_LAST_ERROR->setText(soda->soda_error);
+            if(SODA_DATA[0].out_state == 0){
+                ui->LB_SODA_OP_STATE->setText("준비");
+            }else{
+                ui->LB_SODA_OP_STATE->setText("동작중");
+            }
+        }else{
+            SetBTNColor(ui->BTN_DEV_INFO_SODA, COLOR_WEAKBAD);
+            ui->LB_SODA_LOADCELL->setText("-");
+            ui->LB_SODA_LAST_ERROR->setText("-");
+            ui->LB_SODA_OP_STATE->setText("-");
         }
     }
 }
@@ -1455,19 +1509,39 @@ void MainWindow::Update_Dev_KioskInfo(){
 QString MainWindow::DesToIng(QString des){
     if(des == "컵"){
         return "CUP";
-    }else if(des == "얼음/냉수"){
+    }else if(des == "얼음"){
         return "ICE";
-    }else if(des == "바닐라시럽"){
+    }else if(des == "탄산"){
+        return "SODA";
+    }else if(des == "냉수"){
+        return "COLD";
+    }else if(des == "온수"){
+        return "HOT";
+    }else if(des == "설탕시럽"){
         return "SYRUP_1";
     }else if(des == "헤이즐넛시럽"){
         return "SYRUP_2";
-    }else if(des == "레몬시럽"){
+    }else if(des == "바닐라시럽"){
         return "SYRUP_3";
-    }else if(des == "자몽시럽"){
+    }else if(des == "초코시럽"){
         return "SYRUP_4";
-    }else if(des == "탄산수"){
+    }else if(des == "카라멜시럽"){
         return "SYRUP_5";
-    }else if(des == "커피"){
+    }else if(des == "딸기시럽"){
+        return "SYRUP_6";
+    }else if(des == "청포도시럽"){
+        return "SYRUP_7";
+    }else if(des == "자몽시럽"){
+        return "SYRUP_8";
+    }else if(des == "레몬시럽"){
+        return "SYRUP_9";
+    }else if(des == "복숭아시럽"){
+        return "SYRUP_10";
+    }else if(des == "흑당시럽"){
+        return "SYRUP_11";
+    }else if(des == "얼그레이시럽"){
+        return "SYRUP_12";
+    }else if(des == "커피/우유"){
         return "COFFEE";
     }else
         return "UNKNOWN";
@@ -1476,19 +1550,39 @@ QString MainWindow::IngToDes(QString ing){
     if(ing == "CUP"){
         return "컵";
     }else if(ing == "ICE"){
-        return "얼음/냉수";
+        return "얼음";
+    }else if(ing == "SODA"){
+        return "탄산";
+    }else if(ing == "COLD"){
+        return "냉수";
+    }else if(ing == "HOT"){
+        return "온수";
     }else if(ing == "SYRUP_1"){
-        return "바닐라시럽";
+        return "설탕시럽";
     }else if(ing == "SYRUP_2"){
         return "헤이즐넛시럽";
     }else if(ing == "SYRUP_3"){
-        return "레몬시럽";
+        return "바닐라시럽";
     }else if(ing == "SYRUP_4"){
-        return "자몽시럽";
+        return "초코시럽";
     }else if(ing == "SYRUP_5"){
-        return "탄산수";
+        return "카라멜시럽";
+    }else if(ing == "SYRUP_6"){
+        return "딸기시럽";
+    }else if(ing == "SYRUP_7"){
+        return "청포도시럽";
+    }else if(ing == "SYRUP_8"){
+        return "자몽시럽";
+    }else if(ing == "SYRUP_9"){
+        return "레몬시럽";
+    }else if(ing == "SYRUP_10"){
+        return "복숭아시럽";
+    }else if(ing == "SYRUP_11"){
+        return "흑당시럽";
+    }else if(ing == "SYRUP_12"){
+        return "얼그레이시럽";
     }else if(ing == "COFFEE"){
-        return "커피";
+        return "커피/우유";
     }else
         return "불명";
 }
@@ -1501,7 +1595,13 @@ void MainWindow::Update_Dev_StockInfo(){
     ui->PB_SYRUP_3m->setValue(stock->stock["SYRUP_3"].current);
     ui->PB_SYRUP_4m->setValue(stock->stock["SYRUP_4"].current);
     ui->PB_SYRUP_5m->setValue(stock->stock["SYRUP_5"].current);
-//    ui->PB_SYRUP_6m->setValue(stock->stock["SYRUP_6"].current);
+    ui->PB_SYRUP_6m->setValue(stock->stock["SYRUP_6"].current);
+    ui->PB_SYRUP_7m->setValue(stock->stock["SYRUP_7"].current);
+    ui->PB_SYRUP_8m->setValue(stock->stock["SYRUP_8"].current);
+    ui->PB_SYRUP_9m->setValue(stock->stock["SYRUP_9"].current);
+    ui->PB_SYRUP_10m->setValue(stock->stock["SYRUP_10"].current);
+    ui->PB_SYRUP_11m->setValue(stock->stock["SYRUP_11"].current);
+    ui->PB_SYRUP_12m->setValue(stock->stock["SYRUP_12"].current);
 
     if(stock->stock["PAPER_CUP_1"].current > stock->stock["PAPER_CUP_1"].maximum/2){
         ui->PB_CUP_1m->setStyleSheet("QProgressBar::chunk{background-color: #40C86D;}");
@@ -1511,12 +1611,26 @@ void MainWindow::Update_Dev_StockInfo(){
         ui->PB_CUP_1m->setStyleSheet("QProgressBar::chunk{background-color: #FF4F4F;}");
     }
 
-    if(stock->stock["PP_CUP_1"].current > stock->stock["PP_CUP_1"].maximum/2){
+    if(stock->stock["PAPER_CUP_2"].current > stock->stock["PAPER_CUP_2"].maximum/2){
         ui->PB_CUP_2m->setStyleSheet("QProgressBar::chunk{background-color: #40C86D;}");
-    }else if(stock->stock["PP_CUP_1"].current > stock->stock["PP_CUP_1"].maximum/4){
+    }else if(stock->stock["PAPER_CUP_2"].current > stock->stock["PAPER_CUP_2"].maximum/4){
         ui->PB_CUP_2m->setStyleSheet("QProgressBar::chunk{background-color: #FBC221;}");
     }else{
         ui->PB_CUP_2m->setStyleSheet("QProgressBar::chunk{background-color: #FF4F4F;}");
+    }
+    if(stock->stock["PP_CUP_1"].current > stock->stock["PP_CUP_1"].maximum/2){
+        ui->PB_CUP_3m->setStyleSheet("QProgressBar::chunk{background-color: #40C86D;}");
+    }else if(stock->stock["PP_CUP_1"].current > stock->stock["PP_CUP_1"].maximum/4){
+        ui->PB_CUP_3m->setStyleSheet("QProgressBar::chunk{background-color: #FBC221;}");
+    }else{
+        ui->PB_CUP_3m->setStyleSheet("QProgressBar::chunk{background-color: #FF4F4F;}");
+    }
+    if(stock->stock["PP_CUP_2"].current > stock->stock["PP_CUP_2"].maximum/2){
+        ui->PB_CUP_4m->setStyleSheet("QProgressBar::chunk{background-color: #40C86D;}");
+    }else if(stock->stock["PP_CUP_2"].current > stock->stock["PP_CUP_2"].maximum/4){
+        ui->PB_CUP_4m->setStyleSheet("QProgressBar::chunk{background-color: #FBC221;}");
+    }else{
+        ui->PB_CUP_4m->setStyleSheet("QProgressBar::chunk{background-color: #FF4F4F;}");
     }
 
     if(stock->stock["SYRUP_1"].current > stock->stock["SYRUP_1"].maximum/2){
@@ -1554,38 +1668,55 @@ void MainWindow::Update_Dev_StockInfo(){
     }else{
         ui->PB_SYRUP_5m->setStyleSheet("QProgressBar::chunk{background-color: #FF4F4F;}");
     }
-//    if(stock->stock["SYRUP_6"].current > stock->stock["SYRUP_6"].maximum/2){
-//        ui->PB_SYRUP_6m->setStyleSheet("QProgressBar::chunk{background-color: #40C86D;}");
-//    }else if(stock->stock["SYRUP_6"].current > stock->stock["SYRUP_6"].maximum/4){
-//        ui->PB_SYRUP_6m->setStyleSheet("QProgressBar::chunk{background-color: #FBC221;}");
-//    }else{
-//        ui->PB_SYRUP_6m->setStyleSheet("QProgressBar::chunk{background-color: #FF4F4F;}");
-//    }
-
-
-
-    if(stock->stock["ICE"].error == 1){
-        ui->PB_ICE_1m->setValue(0);
+    if(stock->stock["SYRUP_6"].current > stock->stock["SYRUP_6"].maximum/2){
+        ui->PB_SYRUP_6m->setStyleSheet("QProgressBar::chunk{background-color: #40C86D;}");
+    }else if(stock->stock["SYRUP_6"].current > stock->stock["SYRUP_6"].maximum/4){
+        ui->PB_SYRUP_6m->setStyleSheet("QProgressBar::chunk{background-color: #FBC221;}");
     }else{
-        ui->PB_ICE_1m->setValue(1);
+        ui->PB_SYRUP_6m->setStyleSheet("QProgressBar::chunk{background-color: #FF4F4F;}");
     }
-
-
-    if(stock->stock["COFFEE"].error == 1){
-        ui->PB_COFFEEm->setValue(0);
+    if(stock->stock["SYRUP_7"].current > stock->stock["SYRUP_7"].maximum/2){
+        ui->PB_SYRUP_7m->setStyleSheet("QProgressBar::chunk{background-color: #40C86D;}");
+    }else if(stock->stock["SYRUP_7"].current > stock->stock["SYRUP_7"].maximum/4){
+        ui->PB_SYRUP_7m->setStyleSheet("QProgressBar::chunk{background-color: #FBC221;}");
     }else{
-        ui->PB_COFFEEm->setValue(1);
+        ui->PB_SYRUP_7m->setStyleSheet("QProgressBar::chunk{background-color: #FF4F4F;}");
     }
-
-
-    if(stock->stock["MILK"].error == 1){
-        ui->PB_MILKm->setValue(0);
+    if(stock->stock["SYRUP_8"].current > stock->stock["SYRUP_8"].maximum/2){
+        ui->PB_SYRUP_8m->setStyleSheet("QProgressBar::chunk{background-color: #40C86D;}");
+    }else if(stock->stock["SYRUP_8"].current > stock->stock["SYRUP_8"].maximum/4){
+        ui->PB_SYRUP_8m->setStyleSheet("QProgressBar::chunk{background-color: #FBC221;}");
     }else{
-        ui->PB_MILKm->setValue(1);
+        ui->PB_SYRUP_8m->setStyleSheet("QProgressBar::chunk{background-color: #FF4F4F;}");
     }
-    ui->PB_ICE_1m->setStyleSheet("QProgressBar::chunk{background-color: #40C86D;}");
-    ui->PB_COFFEEm->setStyleSheet("QProgressBar::chunk{background-color: #40C86D;}");
-    ui->PB_MILKm->setStyleSheet("QProgressBar::chunk{background-color: #40C86D;}");
+    if(stock->stock["SYRUP_9"].current > stock->stock["SYRUP_9"].maximum/2){
+        ui->PB_SYRUP_9m->setStyleSheet("QProgressBar::chunk{background-color: #40C86D;}");
+    }else if(stock->stock["SYRUP_9"].current > stock->stock["SYRUP_9"].maximum/4){
+        ui->PB_SYRUP_9m->setStyleSheet("QProgressBar::chunk{background-color: #FBC221;}");
+    }else{
+        ui->PB_SYRUP_9m->setStyleSheet("QProgressBar::chunk{background-color: #FF4F4F;}");
+    }
+    if(stock->stock["SYRUP_10"].current > stock->stock["SYRUP_10"].maximum/2){
+        ui->PB_SYRUP_10m->setStyleSheet("QProgressBar::chunk{background-color: #40C86D;}");
+    }else if(stock->stock["SYRUP_10"].current > stock->stock["SYRUP_10"].maximum/4){
+        ui->PB_SYRUP_10m->setStyleSheet("QProgressBar::chunk{background-color: #FBC221;}");
+    }else{
+        ui->PB_SYRUP_10m->setStyleSheet("QProgressBar::chunk{background-color: #FF4F4F;}");
+    }
+    if(stock->stock["SYRUP_11"].current > stock->stock["SYRUP_11"].maximum/2){
+        ui->PB_SYRUP_11m->setStyleSheet("QProgressBar::chunk{background-color: #40C86D;}");
+    }else if(stock->stock["SYRUP_11"].current > stock->stock["SYRUP_11"].maximum/4){
+        ui->PB_SYRUP_11m->setStyleSheet("QProgressBar::chunk{background-color: #FBC221;}");
+    }else{
+        ui->PB_SYRUP_11m->setStyleSheet("QProgressBar::chunk{background-color: #FF4F4F;}");
+    }
+    if(stock->stock["SYRUP_12"].current > stock->stock["SYRUP_12"].maximum/2){
+        ui->PB_SYRUP_12m->setStyleSheet("QProgressBar::chunk{background-color: #40C86D;}");
+    }else if(stock->stock["SYRUP_12"].current > stock->stock["SYRUP_12"].maximum/4){
+        ui->PB_SYRUP_12m->setStyleSheet("QProgressBar::chunk{background-color: #FBC221;}");
+    }else{
+        ui->PB_SYRUP_12m->setStyleSheet("QProgressBar::chunk{background-color: #FF4F4F;}");
+    }
 }
 
 
@@ -1594,13 +1725,12 @@ void MainWindow::ChangeDeviceDialog(DEVICE_DIALOG_ID id){
     cup->hide();
     ice->hide();
     coffee->hide();
-    slush->hide();
-    icecream->hide();
     robot->hide();
     syrup->hide();
     monitor->hide();
     door->hide();
     barcode->hide();
+    soda->hide();
     outlet->hide();
     kiosk->hide();
     stock->hide();
@@ -1643,11 +1773,8 @@ void MainWindow::ChangeDeviceDialog(DEVICE_DIALOG_ID id){
     case DEV_DIALOG_ID_STOCK:
         stock->show();
         break;
-    case DEV_DIALOG_ID_ICECREAM:
-        icecream->show();
-        break;
-    case DEV_DIALOG_ID_SLUSH:
-        slush->show();
+    case DEV_DIALOG_ID_SODA:
+        soda->show();
         break;
     default:
         break;
@@ -1916,27 +2043,27 @@ void MainWindow::on_BTN_RECIPE_SAVE_clicked()
                     return;
                 }
                 if(temp.ingredient == "ICE"){
-                    if(new_recipe[j].ingredient == "COFFEE" || new_recipe[j].ingredient == "SYRUP_5"){
-                        QMessageBox::warning(this, "저장 실패", "ICE는 반드시 COFFEE, SYRUP_5 보다 위에 있어야 합니다.");
+                    if(new_recipe[j].ingredient == "COFFEE" || new_recipe[j].ingredient == "SODA" || new_recipe[j].ingredient == "COLD" || new_recipe[j].ingredient == "HOT"){
+                        QMessageBox::warning(this, "저장 실패", "ICE는 반드시 COFFEE, SODA, COLD, HOT 보다 위에 있어야 합니다.");
                         return;
                     }
                 }else if(temp.ingredient == "COFFEE"){
-                    if(new_recipe[j].ingredient == "SYRUP_5"){
-                        QMessageBox::warning(this, "저장 실패", "COFFEE와 SYRUP_5(탄산수)는 함께 배출할 수 없습니다.");
+                    if(new_recipe[j].ingredient == "SODA"){
+                        QMessageBox::warning(this, "저장 실패", "COFFEE와 SODA(탄산수)는 함께 배출할 수 없습니다.");
                         return;
                     }
-                    if((temp.amount == "A1" || temp.amount == "A2" || temp.amount == "LH" || temp.amount == "MH") && new_recipe[j].ingredient == "ICE"){
-                        QMessageBox::warning(this, "저장 실패", "ICE와 COFFEE의 뜨거운메뉴(A1, A2, LH, MH)는 함께 배출할 수 없습니다.");
+                    if((temp.amount == "LH1" || temp.amount == "LH2" || temp.amount == "LH3" || temp.amount == "PLH1" || temp.amount == "PLH2" || temp.amount == "MFH1" || temp.amount == "MFH2") && new_recipe[j].ingredient == "ICE"){
+                        QMessageBox::warning(this, "저장 실패", "ICE와 COFFEE의 뜨거운메뉴(LH1, LH2, LH3, PLH1, PLH2, MFH1, MFH2)는 함께 배출할 수 없습니다.");
                         return;
                     }
-                }else if(temp.ingredient == "SYRUP_5"){//SODA
+                }else if(temp.ingredient == "SODA"){//SODA
                     if(new_recipe[j].ingredient == "COFFEE"){
-                        QMessageBox::warning(this, "저장 실패", "COFFEE와 SYRUP_5(탄산수)는 함께 배출할 수 없습니다.");
+                        QMessageBox::warning(this, "저장 실패", "COFFEE와 SODA(탄산수)는 함께 배출할 수 없습니다.");
                         return;
                     }
                 }else if(temp.ingredient.left(5) == "SYRUP"){
-                    if(new_recipe[j].ingredient == "SYRUP_5"){
-                        QMessageBox::warning(this, "저장 실패", "SYRUP_5(탄산수)는 기타 다른 시럽 보다 위에 있어야 합니다.");
+                    if(new_recipe[j].ingredient == "SODA"){
+                        QMessageBox::warning(this, "저장 실패", "SODA(탄산수)는 기타 다른 시럽 보다 위에 있어야 합니다.");
                         return;
                     }
                     if(new_recipe[j].ingredient == "COFFEE"){
@@ -2030,7 +2157,7 @@ void MainWindow::on_TW_MENU_currentCellChanged(int currentRow, int currentColumn
         if(stock->menu[menu_id].recipe.size() == 0){
             ST_RECIPE_STEP temp;
             temp.ingredient = "CUP";
-            temp.amount = "1";
+            temp.amount = "HOT";
             stock->menu[menu_id].recipe.push_back(temp);
         }
 
@@ -2165,5 +2292,8 @@ void MainWindow::on_BTN_MENU_DELETE_clicked()
 }
 
 
-#endif
-
+void MainWindow::on_BTN_DEV_INFO_SODA_clicked()
+{
+    logger->write("[USER INPUT] Button Click : SODA INFO");
+    ChangeDeviceDialog(DEV_DIALOG_ID_SODA);
+}

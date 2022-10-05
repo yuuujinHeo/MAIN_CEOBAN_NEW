@@ -7,11 +7,7 @@
 
 #include "GlobalHeader.h"
 
-#ifdef ICECREAM_VER
-#include "DialogStock_icecream.h"
-#else
 #include "DialogStock.h"
-#endif
 
 
 namespace Ui {

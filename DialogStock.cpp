@@ -1,8 +1,6 @@
 ﻿#include "DialogStock.h"
 #include "ui_DialogStock.h"
 
-#ifdef ICECREAM_VER
-#else
 #include "Scheduler.h"
 
 extern Scheduler *pschedule;
@@ -53,30 +51,42 @@ void DialogStock::onTimer(){
         stock["SYRUP_3"].error = 1;
         stock["SYRUP_4"].error = 1;
         stock["SYRUP_5"].error = 1;
+        stock["SYRUP_6"].error = 1;
+        stock["SYRUP_7"].error = 1;
+        stock["SYRUP_8"].error = 1;
+        stock["SYRUP_9"].error = 1;
+        stock["SYRUP_10"].error = 1;
+        stock["SYRUP_11"].error = 1;
+        stock["SYRUP_12"].error = 1;
         ui->frame->setEnabled(false);
-        ui->frame_2->setEnabled(false);
     }else{
-        ui->frame_2->setEnabled(true);
-        if(use_soda == 0){
-            stock["SYRUP_5"].error = 1;
-        }else{
-            stock["SYRUP_5"].error = 0;
-        }
+        ui->frame->setEnabled(true);
         if(forced_syrup_use){
             stock["SYRUP_1"].error = 0;
             stock["SYRUP_2"].error = 0;
             stock["SYRUP_3"].error = 0;
             stock["SYRUP_4"].error = 0;
-//            stock["SYRUP_5"].error = 0;
-//            stock["SYRUP_6"].error = 0;
+            stock["SYRUP_6"].error = 0;
+            stock["SYRUP_7"].error = 0;
+            stock["SYRUP_8"].error = 0;
+            stock["SYRUP_9"].error = 0;
+            stock["SYRUP_10"].error = 0;
+            stock["SYRUP_11"].error = 0;
+            stock["SYRUP_12"].error = 0;
             ui->frame->setEnabled(true);
         }else{
             stock["SYRUP_1"].error = 1;
             stock["SYRUP_2"].error = 1;
             stock["SYRUP_3"].error = 1;
             stock["SYRUP_4"].error = 1;
-//            stock["SYRUP_5"].error = 1;
-//            stock["SYRUP_6"].error = 1;
+            stock["SYRUP_5"].error = 1;
+            stock["SYRUP_6"].error = 1;
+            stock["SYRUP_7"].error = 1;
+            stock["SYRUP_8"].error = 1;
+            stock["SYRUP_9"].error = 1;
+            stock["SYRUP_10"].error = 1;
+            stock["SYRUP_11"].error = 1;
+            stock["SYRUP_12"].error = 1;
             ui->frame->setEnabled(false);
         }
     }
@@ -136,6 +146,7 @@ void DialogStock::LoadDatabase(){
     if(query.exec("SELECT * FROM Table_Menu")){
         menu.clear();
         while(query.next()){
+            int use_menu = 1;
             QString menu_id = query.value("menu_id").toString();
             QString menu_name = query.value("menu_name").toString();
             int menu_time = query.value("time").toInt();
@@ -149,6 +160,9 @@ void DialogStock::LoadDatabase(){
                 QString step = QString().sprintf("step%d", i+1);
                 QString amount = QString().sprintf("amount%d", i+1);
                 if(query.value(step).isNull()){
+                    if(i==0){
+                        use_menu = 0;
+                    }
                     ST_RECIPE_STEP temp_step;
                     temp_step.ingredient = "OUTLET";
                     temp_step.amount = "1";
@@ -161,8 +175,10 @@ void DialogStock::LoadDatabase(){
                     temp_recipe.push_back(temp_step);
                 }
             }
-            temp_menu.recipe = temp_recipe;
-            menu[menu_id] = temp_menu;
+            if(use_menu == 1){
+                temp_menu.recipe = temp_recipe;
+                menu[menu_id] = temp_menu;
+            }
         }
     }
 
@@ -216,10 +232,14 @@ void DialogStock::SaveRecipe(QString menu_id, V_RECIPE new_recipe){
 
 void DialogStock::SetUIForm(){
     ui->LB_CUP_1->setText(stock["PAPER_CUP_1"].menu_name);
-    ui->LB_CUP_2->setText(stock["PP_CUP_1"].menu_name);
+    ui->LB_CUP_2->setText(stock["PAPER_CUP_2"].menu_name);
+    ui->LB_CUP_3->setText(stock["PP_CUP_1"].menu_name);
+    ui->LB_CUP_4->setText(stock["PP_CUP_2"].menu_name);
 
     ui->PB_CUP_1->setMaximum(stock["PAPER_CUP_1"].maximum);
-    ui->PB_CUP_2->setMaximum(stock["PP_CUP_1"].maximum);
+    ui->PB_CUP_2->setMaximum(stock["PAPER_CUP_2"].maximum);
+    ui->PB_CUP_3->setMaximum(stock["PP_CUP_1"].maximum);
+    ui->PB_CUP_4->setMaximum(stock["PP_CUP_2"].maximum);
 
     // ---------------------
 
@@ -228,20 +248,32 @@ void DialogStock::SetUIForm(){
     ui->LB_SYRUP_3->setText(stock["SYRUP_3"].menu_name);
     ui->LB_SYRUP_4->setText(stock["SYRUP_4"].menu_name);
     ui->LB_SYRUP_5->setText(stock["SYRUP_5"].menu_name);
-//    ui->LB_SYRUP_6->setText(stock["SYRUP_6"].menu_name);
+    ui->LB_SYRUP_6->setText(stock["SYRUP_6"].menu_name);
+    ui->LB_SYRUP_7->setText(stock["SYRUP_7"].menu_name);
+    ui->LB_SYRUP_8->setText(stock["SYRUP_8"].menu_name);
+    ui->LB_SYRUP_9->setText(stock["SYRUP_9"].menu_name);
+    ui->LB_SYRUP_10->setText(stock["SYRUP_10"].menu_name);
+    ui->LB_SYRUP_11->setText(stock["SYRUP_11"].menu_name);
+    ui->LB_SYRUP_12->setText(stock["SYRUP_12"].menu_name);
 
     ui->PB_SYRUP_1->setMaximum(stock["SYRUP_1"].maximum);
     ui->PB_SYRUP_2->setMaximum(stock["SYRUP_2"].maximum);
     ui->PB_SYRUP_3->setMaximum(stock["SYRUP_3"].maximum);
     ui->PB_SYRUP_4->setMaximum(stock["SYRUP_4"].maximum);
     ui->PB_SYRUP_5->setMaximum(stock["SYRUP_5"].maximum);
-//    ui->PB_SYRUP_6->setMaximum(stock["SYRUP_6"].maximum);
+    ui->PB_SYRUP_6->setMaximum(stock["SYRUP_6"].maximum);
+    ui->PB_SYRUP_7->setMaximum(stock["SYRUP_7"].maximum);
+    ui->PB_SYRUP_8->setMaximum(stock["SYRUP_8"].maximum);
+    ui->PB_SYRUP_9->setMaximum(stock["SYRUP_9"].maximum);
+    ui->PB_SYRUP_10->setMaximum(stock["SYRUP_10"].maximum);
+    ui->PB_SYRUP_11->setMaximum(stock["SYRUP_11"].maximum);
+    ui->PB_SYRUP_12->setMaximum(stock["SYRUP_12"].maximum);
 
     // ---------------------
 
 
     // ---------------------
-    ui->LB_ICE_1->setText(stock["ICE"].menu_name);
+    ui->LB_ICE_1->setText(stock["ICE_1"].menu_name);
     ui->LB_COFFEE->setText(stock["COFFEE"].menu_name);
     ui->LB_MILK->setText(stock["MILK"].menu_name);
     ui->PB_ICE_1->setMaximum(1);
@@ -252,7 +284,9 @@ void DialogStock::SetUIForm(){
 
     // ---------------------------
     ui->CB_STOCK_NAME->addItem("PAPER_CUP_1");
+    ui->CB_STOCK_NAME->addItem("PAPER_CUP_2");
     ui->CB_STOCK_NAME->addItem("PP_CUP_1");
+    ui->CB_STOCK_NAME->addItem("PP_CUP_2");
 
     ui->CB_STOCK_NAME->addItem("SYRUP_1");
     ui->CB_STOCK_NAME->addItem("SYRUP_2");
@@ -260,14 +294,24 @@ void DialogStock::SetUIForm(){
     ui->CB_STOCK_NAME->addItem("SYRUP_4");
     ui->CB_STOCK_NAME->addItem("SYRUP_5");
     ui->CB_STOCK_NAME->addItem("SYRUP_6");
+    ui->CB_STOCK_NAME->addItem("SYRUP_7");
+    ui->CB_STOCK_NAME->addItem("SYRUP_8");
+    ui->CB_STOCK_NAME->addItem("SYRUP_9");
+    ui->CB_STOCK_NAME->addItem("SYRUP_10");
+    ui->CB_STOCK_NAME->addItem("SYRUP_11");
+    ui->CB_STOCK_NAME->addItem("SYRUP_12");
 }
 
 void DialogStock::UpdateUI(){
     ui->PB_CUP_1->setValue(stock["PAPER_CUP_1"].current);
-    ui->PB_CUP_2->setValue(stock["PP_CUP_1"].current);
+    ui->PB_CUP_2->setValue(stock["PAPER_CUP_2"].current);
+    ui->PB_CUP_3->setValue(stock["PP_CUP_1"].current);
+    ui->PB_CUP_4->setValue(stock["PP_CUP_2"].current);
 
     ui->PB_CUP_1->setFormat(QString().sprintf("%d / %d", stock["PAPER_CUP_1"].current, stock["PAPER_CUP_1"].maximum));
-    ui->PB_CUP_2->setFormat(QString().sprintf("%d / %d", stock["PP_CUP_1"].current, stock["PP_CUP_1"].maximum));
+    ui->PB_CUP_2->setFormat(QString().sprintf("%d / %d", stock["PAPER_CUP_2"].current, stock["PAPER_CUP_2"].maximum));
+    ui->PB_CUP_3->setFormat(QString().sprintf("%d / %d", stock["PP_CUP_1"].current, stock["PP_CUP_1"].maximum));
+    ui->PB_CUP_4->setFormat(QString().sprintf("%d / %d", stock["PP_CUP_2"].current, stock["PP_CUP_2"].maximum));
 
     //------------------------
 
@@ -275,25 +319,30 @@ void DialogStock::UpdateUI(){
     ui->PB_SYRUP_2->setValue(stock["SYRUP_2"].current);
     ui->PB_SYRUP_3->setValue(stock["SYRUP_3"].current);
     ui->PB_SYRUP_4->setValue(stock["SYRUP_4"].current);
-//    ui->PB_SYRUP_5->setValue(1);//stock["SYRUP_5"].current);
-//    ui->PB_SYRUP_6->setValue(stock["SYRUP_6"].current);
+    ui->PB_SYRUP_5->setValue(stock["SYRUP_5"].current);
+    ui->PB_SYRUP_6->setValue(stock["SYRUP_6"].current);
+    ui->PB_SYRUP_7->setValue(stock["SYRUP_7"].current);
+    ui->PB_SYRUP_8->setValue(stock["SYRUP_8"].current);
+    ui->PB_SYRUP_9->setValue(stock["SYRUP_9"].current);
+    ui->PB_SYRUP_10->setValue(stock["SYRUP_10"].current);
+    ui->PB_SYRUP_11->setValue(stock["SYRUP_11"].current);
+    ui->PB_SYRUP_12->setValue(stock["SYRUP_12"].current);
+
     ui->PB_SYRUP_1->setFormat(QString().sprintf("%d / %d", stock["SYRUP_1"].current, stock["SYRUP_1"].maximum));
     ui->PB_SYRUP_2->setFormat(QString().sprintf("%d / %d", stock["SYRUP_2"].current, stock["SYRUP_2"].maximum));
     ui->PB_SYRUP_3->setFormat(QString().sprintf("%d / %d", stock["SYRUP_3"].current, stock["SYRUP_3"].maximum));
     ui->PB_SYRUP_4->setFormat(QString().sprintf("%d / %d", stock["SYRUP_4"].current, stock["SYRUP_4"].maximum));
-//    ui->PB_SYRUP_5->setFormat(QString().sprintf("%d / %d", stock["SYRUP_5"].current, stock["SYRUP_5"].maximum));
-//    ui->PB_SYRUP_6->setFormat(QString().sprintf("%d / %d", stock["SYRUP_6"].current, stock["SYRUP_6"].maximum));
+    ui->PB_SYRUP_5->setFormat(QString().sprintf("%d / %d", stock["SYRUP_5"].current, stock["SYRUP_5"].maximum));
+    ui->PB_SYRUP_6->setFormat(QString().sprintf("%d / %d", stock["SYRUP_6"].current, stock["SYRUP_6"].maximum));
+    ui->PB_SYRUP_7->setFormat(QString().sprintf("%d / %d", stock["SYRUP_7"].current, stock["SYRUP_7"].maximum));
+    ui->PB_SYRUP_8->setFormat(QString().sprintf("%d / %d", stock["SYRUP_8"].current, stock["SYRUP_8"].maximum));
+    ui->PB_SYRUP_9->setFormat(QString().sprintf("%d / %d", stock["SYRUP_9"].current, stock["SYRUP_9"].maximum));
+    ui->PB_SYRUP_10->setFormat(QString().sprintf("%d / %d", stock["SYRUP_10"].current, stock["SYRUP_10"].maximum));
+    ui->PB_SYRUP_11->setFormat(QString().sprintf("%d / %d", stock["SYRUP_11"].current, stock["SYRUP_11"].maximum));
+    ui->PB_SYRUP_12->setFormat(QString().sprintf("%d / %d", stock["SYRUP_12"].current, stock["SYRUP_12"].maximum));
 
     //------------------------
-
-    if(stock["SYRUP_5"].error == 1){
-        ui->PB_SYRUP_5->setValue(0);
-    }else{
-        ui->PB_SYRUP_5->setValue(1000);
-    }
-
-    //------------------------
-    if(stock["ICE"].error == 1){
+    if(stock["ICE_1"].error == 1){
         ui->PB_ICE_1->setValue(0);
     }else{
         ui->PB_ICE_1->setValue(1);
@@ -390,7 +439,7 @@ void DialogStock::UpdateStockReserved(){
                 stock["PAPER_CUP_1"].reserved += 1;
             }else if(ingredient == "PET_CUP"){
                 stock["PET_CUP_1"].reserved += 1;
-            }else if(ingredient == "SYRUP_5" || ingredient == "ICE" || ingredient == "COFFEE" || ingredient == "MILK" || ingredient == "OUTLET"){
+            }else if(ingredient == "SODA" || ingredient == "ICE" || ingredient == "COFFEE" || ingredient == "MILK" || ingredient == "OUTLET"){
                 ;
             }else{
                 stock[ingredient].reserved += amount.toUInt();
@@ -430,27 +479,38 @@ void DialogStock::UpdateMenuAvailable(){
             QString amount = re[j].amount;
             if(ingredient == "CUP"){
                 int cur_stock1, cur_stock2;
-                if(stock["PAPER_CUP_1"].error == 1){
-                    cur_stock1 = 0;
-                }else{
-                    cur_stock1 = stock["PAPER_CUP_1"].current - stock["PAPER_CUP_1"].minimum;
-                }
-                if(stock["PP_CUP_1"].error == 1){
-                    cur_stock2 = 0;
-                }else{
-                    cur_stock2 = stock["PP_CUP_1"].current - stock["PP_CUP_1"].minimum;
-                }
-
                 int cur_stock;
                 int reserved;
 
                 if(amount == "HOT"){
-                    cur_stock = cur_stock1;
-                    reserved = stock["PAPER_CUP_1"].reserved;
+                    if(stock["PAPER_CUP_1"].error == 1){
+                        cur_stock1 = 0;
+                    }else{
+                        cur_stock1 = stock["PAPER_CUP_1"].current - stock["PAPER_CUP_1"].minimum;
+                    }
+                    if(stock["PAPER_CUP_2"].error == 1){
+                        cur_stock2 = 0;
+                    }else{
+                        cur_stock2 = stock["PAPER_CUP_2"].current - stock["PAPER_CUP_2"].minimum;
+                    }
+                    reserved = stock["PAPER_CUP_1"].reserved + stock["PAPER_CUP_2"].reserved;
                 }else{
-                    cur_stock = cur_stock1 + cur_stock2;
-                    reserved = stock["PP_CUP_1"].reserved;
+                    if(stock["PP_CUP_1"].error == 1){
+                        cur_stock1 = 0;
+                    }else{
+                        cur_stock1 = stock["PP_CUP_1"].current - stock["PP_CUP_1"].minimum;
+                    }
+                    if(stock["PP_CUP_2"].error == 1){
+                        cur_stock2 = 0;
+                    }else{
+                        cur_stock2 = stock["PP_CUP_2"].current - stock["PP_CUP_2"].minimum;
+                    }
+                    reserved = stock["PP_CUP_1"].reserved + stock["PP_CUP_2"].reserved;
                 }
+
+
+                cur_stock = cur_stock1 + cur_stock2;
+
                 if(cur_stock-reserved < 1){
                     available = false;
                     break;
@@ -461,7 +521,12 @@ void DialogStock::UpdateMenuAvailable(){
                     break;
                 }
             }else if(ingredient == "ICE"){
-                if(stock["ICE"].error == 1){
+                if(stock["ICE_1"].error == 1){
+                    available = false;
+                    break;
+                }
+            }else if(ingredient == "SODA" || ingredient == "COLD" || ingredient == "HOT"){
+                if(stock["SODA"].error == 1){
                     available = false;
                     break;
                 }
@@ -512,11 +577,27 @@ void DialogStock::on_BTN_CUP_FULL_1_clicked(){
 }
 void DialogStock::on_BTN_CUP_HALF_2_clicked(){
     plog->write("[USER INPUT] CUP 2 HALF REFILL");
-    FillHalf("PP_CUP_1");
+    FillHalf("PAPER_CUP_2");
 }
 void DialogStock::on_BTN_CUP_FULL_2_clicked(){
     plog->write("[USER INPUT] CUP 2 FULL REFILL");
+    FillFull("PAPER_CUP_2");
+}
+void DialogStock::on_BTN_CUP_HALF_3_clicked(){
+    plog->write("[USER INPUT] CUP 3 HALF REFILL");
+    FillHalf("PP_CUP_1");
+}
+void DialogStock::on_BTN_CUP_FULL_3_clicked(){
+    plog->write("[USER INPUT] CUP 3 FULL REFILL");
     FillFull("PP_CUP_1");
+}
+void DialogStock::on_BTN_CUP_HALF_4_clicked(){
+    plog->write("[USER INPUT] CUP 4 HALF REFILL");
+    FillHalf("PP_CUP_2");
+}
+void DialogStock::on_BTN_CUP_FULL_4_clicked(){
+    plog->write("[USER INPUT] CUP 4 FULL REFILL");
+    FillFull("PP_CUP_2");
 }
 
 
@@ -538,9 +619,35 @@ void DialogStock::on_BTN_SYRUP_REPLACE_4_clicked(){
 }
 void DialogStock::on_BTN_SYRUP_REPLACE_5_clicked(){
     plog->write("[USER INPUT] SYRUP 5 ZERO");
-//    SetStock("SYRUP_5",0);
-//    stock["SYRUP_5"].error = 1;
-    use_soda = 0;
+    SetStock("SYRUP_5",0);
+}
+void DialogStock::on_BTN_SYRUP_REPLACE_6_clicked(){
+    plog->write("[USER INPUT] SYRUP 6 ZERO");
+    SetStock("SYRUP_6",0);
+}
+void DialogStock::on_BTN_SYRUP_REPLACE_7_clicked(){
+    plog->write("[USER INPUT] SYRUP 7 ZERO");
+    SetStock("SYRUP_7",0);
+}
+void DialogStock::on_BTN_SYRUP_REPLACE_8_clicked(){
+    plog->write("[USER INPUT] SYRUP 8 ZERO");
+    SetStock("SYRUP_8",0);
+}
+void DialogStock::on_BTN_SYRUP_REPLACE_9_clicked(){
+    plog->write("[USER INPUT] SYRUP 9 ZERO");
+    SetStock("SYRUP_9",0);
+}
+void DialogStock::on_BTN_SYRUP_REPLACE_10_clicked(){
+    plog->write("[USER INPUT] SYRUP 10 ZERO");
+    SetStock("SYRUP_10",0);
+}
+void DialogStock::on_BTN_SYRUP_REPLACE_11_clicked(){
+    plog->write("[USER INPUT] SYRUP 11 ZERO");
+    SetStock("SYRUP_11",0);
+}
+void DialogStock::on_BTN_SYRUP_REPLACE_12_clicked(){
+    plog->write("[USER INPUT] SYRUP 12 ZERO");
+    SetStock("SYRUP_12",0);
 }
 
 
@@ -593,7 +700,41 @@ void DialogStock::on_BTN_SYRUP_ADD_4_clicked()
 void DialogStock::on_BTN_SYRUP_ADD_5_clicked()
 {
     plog->write("[USER INPUT] SYRUP 5 ADD 1L");
-//    stock["SYRUP_5"].error = 0;
-    use_soda = 1;
+    SetStock("SYRUP_5",stock["SYRUP_5"].current+1000);
 }
-#endif
+
+void DialogStock::on_BTN_SYRUP_ADD_6_clicked()
+{
+    plog->write("[USER INPUT] SYRUP 6 ADD 1L");
+    SetStock("SYRUP_6",stock["SYRUP_6"].current+1000);
+}
+void DialogStock::on_BTN_SYRUP_ADD_7_clicked()
+{
+    plog->write("[USER INPUT] SYRUP 7 ADD 1L");
+    SetStock("SYRUP_7",stock["SYRUP_7"].current+1000);
+}
+void DialogStock::on_BTN_SYRUP_ADD_8_clicked()
+{
+    plog->write("[USER INPUT] SYRUP 8 ADD 1L");
+    SetStock("SYRUP_8",stock["SYRUP_8"].current+1000);
+}
+void DialogStock::on_BTN_SYRUP_ADD_9_clicked()
+{
+    plog->write("[USER INPUT] SYRUP 9 ADD 1L");
+    SetStock("SYRUP_9",stock["SYRUP_9"].current+1000);
+}
+void DialogStock::on_BTN_SYRUP_ADD_10_clicked()
+{
+    plog->write("[USER INPUT] SYRUP 10 ADD 1L");
+    SetStock("SYRUP_10",stock["SYRUP_10"].current+1000);
+}
+void DialogStock::on_BTN_SYRUP_ADD_11_clicked()
+{
+    plog->write("[USER INPUT] SYRUP 11 ADD 1L");
+    SetStock("SYRUP_11",stock["SYRUP_11"].current+1000);
+}
+void DialogStock::on_BTN_SYRUP_ADD_12_clicked()
+{
+    plog->write("[USER INPUT] SYRUP 12 ADD 1L");
+    SetStock("SYRUP_12",stock["SYRUP_12"].current+1000);
+}

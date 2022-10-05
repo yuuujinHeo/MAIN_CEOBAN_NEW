@@ -81,14 +81,11 @@ DialogCoffee::DialogCoffee(QWidget *parent, DialogStock *_stock) :
     db.setDatabaseName(DB_NAME_LOADCELL);
     db.open();
 
-#ifdef ICECREAM_VER
-#else
     connect(&timer, SIGNAL(timeout()), this, SLOT(onTimer()));
     timer.start(500);
 
     connect(&askTimer, SIGNAL(timeout()), this, SLOT(onAsk()));
     askTimer.start(1000);
-#endif
 }
 
 DialogCoffee::~DialogCoffee()

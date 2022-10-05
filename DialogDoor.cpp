@@ -11,18 +11,6 @@ DialogDoor::DialogDoor(QWidget *parent) :
 {
     ui->setupUi(this);
 
-#ifdef ICECREAM_VER
-    ui->GB_DOOR->setStyleSheet("QGroupBox  {\n    margin-top: 10px;"
-                                  "	font: 20pt \"함초롬돋움\";\n}\n\nQGroupBox::title  {"
-                                                     "    subcontrol-origin: margin;"
-                                                     "    subcontrol-position: top center;"
-                                                     "    padding: 10px 8000px 10px 8000px;"
-                                                     "    background-color: #FFC4D8;"
-                                                     "    color: rgb(255, 255, 255);}"
-                                                     "QLabel {\n	font: 10pt \"함초롬돋움\";\n}"
-                                                    "QComboBox{\n	font: 10pt \"함초롬돋움\";\n	background-color: #ffffff\n}\nQPushButton{\n	font: 10pt \"함초롬돋움\";\n	background-color: #ffffff\n}"
-                                                    "QLineEdit{\n	font: 10pt \"함초롬돋움\";\n	background-color: #ffffff\n}");
-#else
     ui->GB_DOOR->setStyleSheet("QGroupBox  {\n    margin-top: 10px;"
                                   "	font: 20pt \"함초롬돋움\";\n}\n\nQGroupBox::title  {"
                                                      "    subcontrol-origin: margin;"
@@ -33,7 +21,7 @@ DialogDoor::DialogDoor(QWidget *parent) :
                                                      "QLabel {\n	font: 10pt \"함초롬돋움\";\n}"
                                                     "QComboBox{\n	font: 10pt \"함초롬돋움\";\n	background-color: #ffffff\n}\nQPushButton{\n	font: 10pt \"함초롬돋움\";\n	background-color: #ffffff\n}"
                                                     "QLineEdit{\n	font: 10pt \"함초롬돋움\";\n	background-color: #ffffff\n}");
-#endif
+
     connect(&timer, SIGNAL(timeout()), this, SLOT(onTimer()));
     timer.start(200);
 }

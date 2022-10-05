@@ -11,8 +11,6 @@
 
 #include "GlobalHeader.h"
 
-#ifdef ICECREAM_VER
-#else
 #include "RBLAN2CAN.h"
 
 #include "DialogSetting.h"
@@ -20,13 +18,12 @@
 #include "DialogIceDispenser.h"
 #include "DialogCoffee.h"
 #include "DialogSyrup.h"
-#include "DialogIcecream.h"
-#include "DialogSlush.h"
 #include "DialogRobot.h"
 #include "DialogMonitor.h"
 #include "DialogDoor.h"
 #include "DialogBarcode.h"
 #include "DialogOutlet.h"
+#include "DialogSoda.h"
 #include "DialogKiosk.h"
 #include "DialogStock.h"
 #include "displaydialog.h"
@@ -60,8 +57,6 @@ public:
 
     DialogSetting       *setting;
     DialogCupDispenser  *cup;
-    DialogIcecream      *icecream;
-    DialogSlush         *slush;
     DialogIceDispenser  *ice;
     DialogCoffee        *coffee;
     DialogSyrup         *syrup;
@@ -69,6 +64,7 @@ public:
     DialogRobot         *robot;
     DialogMonitor       *monitor;
     DialogDoor          *door;
+    DialogSoda          *soda;
     DialogBarcode       *barcode;
     DialogOutlet        *outlet;
     DialogKiosk         *kiosk;
@@ -98,6 +94,7 @@ public:
     void Update_Dev_IceInfo();
     void Update_Dev_CoffeeInfo();
     void Update_Dev_SyrupInfo();
+    void Update_Dev_SodaInfo();
     void Update_Dev_RobotInfo();
     void Update_Dev_MonitorInfo();
     void Update_Dev_DoorInfo();
@@ -180,6 +177,8 @@ private slots:
 
     void on_BTN_RECIPE_EDIT_clicked();
 
+    void on_BTN_DEV_INFO_SODA_clicked();
+
 private:
     Ui::MainWindow *ui;
     QTimer  timer;
@@ -187,5 +186,4 @@ private:
     QSqlDatabase    db;
 };
 
-#endif
 #endif // MAINWINDOW_H

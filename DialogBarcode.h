@@ -7,12 +7,7 @@
 #include "GlobalHeader.h"
 #include <QtSerialPort>
 
-#ifdef ICECREAM_VER
-#define PLATFORM_NUMBER "074912"
-#else
 #define PLATFORM_NUMBER "074612"
-//"074612"
-#endif
 
 namespace Ui {
 class DialogBarcode;

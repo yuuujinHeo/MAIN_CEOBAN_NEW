@@ -46,18 +46,6 @@ DialogRobot::DialogRobot(QWidget *parent, DialogStock *_stock) :
     DEBUG_MISS_COMMAND_WORKING_CHECK_COUNT = 0;
 
 
-#ifdef ICECREAM_VER
-    ui->GB_ROBOT->setStyleSheet("QGroupBox  {\n    margin-top: 10px;"
-                                  "	font: 20pt \"함초롬돋움\";\n}\n\nQGroupBox::title  {"
-                                                     "    subcontrol-origin: margin;"
-                                                     "    subcontrol-position: top center;"
-                                                     "    padding: 10px 8000px 10px 8000px;"
-                                                     "    background-color: #FFC4D8;"
-                                                     "    color: rgb(255, 255, 255);}"
-                                                     "QLabel {\n	font: 10pt \"함초롬돋움\";\n}"
-                                                    "QComboBox{\n	font: 10pt \"함초롬돋움\";\n	background-color: #ffffff\n}\nQPushButton{\n	font: 10pt \"함초롬돋움\";\n	background-color: #ffffff\n}"
-                                                    "QLineEdit{\n	font: 10pt \"함초롬돋움\";\n	background-color: #ffffff\n}");
-#else
     ui->GB_ROBOT->setStyleSheet("QGroupBox  {\n    margin-top: 10px;"
                                   "	font: 20pt \"함초롬돋움\";\n}\n\nQGroupBox::title  {"
                                                      "    subcontrol-origin: margin;"
@@ -68,7 +56,7 @@ DialogRobot::DialogRobot(QWidget *parent, DialogStock *_stock) :
                                                      "QLabel {\n	font: 10pt \"함초롬돋움\";\n}"
                                                     "QComboBox{\n	font: 10pt \"함초롬돋움\";\n	background-color: #ffffff\n}\nQPushButton{\n	font: 10pt \"함초롬돋움\";\n	background-color: #ffffff\n}"
                                                     "QLineEdit{\n	font: 10pt \"함초롬돋움\";\n	background-color: #ffffff\n}");
-#endif
+
     connect(&timer, SIGNAL(timeout()), this, SLOT(onTimer()));
     timer.start(100);
 }

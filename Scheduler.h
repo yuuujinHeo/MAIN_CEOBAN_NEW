@@ -11,18 +11,14 @@
 #include "DialogRobot.h"
 #include "DialogMonitor.h"
 #include "DialogDoor.h"
-#include "DialogIcecream.h"
-#include "DialogSlush.h"
 #include "DialogBarcode.h"
 #include "DialogOutlet.h"
+#include "DialogSoda.h"
 #include "DialogKiosk.h"
 
 #include "GlobalHeader.h"
-#ifdef ICECREAM_VER
-#include "DialogStock_icecream.h"
-#else
+
 #include "DialogStock.h"
-#endif
 
 
 enum{
@@ -34,13 +30,12 @@ enum{
 enum{
     ROBOT_ON_INIT = 0,
     ROBOT_ON_OUTLET,
-    ROBOT_ON_CUP,
+    ROBOT_ON_CUP_HOT,
+    ROBOT_ON_CUP_ICE,
     ROBOT_ON_ICE,
     ROBOT_ON_SYRUP,
     ROBOT_ON_COFFEE,
-    ROBOT_ON_ICECREAM,
-    ROBOT_ON_SLUSH,
-    ROBOT_ON_BASE
+    ROBOT_ON_SODA
 };
 
 enum{
@@ -77,6 +72,13 @@ enum{
     ACTION_STATE_ICE_GET,
 
 
+    ACTION_STATE_SODA_READY,
+    ACTION_STATE_SODA_PLACE,
+    ACTION_STATE_SODA_WAIT_PLACE,
+    ACTION_STATE_SODA_WAIT_TARE,
+    ACTION_STATE_SODA_DISPENSE,
+    ACTION_STATE_SODA_WAIT_DISPENSE_DONE,
+    ACTION_STATE_SODA_GET,
 
 
 
@@ -85,43 +87,6 @@ enum{
     ACTION_STATE_COFFEE_DISPENSE,
     ACTION_STATE_COFFEE_WAIT_DISPENSE_DONE,
     ACTION_STATE_COFFEE_GET,
-
-//    ACTION_STATE_ICECREAM_READY,
-//    ACTION_STATE_ICECREAM_PLACE,
-//    ACTION_STATE_ICECREAM_WAIT_PLACE,
-//    ACTION_STATE_ICECREAM_WAIT_TARE,
-//    ACTION_STATE_ICECREAM_DISPENSE,
-//    ACTION_STATE_ICECREAM_DISPENSE_DONE,
-//    ACTION_STATE_ICECREAM_GET,
-
-//    ACTION_STATE_SLUSH_READY,
-//    ACTION_STATE_SLUSH_PLACE,
-//    ACTION_STATE_SLUSH_WAIT_PLACE,
-//    ACTION_STATE_SLUSH_WAIT_TARE,
-//    ACTION_STATE_SLUSH_DISPENSE,
-//    ACTION_STATE_SLUSH_WAIT_DISPENSE_DONE,
-//    ACTION_STATE_SLUSH_GET,
-
-    ACTION_STATE_ICECREAM_READY,
-    ACTION_STATE_ICECREAM_PLACE,
-    ACTION_STATE_ICECREAM_WAIT_PLACE,
-    ACTION_STATE_ICECREAM_WAIT_TARE,
-    ACTION_STATE_ICECREAM_DISPENSE,
-    ACTION_STATE_ICECREAM_WAIT_DISPENSE_DONE,
-    ACTION_STATE_ICECREAM_GET,
-
-    ACTION_STATE_SLUSH_READY,
-    ACTION_STATE_SLUSH_PLACE,
-    ACTION_STATE_SLUSH_WAIT_PLACE,
-    ACTION_STATE_SLUSH_WAIT_TARE,
-    ACTION_STATE_SLUSH_DISPENSE,
-    ACTION_STATE_SLUSH_WAIT_DISPENSE_DONE,
-    ACTION_STATE_SLUSH_GET,
-
-    ACTION_STATE_BASE_READY,
-    ACTION_STATE_BASE_PLACE,
-    ACTION_STATE_BASE_DISPENSE,
-    ACTION_STATE_BASE_GET,
 
     ACTION_STATE_SYRUP_READY,
     ACTION_STATE_SYRUP_PLACE,
@@ -180,8 +145,7 @@ public:
     Scheduler(DialogStock *_stock, DialogRobot *_robot, DialogCupDispenser *_cup,
               DialogCoffee *_coffee, DialogIceDispenser *_ice,
               DialogSyrup *_syrup, DialogOutlet *_outlet,
-              DialogBarcode *_barcode, DialogMonitor *_monitor,
-              DialogIcecream *_icecream, DialogSlush *_slush);
+              DialogBarcode *_barcode, DialogMonitor *_monitor, DialogSoda *_soda);
 
 
     int action_state;
@@ -243,11 +207,10 @@ private:
     DialogCoffee        *coffee;
     DialogIceDispenser  *ice;
     DialogSyrup         *syrup;
+    DialogSoda          *soda;
     DialogOutlet        *outlet;
     DialogBarcode       *barcode;
     DialogMonitor       *monitor;
-    DialogIcecream      *icecream;
-    DialogSlush         *slush;
 };
 
 #endif // SCHEDULER_H

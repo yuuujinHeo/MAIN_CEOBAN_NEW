@@ -127,9 +127,9 @@ void DialogIceDispenser::CheckFatalError(){
 
     // stock device error handling
     if(IsIceAvailable(0) == 0){
-        stock->SetDeviceError("ICE");
+        stock->SetDeviceError("ICE_1");
     }else{
-        stock->ClearDeviceError("ICE");
+        stock->ClearDeviceError("ICE_1");
     }
 }
 
@@ -325,7 +325,7 @@ void DialogIceDispenser::onTimer(){
             ui->LE_ICE_CHECK_COUNT->setText(QString().sprintf("%d", ICE_DATA[0].ice_out_count));
         }else{
             // device available check
-            stock->SetDeviceError("ICE");
+            stock->SetDeviceError("ICE_1");
 
             ui->LB_STATUS_COMM_MODE->setText("-");
 

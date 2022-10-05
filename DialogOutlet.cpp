@@ -33,18 +33,6 @@ DialogOutlet::DialogOutlet(QWidget *parent) :
     }
 
 
-#ifdef ICECREAM_VER
-    ui->GB_OUTLET->setStyleSheet("QGroupBox  {\n    margin-top: 10px;"
-                                  "	font: 20pt \"함초롬돋움\";\n}\n\nQGroupBox::title  {"
-                                                     "    subcontrol-origin: margin;"
-                                                     "    subcontrol-position: top center;"
-                                                     "    padding: 10px 8000px 10px 8000px;"
-                                                     "    background-color: #FFC4D8;"
-                                                     "    color: rgb(255, 255, 255);}"
-                                                     "QLabel {\n	font: 10pt \"함초롬돋움\";\n}"
-                                                    "QComboBox{\n	font: 10pt \"함초롬돋움\";\n	background-color: #ffffff\n}\nQPushButton{\n	font: 10pt \"함초롬돋움\";\n	background-color: #ffffff\n}"
-                                                    "QLineEdit{\n	font: 10pt \"함초롬돋움\";\n	background-color: #ffffff\n}");
-#else
     ui->GB_OUTLET->setStyleSheet("QGroupBox  {\n    margin-top: 10px;"
                                   "	font: 20pt \"함초롬돋움\";\n}\n\nQGroupBox::title  {"
                                                      "    subcontrol-origin: margin;"
@@ -55,7 +43,7 @@ DialogOutlet::DialogOutlet(QWidget *parent) :
                                                      "QLabel {\n	font: 10pt \"함초롬돋움\";\n}"
                                                     "QComboBox{\n	font: 10pt \"함초롬돋움\";\n	background-color: #ffffff\n}\nQPushButton{\n	font: 10pt \"함초롬돋움\";\n	background-color: #ffffff\n}"
                                                     "QLineEdit{\n	font: 10pt \"함초롬돋움\";\n	background-color: #ffffff\n}");
-#endif
+
     FATAL_INFO_CONNECTION_ERROR_1 = 0;
     FATAL_INFO_CONNECTION_ERROR_2 = 0;
 

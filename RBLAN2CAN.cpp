@@ -223,52 +223,6 @@ void RBLAN2CAN::onSockReadyRead(){
 
                                     index += 35;
                                 }
-                            }
-                            else if(data_type == 0xA6){
-                                // Icecream Dispenser
-                                int index = 6;
-
-                                for(int i=0; i<1; i++){
-                                    ICECREAM_DATA[i].connection_status = tempPacketData[index];
-
-                                    ICECREAM_DATA[i].loadcell[0].value = short(tempPacketData[index+1] | (tempPacketData[index+2]<<8));
-                                    ICECREAM_DATA[i].loadcell[0].calib_param = short(tempPacketData[index+3] | (tempPacketData[index+4]<<8));
-                                    ICECREAM_DATA[i].loadcell[0].error = tempPacketData[index+5];
-
-                                    ICECREAM_DATA[i].loadcell[1].value = short(tempPacketData[index+6] | (tempPacketData[index+7]<<8));
-                                    ICECREAM_DATA[i].loadcell[1].calib_param = short(tempPacketData[index+8] | (tempPacketData[index+9]<<8));
-                                    ICECREAM_DATA[i].loadcell[1].error = tempPacketData[index+10];
-
-                                    ICECREAM_DATA[i].out_state = tempPacketData[index+11];
-                                    ICECREAM_DATA[i].out_count = tempPacketData[index+12];
-                                    ICECREAM_DATA[i].last_error = tempPacketData[index+13];
-
-//                                    qDebug() << "icecream" << tempPacketData[index] << packet_length;
-
-                                    index += 14;
-                                }
-                            }else if(data_type == 0xA7){
-                                // Slush Dispenser
-                                int index = 6;
-
-                                for(int i=0; i<1; i++){
-                                    SLUSH_DATA[i].connection_status = tempPacketData[index];
-
-                                    SLUSH_DATA[i].loadcell[0].value = short(tempPacketData[index+1] | (tempPacketData[index+2]<<8));
-                                    SLUSH_DATA[i].loadcell[0].calib_param = short(tempPacketData[index+3] | (tempPacketData[index+4]<<8));
-                                    SLUSH_DATA[i].loadcell[0].error = tempPacketData[index+5];
-
-                                    SLUSH_DATA[i].loadcell[1].value = short(tempPacketData[index+6] | (tempPacketData[index+7]<<8));
-                                    SLUSH_DATA[i].loadcell[1].calib_param = short(tempPacketData[index+8] | (tempPacketData[index+9]<<8));
-                                    SLUSH_DATA[i].loadcell[1].error = tempPacketData[index+10];
-
-                                    SLUSH_DATA[i].out_state = tempPacketData[index+11];
-                                    SLUSH_DATA[i].out_count = tempPacketData[index+12];
-                                    SLUSH_DATA[i].last_error = tempPacketData[index+13];
-
-//                                    qDebug() << "slush" << tempPacketData[index] << packet_length;
-                                    index += 14;
-                                }
                             }else if(data_type == 0xAA){
                                 // Door Sensor
                                 int index = 6;

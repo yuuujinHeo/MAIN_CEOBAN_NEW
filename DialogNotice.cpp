@@ -12,13 +12,11 @@ DialogNotice::DialogNotice(QWidget *parent, DialogStock *_stock, DialogRobot *_r
                            DialogCoffee *_coffee, DialogIceDispenser *_ice,
                            DialogSyrup *_syrup, DialogOutlet *_outlet,
                            DialogBarcode *_barcode, DialogMonitor *_monitor,
-                           DialogIcecream *_icecream, DialogSlush *_slush,
                            DialogDoor *_door) :
     QDialog(parent), stock(_stock), robot(_robot), cup(_cup),
     coffee(_coffee), ice(_ice),
     syrup(_syrup), outlet(_outlet),
-    barcode(_barcode), monitor(_monitor),
-    icecream(_icecream), slush(_slush), door(_door),
+    barcode(_barcode), monitor(_monitor),door(_door),
     ui(new Ui::DialogNotice)
 {
     ui->setupUi(this);

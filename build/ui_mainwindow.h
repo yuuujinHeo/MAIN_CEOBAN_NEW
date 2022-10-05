@@ -57,19 +57,24 @@ public:
     QLineEdit *LE_PLATFORM_OPERATING;
     QLabel *label_138;
     QLineEdit *LE_PLATFORM_CLOSED;
-    QFrame *frame;
     QWidget *layoutWidget1;
     QHBoxLayout *horizontalLayout;
     QProgressBar *PB_CUP_1m;
     QProgressBar *PB_CUP_2m;
+    QProgressBar *PB_CUP_3m;
+    QProgressBar *PB_CUP_4m;
     QProgressBar *PB_SYRUP_1m;
     QProgressBar *PB_SYRUP_2m;
     QProgressBar *PB_SYRUP_3m;
     QProgressBar *PB_SYRUP_4m;
     QProgressBar *PB_SYRUP_5m;
-    QProgressBar *PB_ICE_1m;
-    QProgressBar *PB_COFFEEm;
-    QProgressBar *PB_MILKm;
+    QProgressBar *PB_SYRUP_6m;
+    QProgressBar *PB_SYRUP_7m;
+    QProgressBar *PB_SYRUP_8m;
+    QProgressBar *PB_SYRUP_9m;
+    QProgressBar *PB_SYRUP_10m;
+    QProgressBar *PB_SYRUP_11m;
+    QProgressBar *PB_SYRUP_12m;
     QStackedWidget *stackedWidget;
     QWidget *page;
     QFrame *FRAME;
@@ -153,17 +158,22 @@ public:
     QFrame *FRAME_CUP;
     QPushButton *BTN_DEV_INFO_CUP;
     QWidget *layoutWidget8;
-    QHBoxLayout *horizontalLayout_2;
+    QVBoxLayout *verticalLayout_2;
     QGridLayout *gridLayout_4;
-    QLabel *LB_CUP_2_LAST_ERROR;
-    QLabel *LB_CUP_2_OP_STATE;
-    QLabel *LB_CUP_1_OP_STATE;
-    QLabel *label_33;
-    QLabel *label_27;
-    QLabel *LB_CUP_1_LAST_ERROR;
-    QLabel *label_30;
     QLabel *label_29;
-    QSpacerItem *horizontalSpacer;
+    QLabel *LB_CUP_3_LAST_ERROR;
+    QLabel *label_33;
+    QLabel *LB_CUP_2_OP_STATE;
+    QLabel *LB_CUP_2_LAST_ERROR;
+    QLabel *label_30;
+    QLabel *LB_CUP_1_OP_STATE;
+    QLabel *LB_CUP_1_LAST_ERROR;
+    QLabel *label_34;
+    QLabel *label_27;
+    QLabel *LB_CUP_3_OP_STATE;
+    QLabel *label_35;
+    QLabel *LB_CUP_4_LAST_ERROR;
+    QLabel *LB_CUP_4_OP_STATE;
     QPushButton *BTN_CUP_ADD_DONE;
     QFrame *FRAME_ROBOT;
     QPushButton *BTN_DEV_INFO_ROBOT;
@@ -205,6 +215,16 @@ public:
     QVBoxLayout *verticalLayout;
     QLabel *LB_KIOSK_BLOCK_ORDER_2;
     QListWidget *LW_MENU;
+    QFrame *FRAME_SODA;
+    QPushButton *BTN_DEV_INFO_SODA;
+    QWidget *layoutWidget_2;
+    QGridLayout *gridLayout_9;
+    QLabel *label_8;
+    QLabel *LB_SODA_LOADCELL;
+    QLabel *label_9;
+    QLabel *LB_SODA_LAST_ERROR;
+    QLabel *label_10;
+    QLabel *LB_SODA_OP_STATE;
     QWidget *page_2;
     QFrame *FRAME_2;
     QTableWidget *TW_MENU;
@@ -416,14 +436,9 @@ public:
 
         gridLayout->addWidget(LE_PLATFORM_CLOSED, 1, 3, 1, 1);
 
-        frame = new QFrame(centralWidget);
-        frame->setObjectName(QString::fromUtf8("frame"));
-        frame->setGeometry(QRect(410, 20, 120, 80));
-        frame->setFrameShape(QFrame::NoFrame);
-        frame->setFrameShadow(QFrame::Raised);
         layoutWidget1 = new QWidget(centralWidget);
         layoutWidget1->setObjectName(QString::fromUtf8("layoutWidget1"));
-        layoutWidget1->setGeometry(QRect(430, 20, 152, 84));
+        layoutWidget1->setGeometry(QRect(400, 20, 222, 84));
         horizontalLayout = new QHBoxLayout(layoutWidget1);
         horizontalLayout->setSpacing(4);
         horizontalLayout->setContentsMargins(11, 11, 11, 11);
@@ -446,6 +461,24 @@ public:
         PB_CUP_2m->setOrientation(Qt::Vertical);
 
         horizontalLayout->addWidget(PB_CUP_2m);
+
+        PB_CUP_3m = new QProgressBar(layoutWidget1);
+        PB_CUP_3m->setObjectName(QString::fromUtf8("PB_CUP_3m"));
+        PB_CUP_3m->setMaximumSize(QSize(10, 80));
+        PB_CUP_3m->setValue(24);
+        PB_CUP_3m->setTextVisible(false);
+        PB_CUP_3m->setOrientation(Qt::Vertical);
+
+        horizontalLayout->addWidget(PB_CUP_3m);
+
+        PB_CUP_4m = new QProgressBar(layoutWidget1);
+        PB_CUP_4m->setObjectName(QString::fromUtf8("PB_CUP_4m"));
+        PB_CUP_4m->setMaximumSize(QSize(10, 80));
+        PB_CUP_4m->setValue(24);
+        PB_CUP_4m->setTextVisible(false);
+        PB_CUP_4m->setOrientation(Qt::Vertical);
+
+        horizontalLayout->addWidget(PB_CUP_4m);
 
         PB_SYRUP_1m = new QProgressBar(layoutWidget1);
         PB_SYRUP_1m->setObjectName(QString::fromUtf8("PB_SYRUP_1m"));
@@ -492,32 +525,68 @@ public:
 
         horizontalLayout->addWidget(PB_SYRUP_5m);
 
-        PB_ICE_1m = new QProgressBar(layoutWidget1);
-        PB_ICE_1m->setObjectName(QString::fromUtf8("PB_ICE_1m"));
-        PB_ICE_1m->setMaximumSize(QSize(10, 80));
-        PB_ICE_1m->setValue(24);
-        PB_ICE_1m->setTextVisible(false);
-        PB_ICE_1m->setOrientation(Qt::Vertical);
+        PB_SYRUP_6m = new QProgressBar(layoutWidget1);
+        PB_SYRUP_6m->setObjectName(QString::fromUtf8("PB_SYRUP_6m"));
+        PB_SYRUP_6m->setMaximumSize(QSize(10, 80));
+        PB_SYRUP_6m->setValue(24);
+        PB_SYRUP_6m->setTextVisible(false);
+        PB_SYRUP_6m->setOrientation(Qt::Vertical);
 
-        horizontalLayout->addWidget(PB_ICE_1m);
+        horizontalLayout->addWidget(PB_SYRUP_6m);
 
-        PB_COFFEEm = new QProgressBar(layoutWidget1);
-        PB_COFFEEm->setObjectName(QString::fromUtf8("PB_COFFEEm"));
-        PB_COFFEEm->setMaximumSize(QSize(10, 80));
-        PB_COFFEEm->setValue(24);
-        PB_COFFEEm->setTextVisible(false);
-        PB_COFFEEm->setOrientation(Qt::Vertical);
+        PB_SYRUP_7m = new QProgressBar(layoutWidget1);
+        PB_SYRUP_7m->setObjectName(QString::fromUtf8("PB_SYRUP_7m"));
+        PB_SYRUP_7m->setMaximumSize(QSize(10, 80));
+        PB_SYRUP_7m->setValue(24);
+        PB_SYRUP_7m->setTextVisible(false);
+        PB_SYRUP_7m->setOrientation(Qt::Vertical);
 
-        horizontalLayout->addWidget(PB_COFFEEm);
+        horizontalLayout->addWidget(PB_SYRUP_7m);
 
-        PB_MILKm = new QProgressBar(layoutWidget1);
-        PB_MILKm->setObjectName(QString::fromUtf8("PB_MILKm"));
-        PB_MILKm->setMaximumSize(QSize(10, 80));
-        PB_MILKm->setValue(24);
-        PB_MILKm->setTextVisible(false);
-        PB_MILKm->setOrientation(Qt::Vertical);
+        PB_SYRUP_8m = new QProgressBar(layoutWidget1);
+        PB_SYRUP_8m->setObjectName(QString::fromUtf8("PB_SYRUP_8m"));
+        PB_SYRUP_8m->setMaximumSize(QSize(10, 80));
+        PB_SYRUP_8m->setValue(24);
+        PB_SYRUP_8m->setTextVisible(false);
+        PB_SYRUP_8m->setOrientation(Qt::Vertical);
 
-        horizontalLayout->addWidget(PB_MILKm);
+        horizontalLayout->addWidget(PB_SYRUP_8m);
+
+        PB_SYRUP_9m = new QProgressBar(layoutWidget1);
+        PB_SYRUP_9m->setObjectName(QString::fromUtf8("PB_SYRUP_9m"));
+        PB_SYRUP_9m->setMaximumSize(QSize(10, 80));
+        PB_SYRUP_9m->setValue(24);
+        PB_SYRUP_9m->setTextVisible(false);
+        PB_SYRUP_9m->setOrientation(Qt::Vertical);
+
+        horizontalLayout->addWidget(PB_SYRUP_9m);
+
+        PB_SYRUP_10m = new QProgressBar(layoutWidget1);
+        PB_SYRUP_10m->setObjectName(QString::fromUtf8("PB_SYRUP_10m"));
+        PB_SYRUP_10m->setMaximumSize(QSize(10, 80));
+        PB_SYRUP_10m->setValue(24);
+        PB_SYRUP_10m->setTextVisible(false);
+        PB_SYRUP_10m->setOrientation(Qt::Vertical);
+
+        horizontalLayout->addWidget(PB_SYRUP_10m);
+
+        PB_SYRUP_11m = new QProgressBar(layoutWidget1);
+        PB_SYRUP_11m->setObjectName(QString::fromUtf8("PB_SYRUP_11m"));
+        PB_SYRUP_11m->setMaximumSize(QSize(10, 80));
+        PB_SYRUP_11m->setValue(24);
+        PB_SYRUP_11m->setTextVisible(false);
+        PB_SYRUP_11m->setOrientation(Qt::Vertical);
+
+        horizontalLayout->addWidget(PB_SYRUP_11m);
+
+        PB_SYRUP_12m = new QProgressBar(layoutWidget1);
+        PB_SYRUP_12m->setObjectName(QString::fromUtf8("PB_SYRUP_12m"));
+        PB_SYRUP_12m->setMaximumSize(QSize(10, 80));
+        PB_SYRUP_12m->setValue(24);
+        PB_SYRUP_12m->setTextVisible(false);
+        PB_SYRUP_12m->setOrientation(Qt::Vertical);
+
+        horizontalLayout->addWidget(PB_SYRUP_12m);
 
         stackedWidget = new QStackedWidget(centralWidget);
         stackedWidget->setObjectName(QString::fromUtf8("stackedWidget"));
@@ -537,7 +606,7 @@ public:
         FRAME->setLineWidth(3);
         FRAME_COFFEE = new QFrame(FRAME);
         FRAME_COFFEE->setObjectName(QString::fromUtf8("FRAME_COFFEE"));
-        FRAME_COFFEE->setGeometry(QRect(100, 280, 261, 331));
+        FRAME_COFFEE->setGeometry(QRect(60, 60, 281, 331));
         FRAME_COFFEE->setStyleSheet(QString::fromUtf8("QFrame { \n"
 "   border: 2px solid #595959 \n"
 "} \n"
@@ -556,7 +625,7 @@ public:
         FRAME_COFFEE->setLineWidth(2);
         BTN_DEV_INFO_COFFEE = new QPushButton(FRAME_COFFEE);
         BTN_DEV_INFO_COFFEE->setObjectName(QString::fromUtf8("BTN_DEV_INFO_COFFEE"));
-        BTN_DEV_INFO_COFFEE->setGeometry(QRect(0, 0, 261, 70));
+        BTN_DEV_INFO_COFFEE->setGeometry(QRect(0, 0, 281, 70));
         QFont font6;
         font6.setFamily(QString::fromUtf8("\355\225\250\354\264\210\353\241\254\353\217\213\354\233\200"));
         font6.setPointSize(15);
@@ -566,7 +635,7 @@ public:
         BTN_DEV_INFO_COFFEE->setFont(font6);
         layoutWidget2 = new QWidget(FRAME_COFFEE);
         layoutWidget2->setObjectName(QString::fromUtf8("layoutWidget2"));
-        layoutWidget2->setGeometry(QRect(10, 80, 241, 241));
+        layoutWidget2->setGeometry(QRect(10, 80, 261, 241));
         gridLayout_6 = new QGridLayout(layoutWidget2);
         gridLayout_6->setSpacing(6);
         gridLayout_6->setContentsMargins(11, 11, 11, 11);
@@ -769,7 +838,7 @@ public:
 
         FRAME_ICE_1 = new QFrame(FRAME);
         FRAME_ICE_1->setObjectName(QString::fromUtf8("FRAME_ICE_1"));
-        FRAME_ICE_1->setGeometry(QRect(100, 60, 261, 161));
+        FRAME_ICE_1->setGeometry(QRect(370, 60, 231, 161));
         FRAME_ICE_1->setStyleSheet(QString::fromUtf8("QFrame { \n"
 "   border: 2px solid #595959 \n"
 "} \n"
@@ -788,11 +857,11 @@ public:
         FRAME_ICE_1->setLineWidth(2);
         BTN_DEV_INFO_ICE_1 = new QPushButton(FRAME_ICE_1);
         BTN_DEV_INFO_ICE_1->setObjectName(QString::fromUtf8("BTN_DEV_INFO_ICE_1"));
-        BTN_DEV_INFO_ICE_1->setGeometry(QRect(0, 0, 261, 70));
+        BTN_DEV_INFO_ICE_1->setGeometry(QRect(0, 0, 231, 70));
         BTN_DEV_INFO_ICE_1->setFont(font6);
         layoutWidget3 = new QWidget(FRAME_ICE_1);
         layoutWidget3->setObjectName(QString::fromUtf8("layoutWidget3"));
-        layoutWidget3->setGeometry(QRect(30, 90, 201, 48));
+        layoutWidget3->setGeometry(QRect(10, 90, 211, 48));
         gridLayout_5 = new QGridLayout(layoutWidget3);
         gridLayout_5->setSpacing(6);
         gridLayout_5->setContentsMargins(11, 11, 11, 11);
@@ -847,7 +916,7 @@ public:
 
         FRAME_SYRUP = new QFrame(FRAME);
         FRAME_SYRUP->setObjectName(QString::fromUtf8("FRAME_SYRUP"));
-        FRAME_SYRUP->setGeometry(QRect(840, 60, 231, 161));
+        FRAME_SYRUP->setGeometry(QRect(1230, 60, 231, 161));
         FRAME_SYRUP->setStyleSheet(QString::fromUtf8("QFrame { \n"
 "   border: 2px solid #595959 \n"
 "} \n"
@@ -938,7 +1007,7 @@ public:
 
         FRAME_OUTLET = new QFrame(FRAME);
         FRAME_OUTLET->setObjectName(QString::fromUtf8("FRAME_OUTLET"));
-        FRAME_OUTLET->setGeometry(QRect(760, 720, 441, 201));
+        FRAME_OUTLET->setGeometry(QRect(680, 710, 441, 201));
         FRAME_OUTLET->setStyleSheet(QString::fromUtf8("QFrame { \n"
 "   border: 2px solid #595959 \n"
 "} \n"
@@ -1126,7 +1195,7 @@ public:
 
         FRAME_MONITOR = new QFrame(FRAME);
         FRAME_MONITOR->setObjectName(QString::fromUtf8("FRAME_MONITOR"));
-        FRAME_MONITOR->setGeometry(QRect(420, 60, 341, 161));
+        FRAME_MONITOR->setGeometry(QRect(630, 60, 311, 161));
         FRAME_MONITOR->setStyleSheet(QString::fromUtf8("QFrame { \n"
 "   border: 2px solid #595959 \n"
 "} \n"
@@ -1144,11 +1213,11 @@ public:
         FRAME_MONITOR->setFrameShadow(QFrame::Raised);
         BTN_DEV_INFO_MONITOR = new QPushButton(FRAME_MONITOR);
         BTN_DEV_INFO_MONITOR->setObjectName(QString::fromUtf8("BTN_DEV_INFO_MONITOR"));
-        BTN_DEV_INFO_MONITOR->setGeometry(QRect(0, 0, 341, 70));
+        BTN_DEV_INFO_MONITOR->setGeometry(QRect(0, 0, 311, 70));
         BTN_DEV_INFO_MONITOR->setFont(font6);
         layoutWidget7 = new QWidget(FRAME_MONITOR);
         layoutWidget7->setObjectName(QString::fromUtf8("layoutWidget7"));
-        layoutWidget7->setGeometry(QRect(20, 80, 301, 74));
+        layoutWidget7->setGeometry(QRect(10, 80, 291, 74));
         gridLayout_2 = new QGridLayout(layoutWidget7);
         gridLayout_2->setSpacing(6);
         gridLayout_2->setContentsMargins(11, 11, 11, 11);
@@ -1217,7 +1286,7 @@ public:
 
         FRAME_CUP = new QFrame(FRAME);
         FRAME_CUP->setObjectName(QString::fromUtf8("FRAME_CUP"));
-        FRAME_CUP->setGeometry(QRect(1120, 60, 351, 161));
+        FRAME_CUP->setGeometry(QRect(60, 420, 281, 221));
         FRAME_CUP->setStyleSheet(QString::fromUtf8("QFrame { \n"
 "   border: 2px solid #595959 \n"
 "} \n"
@@ -1235,49 +1304,39 @@ public:
         FRAME_CUP->setFrameShadow(QFrame::Raised);
         BTN_DEV_INFO_CUP = new QPushButton(FRAME_CUP);
         BTN_DEV_INFO_CUP->setObjectName(QString::fromUtf8("BTN_DEV_INFO_CUP"));
-        BTN_DEV_INFO_CUP->setGeometry(QRect(0, 0, 351, 70));
+        BTN_DEV_INFO_CUP->setGeometry(QRect(0, 0, 281, 70));
         BTN_DEV_INFO_CUP->setFont(font6);
         BTN_DEV_INFO_CUP->setFlat(false);
         layoutWidget8 = new QWidget(FRAME_CUP);
         layoutWidget8->setObjectName(QString::fromUtf8("layoutWidget8"));
-        layoutWidget8->setGeometry(QRect(34, 80, 284, 76));
-        horizontalLayout_2 = new QHBoxLayout(layoutWidget8);
-        horizontalLayout_2->setSpacing(6);
-        horizontalLayout_2->setContentsMargins(11, 11, 11, 11);
-        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
-        horizontalLayout_2->setContentsMargins(0, 0, 0, 0);
+        layoutWidget8->setGeometry(QRect(10, 80, 262, 132));
+        verticalLayout_2 = new QVBoxLayout(layoutWidget8);
+        verticalLayout_2->setSpacing(6);
+        verticalLayout_2->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
+        verticalLayout_2->setContentsMargins(0, 0, 0, 0);
         gridLayout_4 = new QGridLayout();
         gridLayout_4->setSpacing(6);
         gridLayout_4->setObjectName(QString::fromUtf8("gridLayout_4"));
-        LB_CUP_2_LAST_ERROR = new QLabel(layoutWidget8);
-        LB_CUP_2_LAST_ERROR->setObjectName(QString::fromUtf8("LB_CUP_2_LAST_ERROR"));
-        LB_CUP_2_LAST_ERROR->setFont(font9);
-        LB_CUP_2_LAST_ERROR->setStyleSheet(QString::fromUtf8("QLabel{ \n"
+        label_29 = new QLabel(layoutWidget8);
+        label_29->setObjectName(QString::fromUtf8("label_29"));
+        label_29->setFont(font9);
+        label_29->setStyleSheet(QString::fromUtf8("QLabel{ \n"
 "   border: 0px solid\n"
 "} "));
-        LB_CUP_2_LAST_ERROR->setAlignment(Qt::AlignCenter);
+        label_29->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
 
-        gridLayout_4->addWidget(LB_CUP_2_LAST_ERROR, 1, 2, 1, 1);
+        gridLayout_4->addWidget(label_29, 2, 0, 1, 1);
 
-        LB_CUP_2_OP_STATE = new QLabel(layoutWidget8);
-        LB_CUP_2_OP_STATE->setObjectName(QString::fromUtf8("LB_CUP_2_OP_STATE"));
-        LB_CUP_2_OP_STATE->setFont(font9);
-        LB_CUP_2_OP_STATE->setStyleSheet(QString::fromUtf8("QLabel{ \n"
+        LB_CUP_3_LAST_ERROR = new QLabel(layoutWidget8);
+        LB_CUP_3_LAST_ERROR->setObjectName(QString::fromUtf8("LB_CUP_3_LAST_ERROR"));
+        LB_CUP_3_LAST_ERROR->setFont(font9);
+        LB_CUP_3_LAST_ERROR->setStyleSheet(QString::fromUtf8("QLabel{ \n"
 "   border: 0px solid\n"
 "} "));
-        LB_CUP_2_OP_STATE->setAlignment(Qt::AlignCenter);
+        LB_CUP_3_LAST_ERROR->setAlignment(Qt::AlignCenter);
 
-        gridLayout_4->addWidget(LB_CUP_2_OP_STATE, 2, 2, 1, 1);
-
-        LB_CUP_1_OP_STATE = new QLabel(layoutWidget8);
-        LB_CUP_1_OP_STATE->setObjectName(QString::fromUtf8("LB_CUP_1_OP_STATE"));
-        LB_CUP_1_OP_STATE->setFont(font9);
-        LB_CUP_1_OP_STATE->setStyleSheet(QString::fromUtf8("QLabel{ \n"
-"   border: 0px solid\n"
-"} "));
-        LB_CUP_1_OP_STATE->setAlignment(Qt::AlignCenter);
-
-        gridLayout_4->addWidget(LB_CUP_1_OP_STATE, 2, 1, 1, 1);
+        gridLayout_4->addWidget(LB_CUP_3_LAST_ERROR, 1, 3, 1, 1);
 
         label_33 = new QLabel(layoutWidget8);
         label_33->setObjectName(QString::fromUtf8("label_33"));
@@ -1289,25 +1348,25 @@ public:
 
         gridLayout_4->addWidget(label_33, 0, 2, 1, 1);
 
-        label_27 = new QLabel(layoutWidget8);
-        label_27->setObjectName(QString::fromUtf8("label_27"));
-        label_27->setFont(font9);
-        label_27->setStyleSheet(QString::fromUtf8("QLabel{ \n"
+        LB_CUP_2_OP_STATE = new QLabel(layoutWidget8);
+        LB_CUP_2_OP_STATE->setObjectName(QString::fromUtf8("LB_CUP_2_OP_STATE"));
+        LB_CUP_2_OP_STATE->setFont(font9);
+        LB_CUP_2_OP_STATE->setStyleSheet(QString::fromUtf8("QLabel{ \n"
 "   border: 0px solid\n"
 "} "));
-        label_27->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+        LB_CUP_2_OP_STATE->setAlignment(Qt::AlignCenter);
 
-        gridLayout_4->addWidget(label_27, 0, 1, 1, 1);
+        gridLayout_4->addWidget(LB_CUP_2_OP_STATE, 2, 2, 1, 1);
 
-        LB_CUP_1_LAST_ERROR = new QLabel(layoutWidget8);
-        LB_CUP_1_LAST_ERROR->setObjectName(QString::fromUtf8("LB_CUP_1_LAST_ERROR"));
-        LB_CUP_1_LAST_ERROR->setFont(font9);
-        LB_CUP_1_LAST_ERROR->setStyleSheet(QString::fromUtf8("QLabel{ \n"
+        LB_CUP_2_LAST_ERROR = new QLabel(layoutWidget8);
+        LB_CUP_2_LAST_ERROR->setObjectName(QString::fromUtf8("LB_CUP_2_LAST_ERROR"));
+        LB_CUP_2_LAST_ERROR->setFont(font9);
+        LB_CUP_2_LAST_ERROR->setStyleSheet(QString::fromUtf8("QLabel{ \n"
 "   border: 0px solid\n"
 "} "));
-        LB_CUP_1_LAST_ERROR->setAlignment(Qt::AlignCenter);
+        LB_CUP_2_LAST_ERROR->setAlignment(Qt::AlignCenter);
 
-        gridLayout_4->addWidget(LB_CUP_1_LAST_ERROR, 1, 1, 1, 1);
+        gridLayout_4->addWidget(LB_CUP_2_LAST_ERROR, 1, 2, 1, 1);
 
         label_30 = new QLabel(layoutWidget8);
         label_30->setObjectName(QString::fromUtf8("label_30"));
@@ -1319,22 +1378,88 @@ public:
 
         gridLayout_4->addWidget(label_30, 1, 0, 1, 1);
 
-        label_29 = new QLabel(layoutWidget8);
-        label_29->setObjectName(QString::fromUtf8("label_29"));
-        label_29->setFont(font9);
-        label_29->setStyleSheet(QString::fromUtf8("QLabel{ \n"
+        LB_CUP_1_OP_STATE = new QLabel(layoutWidget8);
+        LB_CUP_1_OP_STATE->setObjectName(QString::fromUtf8("LB_CUP_1_OP_STATE"));
+        LB_CUP_1_OP_STATE->setFont(font9);
+        LB_CUP_1_OP_STATE->setStyleSheet(QString::fromUtf8("QLabel{ \n"
 "   border: 0px solid\n"
 "} "));
-        label_29->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+        LB_CUP_1_OP_STATE->setAlignment(Qt::AlignCenter);
 
-        gridLayout_4->addWidget(label_29, 2, 0, 1, 1);
+        gridLayout_4->addWidget(LB_CUP_1_OP_STATE, 2, 1, 1, 1);
+
+        LB_CUP_1_LAST_ERROR = new QLabel(layoutWidget8);
+        LB_CUP_1_LAST_ERROR->setObjectName(QString::fromUtf8("LB_CUP_1_LAST_ERROR"));
+        LB_CUP_1_LAST_ERROR->setFont(font9);
+        LB_CUP_1_LAST_ERROR->setStyleSheet(QString::fromUtf8("QLabel{ \n"
+"   border: 0px solid\n"
+"} "));
+        LB_CUP_1_LAST_ERROR->setAlignment(Qt::AlignCenter);
+
+        gridLayout_4->addWidget(LB_CUP_1_LAST_ERROR, 1, 1, 1, 1);
+
+        label_34 = new QLabel(layoutWidget8);
+        label_34->setObjectName(QString::fromUtf8("label_34"));
+        label_34->setFont(font9);
+        label_34->setStyleSheet(QString::fromUtf8("QLabel{ \n"
+"   border: 0px solid\n"
+"} "));
+        label_34->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        gridLayout_4->addWidget(label_34, 0, 3, 1, 1);
+
+        label_27 = new QLabel(layoutWidget8);
+        label_27->setObjectName(QString::fromUtf8("label_27"));
+        label_27->setFont(font9);
+        label_27->setStyleSheet(QString::fromUtf8("QLabel{ \n"
+"   border: 0px solid\n"
+"} "));
+        label_27->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        gridLayout_4->addWidget(label_27, 0, 1, 1, 1);
+
+        LB_CUP_3_OP_STATE = new QLabel(layoutWidget8);
+        LB_CUP_3_OP_STATE->setObjectName(QString::fromUtf8("LB_CUP_3_OP_STATE"));
+        LB_CUP_3_OP_STATE->setFont(font9);
+        LB_CUP_3_OP_STATE->setStyleSheet(QString::fromUtf8("QLabel{ \n"
+"   border: 0px solid\n"
+"} "));
+        LB_CUP_3_OP_STATE->setAlignment(Qt::AlignCenter);
+
+        gridLayout_4->addWidget(LB_CUP_3_OP_STATE, 2, 3, 1, 1);
+
+        label_35 = new QLabel(layoutWidget8);
+        label_35->setObjectName(QString::fromUtf8("label_35"));
+        label_35->setFont(font9);
+        label_35->setStyleSheet(QString::fromUtf8("QLabel{ \n"
+"   border: 0px solid\n"
+"} "));
+        label_35->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        gridLayout_4->addWidget(label_35, 0, 4, 1, 1);
+
+        LB_CUP_4_LAST_ERROR = new QLabel(layoutWidget8);
+        LB_CUP_4_LAST_ERROR->setObjectName(QString::fromUtf8("LB_CUP_4_LAST_ERROR"));
+        LB_CUP_4_LAST_ERROR->setFont(font9);
+        LB_CUP_4_LAST_ERROR->setStyleSheet(QString::fromUtf8("QLabel{ \n"
+"   border: 0px solid\n"
+"} "));
+        LB_CUP_4_LAST_ERROR->setAlignment(Qt::AlignCenter);
+
+        gridLayout_4->addWidget(LB_CUP_4_LAST_ERROR, 1, 4, 1, 1);
+
+        LB_CUP_4_OP_STATE = new QLabel(layoutWidget8);
+        LB_CUP_4_OP_STATE->setObjectName(QString::fromUtf8("LB_CUP_4_OP_STATE"));
+        LB_CUP_4_OP_STATE->setFont(font9);
+        LB_CUP_4_OP_STATE->setStyleSheet(QString::fromUtf8("QLabel{ \n"
+"   border: 0px solid\n"
+"} "));
+        LB_CUP_4_OP_STATE->setAlignment(Qt::AlignCenter);
+
+        gridLayout_4->addWidget(LB_CUP_4_OP_STATE, 2, 4, 1, 1);
 
 
-        horizontalLayout_2->addLayout(gridLayout_4);
-
-        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        horizontalLayout_2->addItem(horizontalSpacer);
+        verticalLayout_2->addLayout(gridLayout_4);
 
         BTN_CUP_ADD_DONE = new QPushButton(layoutWidget8);
         BTN_CUP_ADD_DONE->setObjectName(QString::fromUtf8("BTN_CUP_ADD_DONE"));
@@ -1343,11 +1468,11 @@ public:
         BTN_CUP_ADD_DONE->setStyleSheet(QString::fromUtf8("font: 10pt \"\355\225\250\354\264\210\353\241\254\353\217\213\354\233\200\";\n"
 "background-color: #595959"));
 
-        horizontalLayout_2->addWidget(BTN_CUP_ADD_DONE);
+        verticalLayout_2->addWidget(BTN_CUP_ADD_DONE);
 
         FRAME_ROBOT = new QFrame(FRAME);
         FRAME_ROBOT->setObjectName(QString::fromUtf8("FRAME_ROBOT"));
-        FRAME_ROBOT->setGeometry(QRect(580, 400, 351, 211));
+        FRAME_ROBOT->setGeometry(QRect(560, 330, 351, 211));
         FRAME_ROBOT->setStyleSheet(QString::fromUtf8("QFrame { \n"
 "   border: 2px solid #595959 \n"
 "} \n"
@@ -1472,7 +1597,7 @@ public:
         label_92->setAlignment(Qt::AlignCenter);
         FRAME_BARCODE = new QFrame(FRAME);
         FRAME_BARCODE->setObjectName(QString::fromUtf8("FRAME_BARCODE"));
-        FRAME_BARCODE->setGeometry(QRect(1300, 720, 171, 201));
+        FRAME_BARCODE->setGeometry(QRect(480, 710, 171, 201));
         FRAME_BARCODE->setStyleSheet(QString::fromUtf8("QFrame { \n"
 "   border: 2px solid #595959 \n"
 "} \n"
@@ -1510,7 +1635,7 @@ public:
         LB_BARCODE_LAST_DATA->setAlignment(Qt::AlignCenter);
         FRAME_DOOR = new QFrame(FRAME);
         FRAME_DOOR->setObjectName(QString::fromUtf8("FRAME_DOOR"));
-        FRAME_DOOR->setGeometry(QRect(500, 720, 221, 201));
+        FRAME_DOOR->setGeometry(QRect(1240, 710, 221, 201));
         FRAME_DOOR->setStyleSheet(QString::fromUtf8("QFrame { \n"
 "   border: 2px solid #595959 \n"
 "} \n"
@@ -1558,7 +1683,7 @@ public:
         LE_DOOR_OPENED->setReadOnly(true);
         FRAME_KIOSK = new QFrame(FRAME);
         FRAME_KIOSK->setObjectName(QString::fromUtf8("FRAME_KIOSK"));
-        FRAME_KIOSK->setGeometry(QRect(100, 720, 181, 201));
+        FRAME_KIOSK->setGeometry(QRect(60, 710, 181, 201));
         FRAME_KIOSK->setStyleSheet(QString::fromUtf8("QFrame { \n"
 "   border: 2px solid #595959 \n"
 "} \n"
@@ -1588,7 +1713,7 @@ public:
         LB_KIOSK_BLOCK_ORDER->setAlignment(Qt::AlignCenter);
         FRAME_STOCK = new QFrame(FRAME);
         FRAME_STOCK->setObjectName(QString::fromUtf8("FRAME_STOCK"));
-        FRAME_STOCK->setGeometry(QRect(970, 400, 171, 211));
+        FRAME_STOCK->setGeometry(QRect(940, 330, 171, 211));
         FRAME_STOCK->setStyleSheet(QString::fromUtf8("QFrame { \n"
 "   border: 2px solid #595959 \n"
 "} \n"
@@ -1610,7 +1735,7 @@ public:
         BTN_DEV_INFO_STOCK->setFont(font6);
         FRAME_ERROR = new QFrame(FRAME);
         FRAME_ERROR->setObjectName(QString::fromUtf8("FRAME_ERROR"));
-        FRAME_ERROR->setGeometry(QRect(1270, 320, 201, 291));
+        FRAME_ERROR->setGeometry(QRect(1230, 290, 231, 331));
         FRAME_ERROR->setStyleSheet(QString::fromUtf8("QFrame { \n"
 "   border: 2px solid #595959 \n"
 "} \n"
@@ -1628,7 +1753,7 @@ public:
         FRAME_ERROR->setFrameShadow(QFrame::Raised);
         BTN_ERROR = new QPushButton(FRAME_ERROR);
         BTN_ERROR->setObjectName(QString::fromUtf8("BTN_ERROR"));
-        BTN_ERROR->setGeometry(QRect(0, 0, 201, 71));
+        BTN_ERROR->setGeometry(QRect(0, 0, 231, 71));
         BTN_ERROR->setFont(font6);
         BTN_ERROR->setStyleSheet(QString::fromUtf8("\n"
 "QPushButton {\n"
@@ -1638,7 +1763,7 @@ public:
 "}"));
         layoutWidget9 = new QWidget(FRAME_ERROR);
         layoutWidget9->setObjectName(QString::fromUtf8("layoutWidget9"));
-        layoutWidget9->setGeometry(QRect(5, 71, 191, 217));
+        layoutWidget9->setGeometry(QRect(5, 70, 221, 261));
         verticalLayout = new QVBoxLayout(layoutWidget9);
         verticalLayout->setSpacing(6);
         verticalLayout->setContentsMargins(11, 11, 11, 11);
@@ -1663,6 +1788,97 @@ public:
         LW_MENU->setSpacing(1);
 
         verticalLayout->addWidget(LW_MENU);
+
+        FRAME_SODA = new QFrame(FRAME);
+        FRAME_SODA->setObjectName(QString::fromUtf8("FRAME_SODA"));
+        FRAME_SODA->setGeometry(QRect(970, 60, 231, 161));
+        FRAME_SODA->setStyleSheet(QString::fromUtf8("QFrame { \n"
+"   border: 2px solid #595959 \n"
+"} \n"
+"QLabel {\n"
+"	font: 10pt \"\355\225\250\354\264\210\353\241\254\353\217\213\354\233\200\";\n"
+"}\n"
+"QPushButton {\n"
+"	border:2px solid #595959;\n"
+"	font: 15pt \"\355\225\250\354\264\210\353\241\254\353\217\213\354\233\200\"; \n"
+"}\n"
+"QLineEdit {\n"
+"	font: 10pt \"\355\225\250\354\264\210\353\241\254\353\217\213\354\233\200\";\n"
+"}"));
+        FRAME_SODA->setFrameShape(QFrame::StyledPanel);
+        FRAME_SODA->setFrameShadow(QFrame::Raised);
+        BTN_DEV_INFO_SODA = new QPushButton(FRAME_SODA);
+        BTN_DEV_INFO_SODA->setObjectName(QString::fromUtf8("BTN_DEV_INFO_SODA"));
+        BTN_DEV_INFO_SODA->setGeometry(QRect(0, 0, 231, 70));
+        BTN_DEV_INFO_SODA->setFont(font6);
+        layoutWidget_2 = new QWidget(FRAME_SODA);
+        layoutWidget_2->setObjectName(QString::fromUtf8("layoutWidget_2"));
+        layoutWidget_2->setGeometry(QRect(10, 80, 211, 74));
+        gridLayout_9 = new QGridLayout(layoutWidget_2);
+        gridLayout_9->setSpacing(6);
+        gridLayout_9->setContentsMargins(11, 11, 11, 11);
+        gridLayout_9->setObjectName(QString::fromUtf8("gridLayout_9"));
+        gridLayout_9->setHorizontalSpacing(40);
+        gridLayout_9->setContentsMargins(0, 0, 0, 0);
+        label_8 = new QLabel(layoutWidget_2);
+        label_8->setObjectName(QString::fromUtf8("label_8"));
+        label_8->setFont(font9);
+        label_8->setStyleSheet(QString::fromUtf8("QLabel{ \n"
+"   border: 0px solid\n"
+"} "));
+        label_8->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        gridLayout_9->addWidget(label_8, 0, 0, 1, 1);
+
+        LB_SODA_LOADCELL = new QLabel(layoutWidget_2);
+        LB_SODA_LOADCELL->setObjectName(QString::fromUtf8("LB_SODA_LOADCELL"));
+        LB_SODA_LOADCELL->setFont(font9);
+        LB_SODA_LOADCELL->setStyleSheet(QString::fromUtf8("QLabel{ \n"
+"   border: 0px solid\n"
+"} "));
+        LB_SODA_LOADCELL->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+
+        gridLayout_9->addWidget(LB_SODA_LOADCELL, 0, 1, 1, 1);
+
+        label_9 = new QLabel(layoutWidget_2);
+        label_9->setObjectName(QString::fromUtf8("label_9"));
+        label_9->setFont(font9);
+        label_9->setStyleSheet(QString::fromUtf8("QLabel{ \n"
+"   border: 0px solid\n"
+"} "));
+        label_9->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        gridLayout_9->addWidget(label_9, 1, 0, 1, 1);
+
+        LB_SODA_LAST_ERROR = new QLabel(layoutWidget_2);
+        LB_SODA_LAST_ERROR->setObjectName(QString::fromUtf8("LB_SODA_LAST_ERROR"));
+        LB_SODA_LAST_ERROR->setFont(font9);
+        LB_SODA_LAST_ERROR->setStyleSheet(QString::fromUtf8("QLabel{ \n"
+"   border: 0px solid\n"
+"} "));
+        LB_SODA_LAST_ERROR->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+
+        gridLayout_9->addWidget(LB_SODA_LAST_ERROR, 1, 1, 1, 1);
+
+        label_10 = new QLabel(layoutWidget_2);
+        label_10->setObjectName(QString::fromUtf8("label_10"));
+        label_10->setFont(font9);
+        label_10->setStyleSheet(QString::fromUtf8("QLabel{ \n"
+"   border: 0px solid\n"
+"} "));
+        label_10->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        gridLayout_9->addWidget(label_10, 2, 0, 1, 1);
+
+        LB_SODA_OP_STATE = new QLabel(layoutWidget_2);
+        LB_SODA_OP_STATE->setObjectName(QString::fromUtf8("LB_SODA_OP_STATE"));
+        LB_SODA_OP_STATE->setFont(font9);
+        LB_SODA_OP_STATE->setStyleSheet(QString::fromUtf8("QLabel{ \n"
+"   border: 0px solid\n"
+"} "));
+        LB_SODA_OP_STATE->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+
+        gridLayout_9->addWidget(LB_SODA_OP_STATE, 2, 1, 1, 1);
 
         stackedWidget->addWidget(page);
         page_2 = new QWidget();
@@ -1768,7 +1984,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        stackedWidget->setCurrentIndex(0);
+        stackedWidget->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -1852,14 +2068,20 @@ public:
         label_20->setText(QCoreApplication::translate("MainWindow", "\354\231\204\353\243\214\353\220\234 \354\235\214\353\243\214 :", nullptr));
         LB_MONITOR_COMPLETED->setText(QCoreApplication::translate("MainWindow", "0", nullptr));
         BTN_DEV_INFO_CUP->setText(QCoreApplication::translate("MainWindow", "\354\273\265 \353\224\224\354\212\244\355\216\234\354\204\234", nullptr));
-        LB_CUP_2_LAST_ERROR->setText(QCoreApplication::translate("MainWindow", "0", nullptr));
-        LB_CUP_2_OP_STATE->setText(QCoreApplication::translate("MainWindow", "0", nullptr));
-        LB_CUP_1_OP_STATE->setText(QCoreApplication::translate("MainWindow", "0", nullptr));
-        label_33->setText(QCoreApplication::translate("MainWindow", "\354\242\205\354\235\264\354\273\2652", nullptr));
-        label_27->setText(QCoreApplication::translate("MainWindow", "\354\242\205\354\235\264\354\273\2651", nullptr));
-        LB_CUP_1_LAST_ERROR->setText(QCoreApplication::translate("MainWindow", "0", nullptr));
-        label_30->setText(QCoreApplication::translate("MainWindow", "\354\265\234\354\242\205 \354\227\220\353\237\254 :", nullptr));
         label_29->setText(QCoreApplication::translate("MainWindow", "\355\230\204\354\236\254 \353\217\231\354\236\221 :", nullptr));
+        LB_CUP_3_LAST_ERROR->setText(QCoreApplication::translate("MainWindow", "0", nullptr));
+        label_33->setText(QCoreApplication::translate("MainWindow", "\354\242\205\354\235\264\354\273\2652", nullptr));
+        LB_CUP_2_OP_STATE->setText(QCoreApplication::translate("MainWindow", "0", nullptr));
+        LB_CUP_2_LAST_ERROR->setText(QCoreApplication::translate("MainWindow", "0", nullptr));
+        label_30->setText(QCoreApplication::translate("MainWindow", "\354\265\234\354\242\205 \354\227\220\353\237\254 :", nullptr));
+        LB_CUP_1_OP_STATE->setText(QCoreApplication::translate("MainWindow", "0", nullptr));
+        LB_CUP_1_LAST_ERROR->setText(QCoreApplication::translate("MainWindow", "0", nullptr));
+        label_34->setText(QCoreApplication::translate("MainWindow", "\355\216\230\355\212\270\354\273\2651", nullptr));
+        label_27->setText(QCoreApplication::translate("MainWindow", "\354\242\205\354\235\264\354\273\2651", nullptr));
+        LB_CUP_3_OP_STATE->setText(QCoreApplication::translate("MainWindow", "0", nullptr));
+        label_35->setText(QCoreApplication::translate("MainWindow", "\355\216\230\355\212\270\354\273\2652", nullptr));
+        LB_CUP_4_LAST_ERROR->setText(QCoreApplication::translate("MainWindow", "0", nullptr));
+        LB_CUP_4_OP_STATE->setText(QCoreApplication::translate("MainWindow", "0", nullptr));
         BTN_CUP_ADD_DONE->setText(QCoreApplication::translate("MainWindow", "\354\273\265 \354\266\224\352\260\200 \354\231\204\353\243\214", nullptr));
         BTN_DEV_INFO_ROBOT->setText(QCoreApplication::translate("MainWindow", "\353\241\234\353\264\207", nullptr));
         label_91->setText(QCoreApplication::translate("MainWindow", "\353\217\231\354\236\221 \355\224\204\353\241\234\352\267\270\353\236\250", nullptr));
@@ -1889,6 +2111,13 @@ public:
         BTN_DEV_INFO_STOCK->setText(QCoreApplication::translate("MainWindow", "\354\236\254\352\263\240", nullptr));
         BTN_ERROR->setText(QCoreApplication::translate("MainWindow", "\354\227\220\353\237\254\353\260\234\354\203\235", nullptr));
         LB_KIOSK_BLOCK_ORDER_2->setText(QCoreApplication::translate("MainWindow", "\355\230\204\354\236\254 \354\240\234\354\241\260 \352\260\200\353\212\245\355\225\234 \353\251\224\353\211\264 \354\203\201\355\203\234", nullptr));
+        BTN_DEV_INFO_SODA->setText(QCoreApplication::translate("MainWindow", "\355\203\204\354\202\260 \353\224\224\354\212\244\355\216\234\354\204\234", nullptr));
+        label_8->setText(QCoreApplication::translate("MainWindow", "\353\241\234\353\223\234\354\205\200 :", nullptr));
+        LB_SODA_LOADCELL->setText(QCoreApplication::translate("MainWindow", "0", nullptr));
+        label_9->setText(QCoreApplication::translate("MainWindow", "\354\265\234\354\242\205 \354\227\220\353\237\254 :", nullptr));
+        LB_SODA_LAST_ERROR->setText(QCoreApplication::translate("MainWindow", "0", nullptr));
+        label_10->setText(QCoreApplication::translate("MainWindow", "\355\230\204\354\236\254 \353\217\231\354\236\221 :", nullptr));
+        LB_SODA_OP_STATE->setText(QCoreApplication::translate("MainWindow", "0", nullptr));
         BTN_MENU_LOAD->setText(QCoreApplication::translate("MainWindow", "\353\266\210\353\237\254\354\230\244\352\270\260", nullptr));
         BTN_RECIPE_SAVE->setText(QCoreApplication::translate("MainWindow", "\353\240\210\354\213\234\355\224\274\354\240\200\354\236\245", nullptr));
         BTN_RECIPE_DELETE->setText(QCoreApplication::translate("MainWindow", "\354\202\255\354\240\234", nullptr));

@@ -8,20 +8,18 @@
 #define LOADCELL_TARE_DELAY     400
 #define COFFEE_RESPONSE_DELAY   4000
 #define COFFEE_LAST_DELAY       1500
-#define ICECREAM_WAIT_DELAY     3500
+#define SODA_WAIT_DELAY         500
 
 extern Logger *plog;
 extern DisplayDialog *pdisplay;
 Scheduler::Scheduler(DialogStock *_stock, DialogRobot *_robot, DialogCupDispenser *_cup,
                      DialogCoffee *_coffee, DialogIceDispenser *_ice,
                      DialogSyrup *_syrup, DialogOutlet *_outlet,
-                     DialogBarcode *_barcode, DialogMonitor *_monitor,
-                     DialogIcecream *_icecream, DialogSlush *_slush) :
+                     DialogBarcode *_barcode, DialogMonitor *_monitor, DialogSoda *_soda) :
     stock(_stock), robot(_robot), cup(_cup),
     coffee(_coffee), ice(_ice),
     syrup(_syrup), outlet(_outlet),
-    barcode(_barcode), monitor(_monitor),
-    icecream(_icecream), slush(_slush)
+    barcode(_barcode), monitor(_monitor), soda(_soda)
 {
     connect(&timer, SIGNAL(timeout()), this, SLOT(onTimer()));
     timer.start(SCHEDULER_TIME_INTERVAL);
@@ -70,7 +68,6 @@ void Scheduler::onTimer(){
 
     static int syrup_start_loadcell = 0;
     static int sauce_shot_count = 0;
-    static int icecream_start_loadcell = 0;
 
     static int coffee_milk_refill_message_flag = 0;
 
@@ -178,10 +175,7 @@ void Scheduler::onTimer(){
         if(greeting_motion_cnt == 0)
         {
             keymotion = "HELLO";
-#ifdef ICECREAM_VER
-#else
 //            greeting_motion_cnt = 1;
-#endif
         }else if(greeting_motion_cnt == 1)
         {
             keymotion = "HELLO_2";
@@ -306,19 +300,14 @@ void Scheduler::onTimer(){
                 action_state = ACTION_STATE_CUP_READY;
             }else if(next_type == "ICE"){
                 action_state = ACTION_STATE_ICE_READY;
-            }else if(next_type == "COFFEE" ||
-                     next_type == "MILK"){
+            }else if(next_type == "SODA" || next_type == "COLD" || next_type == "HOT"){
+                action_state = ACTION_STATE_SODA_READY;
+            }else if(next_type == "COFFEE" || next_type == "MILK"){
                 action_state = ACTION_STATE_COFFEE_READY;
             }else if(next_type.left(5) == "SYRUP"){
                 action_state = ACTION_STATE_SYRUP_READY;
             }else if(next_type == "OUTLET"){
                 action_state = ACTION_STATE_OUTLET_READY;
-            }else if(next_type == "ICECREAM"){
-                action_state = ACTION_STATE_ICECREAM_READY;
-            }else if(next_type.left(5) == "SLUSH"){
-                action_state = ACTION_STATE_SLUSH_READY;
-            }else if(next_type.left(4) == "BASE"){
-                action_state = ACTION_STATE_BASE_READY;
             }
             plog->write("[SCHEDULE] MAKING PROCESS SET : " + next_type);
 
@@ -346,26 +335,65 @@ void Scheduler::onTimer(){
         plog->write("[SCHEDULE] CUP READY");
         cup_fail = 0;
 
-        int dev_available[2];
-        dev_available[0] = cup->IsCupAvailable(0);
-        dev_available[1] = cup->IsCupAvailable(1);
+        static int cup_toggle_1 = 0;
+        static int cup_toggle_2 = 1;
+
+
         if(current_recipe_step.amount == "HOT"){
-            if(dev_available[1] == 0){
+            if(cup->IsCupAvailable(0) == 0 && cup->IsCupAvailable(1) == 0){
                 plog->write("[SCHEDULE] HOT CUP IS UNAVAILABLE");
                 action_state = ACTION_STATE_CUP_ERROR;
                 break;
+            }else{
+                if(cup_toggle_1 == 0){
+                    if(cup->IsCupAvailable(0) == 1){
+                        keymotion = "READY_CUP_1";
+                        cup_selection = 0;
+                        cup_toggle_1 = 1;
+                    }else{
+                        keymotion = "READY_CUP_2";
+                        cup_selection = 1;
+                        cup_toggle_1 = 0;
+                    }
+                }else{
+                    if(cup->IsCupAvailable(1) == 1){
+                        keymotion = "READY_CUP_2";
+                        cup_selection = 1;
+                        cup_toggle_1 = 0;
+                    }else{
+                        keymotion = "READY_CUP_1";
+                        cup_selection = 0;
+                        cup_toggle_1 = 1;
+                    }
+                }
             }
         }else{
-            if(dev_available[0] == 1){
-                keymotion = "READY_CUP_1";
-                cup_selection = 0;
-            }else if(dev_available[1] == 1){
-                keymotion = "READY_CUP_2";
-                cup_selection = 1;
-            }else{
-                plog->write("[SCHEDULE] ALL OF CUP ARE UNAVAILABLE");
+            if(cup->IsCupAvailable(2) == 0 && cup->IsCupAvailable(3) == 0){
+                plog->write("[SCHEDULE] ICE CUP IS UNAVAILABLE");
                 action_state = ACTION_STATE_CUP_ERROR;
                 break;
+            }else{
+                if(cup_toggle_2 == 0){
+                    if(cup->IsCupAvailable(2) == 1){
+                        keymotion = "READY_CUP_3";
+                        cup_selection = 2;
+                        cup_toggle_2 = 1;
+                    }else{
+                        keymotion = "READY_CUP_4";
+                        cup_selection = 3;
+                        cup_toggle_2 = 0;
+                    }
+                }else{
+                    if(cup->IsCupAvailable(3) == 1){
+                        keymotion = "READY_CUP_4";
+                        cup_selection = 3;
+                        cup_toggle_2 = 0;
+                    }else{
+                        keymotion = "READY_CUP_3";
+                        cup_selection = 2;
+                        cup_toggle_2 = 1;
+                    }
+                }
             }
         }
         plog->write("[SCHEDULE] SEND MOTION : "+keymotion);
@@ -420,8 +448,12 @@ void Scheduler::onTimer(){
                     plog->write("[SCHEDULE] DISPENSE CUP : FAIL 3 TIME");
                     if(cup_selection==0){
                         cup->FATAL_INFO_CUP_DISPENSER_ERROR_1 = 1;
-                    }else{
+                    }else if(cup_selection==1){
                         cup->FATAL_INFO_CUP_DISPENSER_ERROR_2 = 1;
+                    }else if(cup_selection==2){
+                        cup->FATAL_INFO_CUP_DISPENSER_ERROR_3 = 1;
+                    }else{
+                        cup->FATAL_INFO_CUP_DISPENSER_ERROR_4 = 1;
                     }
                     action_state = ACTION_STATE_CUP_REPOSITIONING;
                     cup_trycount = 0;
@@ -437,13 +469,15 @@ void Scheduler::onTimer(){
             if(cup->IsCupAvailable(1) == 0 || cup->FATAL_INFO_CUP_DISPENSER_ERROR_2 == 1){
                 plog->write("[SCHEDULE] ALL OF CUP ARE UNAVAILABLE");
                 cup_fail = 1;
+                cup->FATAL_INFO_CUP_DISPENSER_ERROR_1 = 1;
+                cup->FATAL_INFO_CUP_DISPENSER_ERROR_2 = 1;
                 action_state = ACTION_STATE_CUP_GET;
                 break;
             }else{
                 keymotion = "CUP_1_TO_CUP_2";
                 cup_selection = 1;
             }
-        }else{
+        }else if(cup_selection == 1){
             if(cup->IsCupAvailable(0) == 0|| cup->FATAL_INFO_CUP_DISPENSER_ERROR_1 == 1){
                 plog->write("[SCHEDULE] ALL OF CUP ARE UNAVAILABLE");
                 cup_fail = 1;
@@ -454,6 +488,30 @@ void Scheduler::onTimer(){
             }else{
                 keymotion = "CUP_2_TO_CUP_1";
                 cup_selection = 0;
+            }
+        }else if(cup_selection == 2){
+            if(cup->IsCupAvailable(3) == 0|| cup->FATAL_INFO_CUP_DISPENSER_ERROR_4 == 1){
+                plog->write("[SCHEDULE] ALL OF CUP ARE UNAVAILABLE");
+                cup_fail = 1;
+                cup->FATAL_INFO_CUP_DISPENSER_ERROR_3 = 1;
+                cup->FATAL_INFO_CUP_DISPENSER_ERROR_4 = 1;
+                action_state = ACTION_STATE_CUP_GET;
+                break;
+            }else{
+                keymotion = "CUP_3_TO_CUP_4";
+                cup_selection = 3;
+            }
+        }else if(cup_selection == 3){
+            if(cup->IsCupAvailable(2) == 0|| cup->FATAL_INFO_CUP_DISPENSER_ERROR_3 == 1){
+                plog->write("[SCHEDULE] ALL OF CUP ARE UNAVAILABLE");
+                cup_fail = 1;
+                cup->FATAL_INFO_CUP_DISPENSER_ERROR_3 = 1;
+                cup->FATAL_INFO_CUP_DISPENSER_ERROR_4 = 1;
+                action_state = ACTION_STATE_CUP_GET;
+                break;
+            }else{
+                keymotion = "CUP_4_TO_CUP_3";
+                cup_selection = 2;
             }
         }
         plog->write("[SCHEDULE] SEND MOTION : "+keymotion);
@@ -469,15 +527,24 @@ void Scheduler::onTimer(){
         if(cup_selection == 0){
             stock->UseStock("PAPER_CUP_1", 1);
             keymotion = "GET_CUP_1";
+            LAST_ROBOT_POSITION_DEVICE_NAME = ROBOT_ON_CUP_HOT;
         }else if(cup_selection == 1){
-            stock->UseStock("PP_CUP_1", 1);
+            stock->UseStock("PAPER_CUP_2", 1);
             keymotion = "GET_CUP_2";
+            LAST_ROBOT_POSITION_DEVICE_NAME = ROBOT_ON_CUP_HOT;
+        }else if(cup_selection == 2){
+            stock->UseStock("PP_CUP_1", 1);
+            keymotion = "GET_CUP_3";
+            LAST_ROBOT_POSITION_DEVICE_NAME = ROBOT_ON_CUP_ICE;
+        }else if(cup_selection == 3){
+            stock->UseStock("PP_CUP_2", 1);
+            keymotion = "GET_CUP_4";
+            LAST_ROBOT_POSITION_DEVICE_NAME = ROBOT_ON_CUP_ICE;
         }
         plog->write("[SCHEDULE] SEND MOTION : "+keymotion);
         robot->RobotMoving = true;
         robot->MotionServerCommand(keymotion);
 
-        LAST_ROBOT_POSITION_DEVICE_NAME = ROBOT_ON_CUP;
 
         if(cup_fail == 0){
             plog->write("[SCHEDULE] GET CUP : SUCCESS ");
@@ -494,7 +561,11 @@ void Scheduler::onTimer(){
 
         plog->write("[SCHEDULE] GET CUP : FAIL -> BACK TO INIT ");
 
-        keymotion = "CUP_TO_INIT";
+        if(cup_selection == 0 || cup_selection == 1){
+            keymotion = "CUP_HOT_TO_INIT";
+        }else{
+            keymotion = "CUP_ICE_TO_INIT";
+        }
         plog->write("[SCHEDULE] SEND MOTION : "+keymotion);
         robot->RobotMoving = true;
         robot->MotionServerCommand(keymotion);
@@ -524,18 +595,18 @@ void Scheduler::onTimer(){
         plog->add_takttime("START ICE       ",prevT.msecsTo(QDateTime::currentDateTime()));
         prevT = QDateTime::currentDateTime();
 
-        if(LAST_ROBOT_POSITION_DEVICE_NAME == ROBOT_ON_CUP){
-            keymotion = "CUP_TO_ICE";
-        }else if(LAST_ROBOT_POSITION_DEVICE_NAME == ROBOT_ON_SYRUP){
-            keymotion = "SYRUP_TO_ICE";
+        if(LAST_ROBOT_POSITION_DEVICE_NAME == ROBOT_ON_CUP_HOT){
+            keymotion = "CUP_HOT_TO_ICE";
+        }else if(LAST_ROBOT_POSITION_DEVICE_NAME == ROBOT_ON_CUP_ICE){
+            keymotion = "CUP_ICE_TO_ICE";
         }else{
             plog->write("[SCHEDULE] ICE READY : NO MOTION "+LAST_ROBOT_POSITION_DEVICE_NAME);
+            break;
         }
 
         plog->write("[SCHEDULE] SEND MOTION : "+keymotion);
         robot->RobotMoving = true;
         robot->MotionServerCommand(keymotion);
-
 
         action_state = ACTION_STATE_ICE_DISPENSE;
         break;
@@ -554,26 +625,11 @@ void Scheduler::onTimer(){
 
         int out_ms = 0;
         int out_ice_ms = 0;
-        int out_water_ms = 0;
-        QStringList amount = current_recipe_step.amount.split("/");
-        plog->write("[SCHEDULE] ICE DISPENSE : "+QString::number(int(amount[0].toFloat()*1000.0))+","+QString::number(int(amount[1].toFloat()*1000.0)));
-        ice->DispenseIceWater(0, int(amount[0].toFloat()*1000.0), int(amount[1].toFloat()*1000.0));
-        out_ice_ms = int(amount[0].toFloat()*1000.0);
-        out_water_ms = int(amount[1].toFloat()*1000.0);
-
-        if(out_ice_ms > out_water_ms){
-            out_ms = out_ice_ms;
-        }else{
-            out_ms = out_water_ms;
-        }
+        plog->write("[SCHEDULE] ICE DISPENSE : "+QString::number(int(current_recipe_step.amount.toInt())));
+        ice->DispenseIceWater(0, int(current_recipe_step.amount.toInt()), 0);
+        out_ice_ms = int(current_recipe_step.amount.toInt());
+        out_ms = out_ice_ms;
         timeout = (out_ms+1000)/SCHEDULER_TIME_INTERVAL;
-
-
-//        float ice_time = current_recipe_step.amount.toFloat();
-
-//        ice->DispenseIceWater(0, int(ice_time*1000.0), 0);
-//        out_ms = int(ice_time*1000.0);
-//        timeout = (out_ms + 1000)/SCHEDULER_TIME_INTERVAL;
 
         action_state = ACTION_STATE_ICE_WAIT_DISPENSE_DONE;
         break;
@@ -610,422 +666,121 @@ void Scheduler::onTimer(){
     }
     //==========================================================================================
     //==========================================================================================
-    case ACTION_STATE_ICECREAM_READY:
-    {
+    //==========================================================================================
+    case ACTION_STATE_SODA_READY:
         if(robot->RobotMoving == true)
             break;
 
-        ////***************택타임 체크
-        plog->add_takttime("START ICECREAM     ",prevT.msecsTo(QDateTime::currentDateTime()));
-        prevT = QDateTime::currentDateTime();
+        qDebug() << "ACTION_STATE_SODA_READY";
 
-        if(LAST_ROBOT_POSITION_DEVICE_NAME == ROBOT_ON_CUP){
-            keymotion = "CUP_TO_ICECREAM";
-        }else if(LAST_ROBOT_POSITION_DEVICE_NAME == ROBOT_ON_BASE){
-            keymotion = "BASE_TO_ICECREAM";
-        }else{
-            plog->write("[SCHEDULE] ICECREAM READY : NO MOTION "+LAST_ROBOT_POSITION_DEVICE_NAME);
+        if(LAST_ROBOT_POSITION_DEVICE_NAME == ROBOT_ON_ICE){
+            keymotion = "ICE_TO_SODA";
+        }else if(LAST_ROBOT_POSITION_DEVICE_NAME == ROBOT_ON_CUP_HOT){
+            keymotion = "CUP_HOT_TO_SODA";
+        }else if(LAST_ROBOT_POSITION_DEVICE_NAME == ROBOT_ON_CUP_ICE){
+            keymotion = "CUP_ICE_TO_SODA";
+        }else if(LAST_ROBOT_POSITION_DEVICE_NAME == ROBOT_ON_SYRUP){
+            keymotion = "SYRUP_TO_SODA";
         }
-
-        plog->write("[SCHEDULE] SEND MOTION : "+keymotion);
         robot->RobotMoving = true;
         robot->MotionServerCommand(keymotion);
 
-        action_state = ACTION_STATE_ICECREAM_PLACE;
+        action_state = ACTION_STATE_SODA_PLACE;
         break;
-    }
-    case ACTION_STATE_ICECREAM_PLACE:
-    {
-        if(robot->RobotMoving == true)
-            break;
-        qDebug() << "ACTION_STATE_ICECREAM_PLACE";
-        action_state = ACTION_STATE_ICECREAM_WAIT_PLACE;
-        break;
-    }
-    case ACTION_STATE_ICECREAM_WAIT_PLACE:
-    {
-        if(robot->RobotMoving == true)
-            break;
-        qDebug() << "ACTION_STATE_ICECREAM_WAIT_PLACE";
 
-        // loadcell tare
-        plog->write("[SCHEDULE] ICECREAM READY : LOADCELL TARE");
-        icecream->Tare();
-        timeout = LOADCELL_TARE_DELAY/SCHEDULER_TIME_INTERVAL;
-
-        action_state = ACTION_STATE_ICECREAM_WAIT_TARE;
-        break;
-    }
-    case ACTION_STATE_ICECREAM_WAIT_TARE:
-    {
+    case ACTION_STATE_SODA_PLACE:
         if(robot->RobotMoving == true)
             break;
         if(--timeout > 0)
             break;
-        qDebug() << "ACTION_STATE_ICECREAM_WAIT_TARE";
+        qDebug() << "ACTION_STATE_SODA_PLACE";
 
-        if(fabs(icecream->LoadcellValue()) > 5){
-            // tare error
-            plog->write("[SCHEDULE] ICECREAM READY : LOADCELL RE-TARE "+QString::number(icecream->LoadcellValue()));
-            icecream->Tare();
-            timeout = LOADCELL_TARE_DELAY/SCHEDULER_TIME_INTERVAL;
-        }else{
-            plog->write("[SCHEDULE] ICECREAM READY : LOADCELL TARE DONE");
-            icecream->StartMeasure(current_recipe_step.amount.toInt());
-            timeout = LOADCELL_TARE_DELAY/SCHEDULER_TIME_INTERVAL;
-            action_state = ACTION_STATE_ICECREAM_DISPENSE;
-        }
-        break;
-    }
-    case ACTION_STATE_ICECREAM_DISPENSE:
-    {
-        if(robot->RobotMoving == true)
-            break;
-        if(--timeout > 0)
-            break;
-        ////***************택타임 체크
-        plog->add_takttime("READY ICECREAM     ",prevT.msecsTo(QDateTime::currentDateTime()));
-        prevT = QDateTime::currentDateTime();
-
-        icecream_start_loadcell = icecream->LoadcellValue();
-
-#ifdef ICECREAM_CYLINDER
-        if(ICECREAM_DATA[0].out_state == 0){
-            icecream->DispenseIcecreamByWeight(current_recipe_step.amount.toInt());
-        }
-        keymotion = "OUT_ICECREAM";
-
-        plog->write("[SCHEDULE] SEND MOTION : "+keymotion);
-        robot->RobotMoving = true;
-        robot->MotionServerCommand(keymotion);
-
-        timeout = 15000/SCHEDULER_TIME_INTERVAL;
-#else
-        keymotion = "OUT_ICECREAM";
-
-        plog->write("[SCHEDULE] SEND MOTION : "+keymotion);
-        robot->RobotMoving = true;
-        robot->MotionServerCommand(keymotion);
-
-        timeout = 15000/SCHEDULER_TIME_INTERVAL;
-#endif
-        action_state = ACTION_STATE_ICECREAM_WAIT_DISPENSE_DONE;
-        break;
-    }
-    case ACTION_STATE_ICECREAM_WAIT_DISPENSE_DONE:
-    {
-#ifdef ICECREAM_CYLINDER
-#else
-        if(robot->RobotMoving == true){
-            if(--timeout > 0){
-                break;
-            }
-            icecream->RobotStop();
-            plog->write("[SCHEDULE] ICECREAM TIMETOUT -> ROBOT STOP");
-        }
-#endif
-        if(ICECREAM_DATA[0].prev_out_count != ICECREAM_DATA[0].out_count){
-            qDebug() << "ACTION_STATE_ICECREAM_WAIT_DISPENSE_DONE";
-
-#ifdef ICECREAM_CYLINDER
-            if(robot->RobotMoving == true){
-                if(--timeout > 0){
-                    break;
-                }
-                icecream->RobotStop();
-                plog->write("[SCHEDULE] ICECREAM TIMETOUT -> ROBOT STOP");
-            }
-
-#endif
-
-
-
-            int last_error = ICECREAM_DATA[0].last_error;
-
-            ////***************택타임 체크
-            plog->add_takttime("DISPENSE ICECREAM     ",prevT.msecsTo(QDateTime::currentDateTime()));
-            prevT = QDateTime::currentDateTime();
-
-            if(last_error == 0){
-                ;
-            }else{
-                if(icecream->LoadcellValue() < 10){
-                    plog->write("[SCHEDULE] ICECREAM DISPENSE : SOLDOUT "+current_recipe_step.ingredient);
-                    stock->SetStock(current_recipe_step.ingredient, 0);
-                }
-            }
-            int current_loadcell = icecream->LoadcellValue();
-            int used_amount = current_loadcell-icecream_start_loadcell;
-
-            plog->write("[SCHEDULE] ICECREAM DISPENSE : DONE "+current_recipe_step.ingredient + QString().sprintf(" -> %d",used_amount));
-            stock->UseStock(current_recipe_step.ingredient, used_amount);
-
-            LAST_ROBOT_POSITION_DEVICE_NAME = ROBOT_ON_ICECREAM;
-            action_state = ACTION_STATE_ICECREAM_GET;
-        }
-        break;
-     }
-    case ACTION_STATE_ICECREAM_GET:
-    {
-        if(robot->RobotMoving == true)
-            break;
-
-        keymotion = "GET_ICECREAM";
-
-        plog->write("[SCHEDULE] SEND MOTION : "+keymotion);
-        robot->RobotMoving = true;
-        robot->MotionServerCommand(keymotion);
-
-
-        plog->write("[SCHEDULE] ICECREAM DONE");
-        action_state = ACTION_STATE_MAKING_PROCESS;
-        break;
-    }
-    //==========================================================================================
-    //==========================================================================================
-    case ACTION_STATE_SLUSH_READY:
-    {
-        if(robot->RobotMoving == true)
-            break;
-
-        ////***************택타임 체크
-        plog->add_takttime("START SLUSH     ",prevT.msecsTo(QDateTime::currentDateTime()));
-        prevT = QDateTime::currentDateTime();
-
-        if(LAST_ROBOT_POSITION_DEVICE_NAME == ROBOT_ON_CUP){
-            if(current_recipe_step.ingredient == "SLUSH_1")
-                keymotion = "CUP_TO_SLUSH_1";
-            else
-                keymotion = "CUP_TO_SLUSH_2";
-        }else{
-            plog->write("[SCHEDULE] SLUSH READY : NO MOTION "+LAST_ROBOT_POSITION_DEVICE_NAME);
-        }
-
-        plog->write("[SCHEDULE] SEND MOTION : "+keymotion);
-        robot->RobotMoving = true;
-        robot->MotionServerCommand(keymotion);
-
-        action_state = ACTION_STATE_SLUSH_PLACE;
-        break;
-    }
-    case ACTION_STATE_SLUSH_PLACE:
-    {
-        if(robot->RobotMoving == true)
-            break;
-        qDebug() << "ACTION_STATE_SLUSH_PLACE";
-        action_state = ACTION_STATE_SLUSH_WAIT_PLACE;
-        break;
-    }
-    case ACTION_STATE_SLUSH_WAIT_PLACE:
-    {
-        if(robot->RobotMoving == true)
-            break;
-        qDebug() << "ACTION_STATE_SLUSH_WAIT_PLACE";
-
-        // loadcell tare
-        plog->write("[SCHEDULE] SLUSH READY : LOADCELL TARE");
-        slush->Tare();
-        timeout = LOADCELL_TARE_DELAY/SCHEDULER_TIME_INTERVAL;
-
-        action_state = ACTION_STATE_SLUSH_WAIT_TARE;
-        break;
-    }
-    case ACTION_STATE_SLUSH_WAIT_TARE:
-    {
-        if(robot->RobotMoving == true)
-            break;
-        if(--timeout > 0)
-            break;
-        qDebug() << "ACTION_STATE_SLUSH_WAIT_TARE";
-
-        if(fabs(slush->LoadcellValue()) > 5){
-            // tare error
-            plog->write("[SCHEDULE] SLUSH READY : LOADCELL RE-TARE "+QString::number(slush->LoadcellValue()));
-            slush->Tare();
-            timeout = LOADCELL_TARE_DELAY/SCHEDULER_TIME_INTERVAL;
-        }else{
-            ////***************택타임 체크
-            plog->add_takttime("READY SLUSH     ",prevT.msecsTo(QDateTime::currentDateTime()));
-            prevT = QDateTime::currentDateTime();
-
-            plog->write("[SCHEDULE] SLUSH READY : LOADCELL TARE DONE");
-            slush->StartMeasure(current_recipe_step.amount.toInt());
-            timeout = LOADCELL_TARE_DELAY/SCHEDULER_TIME_INTERVAL;
-            action_state = ACTION_STATE_SLUSH_DISPENSE;
-        }
-        break;
-    }
-    case ACTION_STATE_SLUSH_DISPENSE:
-    {
-        if(robot->RobotMoving == true)
-            break;
-        if(--timeout > 0)
-            break;
-
-        if(current_recipe_step.ingredient == "SLUSH_1")
-            keymotion = "OUT_SLUSH_1";
-        else
-            keymotion = "OUT_SLUSH_2";
-
-        plog->write("[SCHEDULE] SEND MOTION : "+keymotion);
-        robot->RobotMoving = true;
-        robot->MotionServerCommand(keymotion);
-
-        timeout = 15000/SCHEDULER_TIME_INTERVAL;
-        action_state = ACTION_STATE_SLUSH_WAIT_DISPENSE_DONE;
-        break;
-    }
-    case ACTION_STATE_SLUSH_WAIT_DISPENSE_DONE:
-    {
-        if(robot->RobotMoving == true){
-            if(--timeout > 0){
-                break;
-            }
-
-//            icecream->RobotStop();
-//            plog->write("[SCHEDULE] SLUSH TIMETOUT -> ROBOT STOP");
-        }
-
-
-        if(SLUSH_DATA[0].prev_out_count != SLUSH_DATA[0].out_count){
-            qDebug() << "ACTION_STATE_SLUSH_WAIT_DISPENSE_DONE";
-            int last_error = SLUSH_DATA[0].last_error;
-
-            ////***************택타임 체크
-            plog->add_takttime("DISPENSE SLUSH     ",prevT.msecsTo(QDateTime::currentDateTime()));
-            prevT = QDateTime::currentDateTime();
-
-            if(last_error == 0){
-                ;
-            }else{
-                if(slush->LoadcellValue() < 10){
-                    plog->write("[SCHEDULE] SLUSH DISPENSE : SOLDOUT "+current_recipe_step.ingredient);
-                    stock->SetStock(current_recipe_step.ingredient, 0);
-                }
-            }
-            int current_loadcell = slush->LoadcellValue();
-            int used_amount = current_loadcell;
-
-            plog->write("[SCHEDULE] SLUSH DISPENSE : DONE "+current_recipe_step.ingredient + QString().sprintf(" -> %d",used_amount));
-            stock->UseStock(current_recipe_step.ingredient, used_amount);
-
-            LAST_ROBOT_POSITION_DEVICE_NAME = ROBOT_ON_SLUSH;
-            action_state = ACTION_STATE_SLUSH_GET;
-        }
-        break;
-    }
-    case ACTION_STATE_SLUSH_GET:
-    {
-        if(robot->RobotMoving == true)
-            break;
-
-        if(current_recipe_step.ingredient == "SLUSH_1")
-            keymotion = "GET_SLUSH_1";
-        else
-            keymotion = "GET_SLUSH_2";
-
-        plog->write("[SCHEDULE] SEND MOTION : "+keymotion);
-        robot->RobotMoving = true;
-        robot->MotionServerCommand(keymotion);
-
-        plog->write("[SCHEDULE] SLUSH DONE");
-        action_state = ACTION_STATE_MAKING_PROCESS;
-        break;
-    }
-    //==========================================================================================
-    //==========================================================================================
-    case ACTION_STATE_BASE_READY:
-    {
-        if(robot->RobotMoving == true)
-            break;
-        qDebug() << "ACTION_STATE_BASE_READY";
-
-        ////***************택타임 체크
-        plog->add_takttime("START BASE     ",prevT.msecsTo(QDateTime::currentDateTime()));
-        prevT = QDateTime::currentDateTime();
-
-
-        if(LAST_ROBOT_POSITION_DEVICE_NAME == ROBOT_ON_ICECREAM){
-
-            int sauce_type = current_recipe_step.ingredient.split("_")[1].toInt();
-            int sauce_amount = current_recipe_step.amount.toInt();
-            sauce_shot_count = sauce_amount/20;
-
-            keymotion = QString().sprintf("ICECREAM_TO_BASE_%d",sauce_type);
-
-            robot->RobotMoving = true;
-            robot->MotionServerCommand(keymotion);
-        }else{
-            plog->write("[SCHEDULE] BASE READY : NO MOTION "+LAST_ROBOT_POSITION_DEVICE_NAME);
-            break;
-        }
-
-        action_state = ACTION_STATE_BASE_DISPENSE;
-        break;
-
-    }
-    case ACTION_STATE_BASE_PLACE:
-    {
-//        if(robot->RobotMoving == true)
-//            break;
-//        qDebug() << "ACTION_STATE_BASE_PLACE";
-
-//        int sauce_type = current_recipe_step.ingredient.split("_")[1].toInt();
-//        int sauce_amount = current_recipe_step.amount.toInt();
-//        sauce_shot_count = sauce_amount/20;
-
-//        keymotion = QString().sprintf("SET_BASE_%d", sauce_type);
+//        keymotion = "SET_SODA";
 //        robot->RobotMoving = true;
 //        robot->MotionServerCommand(keymotion);
 
-//        action_state = ACTION_STATE_BASE_DISPENSE;
+        action_state = ACTION_STATE_SODA_WAIT_PLACE;
         break;
-    }
-    case ACTION_STATE_BASE_DISPENSE:
-    {
+
+    case ACTION_STATE_SODA_WAIT_PLACE:
         if(robot->RobotMoving == true)
             break;
-        qDebug() << "ACTION_STATE_BASE_DISPENSE";
+        qDebug() << "ACTION_STATE_SODA_WAIT_PLACE";
 
-        ////***************택타임 체크
-        plog->add_takttime("READY BASE     ",prevT.msecsTo(QDateTime::currentDateTime()));
-        prevT = QDateTime::currentDateTime();
+        // loadcell tare
+        soda->Tare();
+        timeout = LOADCELL_TARE_DELAY/SCHEDULER_TIME_INTERVAL;
 
-        keymotion = "OUT_BASE";
-        robot->RobotMoving = true;
-        robot->MotionServerCommand(keymotion);
+        action_state = ACTION_STATE_SODA_WAIT_TARE;
+        break;
 
-        sauce_shot_count--;
-        if(sauce_shot_count > 0){
-            action_state = ACTION_STATE_BASE_DISPENSE;
+    case ACTION_STATE_SODA_WAIT_TARE:
+        if(robot->RobotMoving == true)
+            break;
+        if(--timeout > 0)
+            break;
+        qDebug() << "ACTION_STATE_SODA_WAIT_TARE";
+
+        if(fabs(soda->LoadcellValue()) > 5){
+            // tare error
+            soda->Tare();
+            timeout = LOADCELL_TARE_DELAY/SCHEDULER_TIME_INTERVAL;
         }else{
-            action_state = ACTION_STATE_BASE_GET;
+            action_state = ACTION_STATE_SODA_DISPENSE;
         }
         break;
-    }
-    case ACTION_STATE_BASE_GET:
-    {
+
+    case ACTION_STATE_SODA_DISPENSE:
         if(robot->RobotMoving == true)
             break;
-        qDebug() << "ACTION_STATE_BASE_GET";
+        qDebug() << "ACTION_STATE_SODA_DISPENSE";
 
-        ////***************택타임 체크
-        plog->add_takttime("DISPENSE BASE     ",prevT.msecsTo(QDateTime::currentDateTime()));
-        prevT = QDateTime::currentDateTime();
+        if(SODA_DATA[0].out_state == 0){
+            if(current_recipe_step.ingredient == "SODA"){
+                soda->DispenseSodaByWeight(0, current_recipe_step.amount.toInt());
+            }else if(current_recipe_step.ingredient == "COLD"){
+                soda->DispenseSodaByWeight(1, current_recipe_step.amount.toInt());
+            }else{
+                soda->DispenseSodaByWeight(2, current_recipe_step.amount.toInt());
+            }
+            action_state = ACTION_STATE_SODA_WAIT_DISPENSE_DONE;
+        }
+        break;
 
-        stock->UseStock(current_recipe_step.ingredient, current_recipe_step.amount.toInt()*20);
+    case ACTION_STATE_SODA_WAIT_DISPENSE_DONE:
+        qDebug() << "ACTION_STATE_SODA_WAIT_DISPENSE_DONE";
 
-        int sauce_type = current_recipe_step.ingredient.split("_")[1].toInt();
-        keymotion = QString().sprintf("GET_BASE_%d", sauce_type);
-        robot->RobotMoving = true;
-        robot->MotionServerCommand(keymotion);
+        if(SODA_DATA[0].prev_out_count != SODA_DATA[0].out_count){
+            int last_error = SODA_DATA[0].last_error;
 
-        LAST_ROBOT_POSITION_DEVICE_NAME = ROBOT_ON_BASE;
+            if(last_error == 0){
+                timeout = SODA_WAIT_DELAY/SCHEDULER_TIME_INTERVAL;
+                action_state = ACTION_STATE_SODA_GET;
+            }else{
+                // soda dispenser error
+                // set soda stock 0
+                stock->SetDeviceError("SODA");
+                action_state = ACTION_STATE_SODA_GET;
+            }
+        }
+        break;
+
+    case ACTION_STATE_SODA_GET:
+        if(robot->RobotMoving == true)
+            break;
+        if(--timeout > 0)
+            break;
+        qDebug() << "ACTION_STATE_SODA_GET";
+
+//        keymotion = "GET_SODA";
+//        robot->RobotMoving = true;
+//        robot->MotionServerCommand(keymotion);
+
+        LAST_ROBOT_POSITION_DEVICE_NAME = ROBOT_ON_SODA;
         action_state = ACTION_STATE_MAKING_PROCESS;
         break;
-    }
-    //==========================================================================================
-    //==========================================================================================
+//=================================================================================================
+//=================================================================================================
     case ACTION_STATE_SYRUP_READY:
         if(robot->RobotMoving == true)
             break;
@@ -1045,8 +800,10 @@ void Scheduler::onTimer(){
             action_state = ACTION_STATE_SYRUP_WAIT_TARE;
         }else{
             // first approaching
-            if(LAST_ROBOT_POSITION_DEVICE_NAME == ROBOT_ON_CUP){
-                keymotion = "CUP_TO_SYRUP";
+            if(LAST_ROBOT_POSITION_DEVICE_NAME == ROBOT_ON_CUP_HOT){
+                keymotion = "CUP_HOT_TO_SYRUP";
+            }else if(LAST_ROBOT_POSITION_DEVICE_NAME == ROBOT_ON_CUP_ICE){
+                keymotion = "CUP_ICE_TO_SYRUP";
             }else if(LAST_ROBOT_POSITION_DEVICE_NAME == ROBOT_ON_ICE){
                 keymotion = "ICE_TO_SYRUP";
             }else{
@@ -1169,12 +926,16 @@ void Scheduler::onTimer(){
             action_state = ACTION_STATE_COFFEE_DISPENSE;
         }else{
             // first approaching
-            if(LAST_ROBOT_POSITION_DEVICE_NAME == ROBOT_ON_CUP){
-                keymotion = "CUP_TO_COFFEE";
+            if(LAST_ROBOT_POSITION_DEVICE_NAME == ROBOT_ON_CUP_HOT){
+                keymotion = "CUP_HOT_TO_COFFEE";
+            }else if(LAST_ROBOT_POSITION_DEVICE_NAME == ROBOT_ON_CUP_ICE){
+                keymotion = "CUP_ICE_TO_COFFEE";
             }else if(LAST_ROBOT_POSITION_DEVICE_NAME == ROBOT_ON_ICE){
                 keymotion = "ICE_TO_COFFEE";
             }else if(LAST_ROBOT_POSITION_DEVICE_NAME == ROBOT_ON_SYRUP){
                 keymotion = "SYRUP_TO_COFFEE";
+            }else if(LAST_ROBOT_POSITION_DEVICE_NAME == ROBOT_ON_SODA){
+                keymotion = "SODA_TO_COFFEE";
             }else{
                 plog->write("[SCHEDULE] COFFEE READY : NO MOTION "+LAST_ROBOT_POSITION_DEVICE_NAME);
             }
@@ -1342,29 +1103,11 @@ void Scheduler::onTimer(){
             }else if(outlet_cell_info.id_module == 1){
                 keymotion = "COFFEE_TO_OUTLET_2";
             }
-        }else if(LAST_ROBOT_POSITION_DEVICE_NAME == ROBOT_ON_SYRUP){
+        }else if(LAST_ROBOT_POSITION_DEVICE_NAME == ROBOT_ON_SODA){
             if(outlet_cell_info.id_module == 0){
-                keymotion = "SYRUP_TO_OUTLET_1";
+                keymotion = "SODA_TO_OUTLET_1";
             }else if(outlet_cell_info.id_module == 1){
-                keymotion = "SYRUP_TO_OUTLET_2";
-            }
-        }else if(LAST_ROBOT_POSITION_DEVICE_NAME == ROBOT_ON_BASE){
-            if(outlet_cell_info.id_module == 0){
-                keymotion = "BASE_TO_OUTLET_1";
-            }else if(outlet_cell_info.id_module == 1){
-                keymotion = "BASE_TO_OUTLET_2";
-            }
-        }else if(LAST_ROBOT_POSITION_DEVICE_NAME == ROBOT_ON_ICECREAM){
-            if(outlet_cell_info.id_module == 0){
-                keymotion = "ICECREAM_TO_OUTLET_1";
-            }else if(outlet_cell_info.id_module == 1){
-                keymotion = "ICECREAM_TO_OUTLET_2";
-            }
-        }else if(LAST_ROBOT_POSITION_DEVICE_NAME == ROBOT_ON_SLUSH){
-            if(outlet_cell_info.id_module == 0){
-                keymotion = "SLUSH_TO_OUTLET_1";
-            }else if(outlet_cell_info.id_module == 1){
-                keymotion = "SLUSH_TO_OUTLET_2";
+                keymotion = "SODA_TO_OUTLET_2";
             }
         }
 

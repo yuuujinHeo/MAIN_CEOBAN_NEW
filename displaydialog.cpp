@@ -2,11 +2,7 @@
 #include "ui_displaydialog.h"
 #include <QTimer>
 #include "GlobalHeader.h"
-#ifdef ICECREAM_VER
-#include "mainwindow_icecream.h"
-#else
 #include "mainwindow.h"
-#endif
 #include <QFontDatabase>
 
 extern Scheduler *pschedule;
@@ -140,16 +136,6 @@ void DisplayDialog::settingUI(){
         }
     }
 
-#ifdef ICECREAM_VER
-    ui->label->setPixmap(QPixmap(":/build/image/background_i.png"));
-    ui->BACKGROUND_READY->setPixmap(QPixmap(":/build/image/background_prepare_i.png"));
-    ui->LE_OUTLET_STATUS_1_1->setPixmap(QPixmap(":/build/image/outlet_i.png"));
-    ui->LE_OUTLET_STATUS_1_2->setPixmap(QPixmap(":/build/image/outlet_i.png"));
-    ui->LE_OUTLET_STATUS_1_3->setPixmap(QPixmap(":/build/image/outlet_i.png"));
-    ui->LE_OUTLET_STATUS_2_1->setPixmap(QPixmap(":/build/image/outlet_i.png"));
-    ui->LE_OUTLET_STATUS_2_2->setPixmap(QPixmap(":/build/image/outlet_i.png"));
-    ui->LE_OUTLET_STATUS_2_3->setPixmap(QPixmap(":/build/image/outlet_i.png"));
-#else
     ui->label->setPixmap(QPixmap(":/build/image/background_c.png"));
     ui->BACKGROUND_READY->setPixmap(QPixmap(":/build/image/background_prepare_c.png"));
     ui->LE_OUTLET_STATUS_1_1->setPixmap(QPixmap(":/build/image/outlet_c.png"));
@@ -158,7 +144,7 @@ void DisplayDialog::settingUI(){
     ui->LE_OUTLET_STATUS_2_1->setPixmap(QPixmap(":/build/image/outlet_c.png"));
     ui->LE_OUTLET_STATUS_2_2->setPixmap(QPixmap(":/build/image/outlet_c.png"));
     ui->LE_OUTLET_STATUS_2_3->setPixmap(QPixmap(":/build/image/outlet_c.png"));
-#endif
+
 }
 void DisplayDialog::updateDisplay(){
     //Clear UI
